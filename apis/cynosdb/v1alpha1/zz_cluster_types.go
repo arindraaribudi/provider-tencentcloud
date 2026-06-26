@@ -39,8 +39,8 @@ type ClusterInitParameters struct {
 	// Name of CynosDB cluster.
 	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
 
-	// Kernel version, you can enter it when modifying.
-	// Kernel version, you can enter it when modifying.
+	// Kernel minor version, like 3.1.16.002.
+	// Kernel minor version, like `3.1.16.002`.
 	CynosVersion *string `json:"cynosVersion,omitempty" tf:"cynos_version,omitempty"`
 
 	// Specify DB mode, only available when db_type is MYSQL. Values: NORMAL (Default), SERVERLESS.
@@ -62,6 +62,10 @@ type ClusterInitParameters struct {
 	// The number of CPU cores of read-write type instance in the CynosDB cluster. Required while creating normal cluster. Note: modification of this field will take effect immediately, if want to upgrade on maintenance window, please upgrade from console.
 	// The number of CPU cores of read-write type instance in the CynosDB cluster. Required while creating normal cluster. Note: modification of this field will take effect immediately, if want to upgrade on maintenance window, please upgrade from console.
 	InstanceCPUCore *float64 `json:"instanceCpuCore,omitempty" tf:"instance_cpu_core,omitempty"`
+
+	// The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+	// The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+	InstanceCount *float64 `json:"instanceCount,omitempty" tf:"instance_count,omitempty"`
 
 	// Instance initialization configuration information, mainly used to select instances of different specifications when purchasing a cluster.
 	// Instance initialization configuration information, mainly used to select instances of different specifications when purchasing a cluster.
@@ -214,8 +218,8 @@ type ClusterObservation struct {
 	// Creation time of the CynosDB cluster.
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
-	// Kernel version, you can enter it when modifying.
-	// Kernel version, you can enter it when modifying.
+	// Kernel minor version, like 3.1.16.002.
+	// Kernel minor version, like `3.1.16.002`.
 	CynosVersion *string `json:"cynosVersion,omitempty" tf:"cynos_version,omitempty"`
 
 	// Specify DB mode, only available when db_type is MYSQL. Values: NORMAL (Default), SERVERLESS.
@@ -240,6 +244,10 @@ type ClusterObservation struct {
 	// The number of CPU cores of read-write type instance in the CynosDB cluster. Required while creating normal cluster. Note: modification of this field will take effect immediately, if want to upgrade on maintenance window, please upgrade from console.
 	// The number of CPU cores of read-write type instance in the CynosDB cluster. Required while creating normal cluster. Note: modification of this field will take effect immediately, if want to upgrade on maintenance window, please upgrade from console.
 	InstanceCPUCore *float64 `json:"instanceCpuCore,omitempty" tf:"instance_cpu_core,omitempty"`
+
+	// The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+	// The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+	InstanceCount *float64 `json:"instanceCount,omitempty" tf:"instance_count,omitempty"`
 
 	// ID of instance.
 	// ID of instance.
@@ -416,8 +424,8 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
 
-	// Kernel version, you can enter it when modifying.
-	// Kernel version, you can enter it when modifying.
+	// Kernel minor version, like 3.1.16.002.
+	// Kernel minor version, like `3.1.16.002`.
 	// +kubebuilder:validation:Optional
 	CynosVersion *string `json:"cynosVersion,omitempty" tf:"cynos_version,omitempty"`
 
@@ -445,6 +453,11 @@ type ClusterParameters struct {
 	// The number of CPU cores of read-write type instance in the CynosDB cluster. Required while creating normal cluster. Note: modification of this field will take effect immediately, if want to upgrade on maintenance window, please upgrade from console.
 	// +kubebuilder:validation:Optional
 	InstanceCPUCore *float64 `json:"instanceCpuCore,omitempty" tf:"instance_cpu_core,omitempty"`
+
+	// The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+	// The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+	// +kubebuilder:validation:Optional
+	InstanceCount *float64 `json:"instanceCount,omitempty" tf:"instance_count,omitempty"`
 
 	// Instance initialization configuration information, mainly used to select instances of different specifications when purchasing a cluster.
 	// Instance initialization configuration information, mainly used to select instances of different specifications when purchasing a cluster.
@@ -597,7 +610,7 @@ type InstanceInitInfosInitParameters struct {
 	// Instance machine type. Values: `common`, `exclusive`.
 	DeviceType *string `json:"deviceType,omitempty" tf:"device_type,omitempty"`
 
-	// Instance count. Range: [1, 15].
+	// The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
 	// Instance count. Range: [1, 15].
 	InstanceCount *float64 `json:"instanceCount,omitempty" tf:"instance_count,omitempty"`
 
@@ -636,7 +649,7 @@ type InstanceInitInfosObservation struct {
 	// Instance machine type. Values: `common`, `exclusive`.
 	DeviceType *string `json:"deviceType,omitempty" tf:"device_type,omitempty"`
 
-	// Instance count. Range: [1, 15].
+	// The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
 	// Instance count. Range: [1, 15].
 	InstanceCount *float64 `json:"instanceCount,omitempty" tf:"instance_count,omitempty"`
 
@@ -677,7 +690,7 @@ type InstanceInitInfosParameters struct {
 	// +kubebuilder:validation:Optional
 	DeviceType *string `json:"deviceType,omitempty" tf:"device_type,omitempty"`
 
-	// Instance count. Range: [1, 15].
+	// The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
 	// Instance count. Range: [1, 15].
 	// +kubebuilder:validation:Optional
 	InstanceCount *float64 `json:"instanceCount" tf:"instance_count,omitempty"`

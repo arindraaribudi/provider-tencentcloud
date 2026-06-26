@@ -181,11 +181,8 @@ func (in *AddonAttachmentObservation) DeepCopyInto(out *AddonAttachmentObservati
 		*out = make(map[string]*string, len(*in))
 		for key, val := range *in {
 			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
+			if val != nil {
+				in, out := &val, &outVal
 				*out = new(string)
 				**out = **in
 			}
@@ -972,6 +969,11 @@ func (in *AutoScalingConfigInitParameters) DeepCopyInto(out *AutoScalingConfigIn
 		*out = new(string)
 		**out = **in
 	}
+	if in.CdcID != nil {
+		in, out := &in.CdcID, &out.CdcID
+		*out = new(string)
+		**out = **in
+	}
 	if in.DataDisk != nil {
 		in, out := &in.DataDisk, &out.DataDisk
 		*out = make([]AutoScalingConfigDataDiskInitParameters, len(*in))
@@ -996,6 +998,11 @@ func (in *AutoScalingConfigInitParameters) DeepCopyInto(out *AutoScalingConfigIn
 	}
 	if in.HostNameStyle != nil {
 		in, out := &in.HostNameStyle, &out.HostNameStyle
+		*out = new(string)
+		**out = **in
+	}
+	if in.IPv4AddressType != nil {
+		in, out := &in.IPv4AddressType, &out.IPv4AddressType
 		*out = new(string)
 		**out = **in
 	}
@@ -1133,6 +1140,11 @@ func (in *AutoScalingConfigObservation) DeepCopyInto(out *AutoScalingConfigObser
 		*out = new(string)
 		**out = **in
 	}
+	if in.CdcID != nil {
+		in, out := &in.CdcID, &out.CdcID
+		*out = new(string)
+		**out = **in
+	}
 	if in.DataDisk != nil {
 		in, out := &in.DataDisk, &out.DataDisk
 		*out = make([]AutoScalingConfigDataDiskObservation, len(*in))
@@ -1157,6 +1169,11 @@ func (in *AutoScalingConfigObservation) DeepCopyInto(out *AutoScalingConfigObser
 	}
 	if in.HostNameStyle != nil {
 		in, out := &in.HostNameStyle, &out.HostNameStyle
+		*out = new(string)
+		**out = **in
+	}
+	if in.IPv4AddressType != nil {
+		in, out := &in.IPv4AddressType, &out.IPv4AddressType
 		*out = new(string)
 		**out = **in
 	}
@@ -1294,6 +1311,11 @@ func (in *AutoScalingConfigParameters) DeepCopyInto(out *AutoScalingConfigParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.CdcID != nil {
+		in, out := &in.CdcID, &out.CdcID
+		*out = new(string)
+		**out = **in
+	}
 	if in.DataDisk != nil {
 		in, out := &in.DataDisk, &out.DataDisk
 		*out = make([]AutoScalingConfigDataDiskParameters, len(*in))
@@ -1318,6 +1340,11 @@ func (in *AutoScalingConfigParameters) DeepCopyInto(out *AutoScalingConfigParame
 	}
 	if in.HostNameStyle != nil {
 		in, out := &in.HostNameStyle, &out.HostNameStyle
+		*out = new(string)
+		**out = **in
+	}
+	if in.IPv4AddressType != nil {
+		in, out := &in.IPv4AddressType, &out.IPv4AddressType
 		*out = new(string)
 		**out = **in
 	}
@@ -2387,6 +2414,11 @@ func (in *ClusterEndpointInitParameters) DeepCopyInto(out *ClusterEndpointInitPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterIntranetSecurityGroup != nil {
+		in, out := &in.ClusterIntranetSecurityGroup, &out.ClusterIntranetSecurityGroup
+		*out = new(string)
+		**out = **in
+	}
 	if in.ClusterIntranetSubnetID != nil {
 		in, out := &in.ClusterIntranetSubnetID, &out.ClusterIntranetSubnetID
 		*out = new(string)
@@ -2510,6 +2542,11 @@ func (in *ClusterEndpointObservation) DeepCopyInto(out *ClusterEndpointObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterIntranetSecurityGroup != nil {
+		in, out := &in.ClusterIntranetSecurityGroup, &out.ClusterIntranetSecurityGroup
+		*out = new(string)
+		**out = **in
+	}
 	if in.ClusterIntranetSubnetID != nil {
 		in, out := &in.ClusterIntranetSubnetID, &out.ClusterIntranetSubnetID
 		*out = new(string)
@@ -2527,16 +2564,6 @@ func (in *ClusterEndpointObservation) DeepCopyInto(out *ClusterEndpointObservati
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
-		*out = new(string)
-		**out = **in
-	}
-	if in.KubeConfig != nil {
-		in, out := &in.KubeConfig, &out.KubeConfig
-		*out = new(string)
-		**out = **in
-	}
-	if in.KubeConfigIntranet != nil {
-		in, out := &in.KubeConfigIntranet, &out.KubeConfigIntranet
 		*out = new(string)
 		**out = **in
 	}
@@ -2613,6 +2640,11 @@ func (in *ClusterEndpointParameters) DeepCopyInto(out *ClusterEndpointParameters
 	}
 	if in.ClusterIntranetDomain != nil {
 		in, out := &in.ClusterIntranetDomain, &out.ClusterIntranetDomain
+		*out = new(string)
+		**out = **in
+	}
+	if in.ClusterIntranetSecurityGroup != nil {
+		in, out := &in.ClusterIntranetSecurityGroup, &out.ClusterIntranetSecurityGroup
 		*out = new(string)
 		**out = **in
 	}
@@ -2982,10 +3014,26 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DataPlaneV2 != nil {
+		in, out := &in.DataPlaneV2, &out.DataPlaneV2
+		*out = new(bool)
+		**out = **in
+	}
 	if in.DeletionProtection != nil {
 		in, out := &in.DeletionProtection, &out.DeletionProtection
 		*out = new(bool)
 		**out = **in
+	}
+	if in.DisableAddons != nil {
+		in, out := &in.DisableAddons, &out.DisableAddons
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.DockerGraphPath != nil {
 		in, out := &in.DockerGraphPath, &out.DockerGraphPath
@@ -3058,6 +3106,11 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 	if in.InstanceDeleteMode != nil {
 		in, out := &in.InstanceDeleteMode, &out.InstanceDeleteMode
 		*out = new(string)
+		**out = **in
+	}
+	if in.IsDualStack != nil {
+		in, out := &in.IsDualStack, &out.IsDualStack
+		*out = new(bool)
 		**out = **in
 	}
 	if in.IsNonStaticIPMode != nil {
@@ -3921,10 +3974,26 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DataPlaneV2 != nil {
+		in, out := &in.DataPlaneV2, &out.DataPlaneV2
+		*out = new(bool)
+		**out = **in
+	}
 	if in.DeletionProtection != nil {
 		in, out := &in.DeletionProtection, &out.DeletionProtection
 		*out = new(bool)
 		**out = **in
+	}
+	if in.DisableAddons != nil {
+		in, out := &in.DisableAddons, &out.DisableAddons
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.DockerGraphPath != nil {
 		in, out := &in.DockerGraphPath, &out.DockerGraphPath
@@ -4009,19 +4078,14 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.IsNonStaticIPMode != nil {
-		in, out := &in.IsNonStaticIPMode, &out.IsNonStaticIPMode
+	if in.IsDualStack != nil {
+		in, out := &in.IsDualStack, &out.IsDualStack
 		*out = new(bool)
 		**out = **in
 	}
-	if in.KubeConfig != nil {
-		in, out := &in.KubeConfig, &out.KubeConfig
-		*out = new(string)
-		**out = **in
-	}
-	if in.KubeConfigIntranet != nil {
-		in, out := &in.KubeConfigIntranet, &out.KubeConfigIntranet
-		*out = new(string)
+	if in.IsNonStaticIPMode != nil {
+		in, out := &in.IsNonStaticIPMode, &out.IsNonStaticIPMode
+		*out = new(bool)
 		**out = **in
 	}
 	if in.KubeProxyMode != nil {
@@ -4351,10 +4415,26 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DataPlaneV2 != nil {
+		in, out := &in.DataPlaneV2, &out.DataPlaneV2
+		*out = new(bool)
+		**out = **in
+	}
 	if in.DeletionProtection != nil {
 		in, out := &in.DeletionProtection, &out.DeletionProtection
 		*out = new(bool)
 		**out = **in
+	}
+	if in.DisableAddons != nil {
+		in, out := &in.DisableAddons, &out.DisableAddons
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.DockerGraphPath != nil {
 		in, out := &in.DockerGraphPath, &out.DockerGraphPath
@@ -4427,6 +4507,11 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	if in.InstanceDeleteMode != nil {
 		in, out := &in.InstanceDeleteMode, &out.InstanceDeleteMode
 		*out = new(string)
+		**out = **in
+	}
+	if in.IsDualStack != nil {
+		in, out := &in.IsDualStack, &out.IsDualStack
+		*out = new(bool)
 		**out = **in
 	}
 	if in.IsNonStaticIPMode != nil {
@@ -9019,6 +9104,11 @@ func (in *ScaleWorkerWorkerConfigInitParameters) DeepCopyInto(out *ScaleWorkerWo
 		*out = new(string)
 		**out = **in
 	}
+	if in.CdcID != nil {
+		in, out := &in.CdcID, &out.CdcID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Count != nil {
 		in, out := &in.Count, &out.Count
 		*out = new(float64)
@@ -9191,6 +9281,11 @@ func (in *ScaleWorkerWorkerConfigObservation) DeepCopyInto(out *ScaleWorkerWorke
 		*out = new(string)
 		**out = **in
 	}
+	if in.CdcID != nil {
+		in, out := &in.CdcID, &out.CdcID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Count != nil {
 		in, out := &in.Count, &out.Count
 		*out = new(float64)
@@ -9360,6 +9455,11 @@ func (in *ScaleWorkerWorkerConfigParameters) DeepCopyInto(out *ScaleWorkerWorker
 	}
 	if in.CamRoleName != nil {
 		in, out := &in.CamRoleName, &out.CamRoleName
+		*out = new(string)
+		**out = **in
+	}
+	if in.CdcID != nil {
+		in, out := &in.CdcID, &out.CdcID
 		*out = new(string)
 		**out = **in
 	}

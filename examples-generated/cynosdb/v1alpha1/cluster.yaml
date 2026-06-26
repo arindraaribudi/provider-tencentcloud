@@ -10,6 +10,7 @@ spec:
   forProvider:
     availableZone: ${var.availability_zone}
     clusterName: tf-example
+    cynosVersion: 2.1.14.001
     dbMode: NORMAL
     dbType: MYSQL
     dbVersion: "5.7"

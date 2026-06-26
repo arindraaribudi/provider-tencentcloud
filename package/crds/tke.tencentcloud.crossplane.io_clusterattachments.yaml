@@ -325,8 +325,8 @@ spec:
                           type: number
                         dockerGraphPath:
                           description: |-
-                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-                            Docker graph path. Default is `/var/lib/docker`.
+                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+                            Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
                           type: string
                         extraArgs:
                           description: |-
@@ -476,8 +476,8 @@ spec:
                           type: number
                         dockerGraphPath:
                           description: |-
-                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-                            Docker graph path. Default is `/var/lib/docker`.
+                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+                            Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
                           type: string
                         extraArgs:
                           description: |-
@@ -800,8 +800,8 @@ spec:
                           type: number
                         dockerGraphPath:
                           description: |-
-                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-                            Docker graph path. Default is `/var/lib/docker`.
+                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+                            Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
                           type: string
                         extraArgs:
                           description: |-
@@ -951,8 +951,8 @@ spec:
                           type: number
                         dockerGraphPath:
                           description: |-
-                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-                            Docker graph path. Default is `/var/lib/docker`.
+                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+                            Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
                           type: string
                         extraArgs:
                           description: |-
@@ -1312,8 +1312,8 @@ spec:
                           type: number
                         dockerGraphPath:
                           description: |-
-                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-                            Docker graph path. Default is `/var/lib/docker`.
+                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+                            Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
                           type: string
                         extraArgs:
                           description: |-
@@ -1463,8 +1463,8 @@ spec:
                           type: number
                         dockerGraphPath:
                           description: |-
-                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-                            Docker graph path. Default is `/var/lib/docker`.
+                            This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+                            Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
                           type: string
                         extraArgs:
                           description: |-

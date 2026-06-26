@@ -84,6 +84,11 @@ spec:
                             Represents a collection of dimensions of an object instance, json format.eg:'{"unInstanceId":"ins-ot3cq4bi"}'.
                             Represents a collection of dimensions of an object instance, json format.eg:'{"unInstanceId":"ins-ot3cq4bi"}'.
                           type: string
+                        region:
+                          description: |-
+                            Region.
+                            Region.
+                          type: string
                       type: object
                     type: array
                   policyId:
@@ -189,6 +194,11 @@ spec:
                           description: |-
                             Represents a collection of dimensions of an object instance, json format.eg:'{"unInstanceId":"ins-ot3cq4bi"}'.
                             Represents a collection of dimensions of an object instance, json format.eg:'{"unInstanceId":"ins-ot3cq4bi"}'.
+                          type: string
+                        region:
+                          description: |-
+                            Region.
+                            Region.
                           type: string
                       type: object
                     type: array
@@ -459,6 +469,11 @@ spec:
                           description: |-
                             Represents a collection of dimensions of an object instance, json format.eg:'{"unInstanceId":"ins-ot3cq4bi"}'.
                             Represents a collection of dimensions of an object instance, json format.eg:'{"unInstanceId":"ins-ot3cq4bi"}'.
+                          type: string
+                        region:
+                          description: |-
+                            Region.
+                            Region.
                           type: string
                         uniqueId:
                           description: |-

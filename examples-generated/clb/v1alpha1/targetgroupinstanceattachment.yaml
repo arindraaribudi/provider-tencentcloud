@@ -28,7 +28,9 @@ metadata:
 spec:
   forProvider:
     targetGroupName: tf-example
-    vpcId: ${tencentcloud_vpc.vpc.id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc
 
 ---
 

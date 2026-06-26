@@ -47,6 +47,10 @@ type DataDisksInitParameters struct {
 	// Decides whether the disk is encrypted. Default is `false`.
 	Encrypt *bool `json:"encrypt,omitempty" tf:"encrypt,omitempty"`
 
+	// Optional parameters. When purchasing an encryption disk, customize the key. When this parameter is passed in, the encrypt parameter need be set.
+	// Optional parameters. When purchasing an encryption disk, customize the key. When this parameter is passed in, the `encrypt` parameter need be set.
+	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
+
 	// Add extra performance to the data disk. Only works when disk type is CLOUD_TSSD or CLOUD_HSSD.
 	// Add extra performance to the data disk. Only works when disk type is `CLOUD_TSSD` or `CLOUD_HSSD`.
 	ThroughputPerformance *float64 `json:"throughputPerformance,omitempty" tf:"throughput_performance,omitempty"`
@@ -85,6 +89,10 @@ type DataDisksObservation struct {
 	// Decides whether the disk is encrypted. Default is false.
 	// Decides whether the disk is encrypted. Default is `false`.
 	Encrypt *bool `json:"encrypt,omitempty" tf:"encrypt,omitempty"`
+
+	// Optional parameters. When purchasing an encryption disk, customize the key. When this parameter is passed in, the encrypt parameter need be set.
+	// Optional parameters. When purchasing an encryption disk, customize the key. When this parameter is passed in, the `encrypt` parameter need be set.
+	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// Add extra performance to the data disk. Only works when disk type is CLOUD_TSSD or CLOUD_HSSD.
 	// Add extra performance to the data disk. Only works when disk type is `CLOUD_TSSD` or `CLOUD_HSSD`.
@@ -133,6 +141,11 @@ type DataDisksParameters struct {
 	// +kubebuilder:validation:Optional
 	Encrypt *bool `json:"encrypt,omitempty" tf:"encrypt,omitempty"`
 
+	// Optional parameters. When purchasing an encryption disk, customize the key. When this parameter is passed in, the encrypt parameter need be set.
+	// Optional parameters. When purchasing an encryption disk, customize the key. When this parameter is passed in, the `encrypt` parameter need be set.
+	// +kubebuilder:validation:Optional
+	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
+
 	// Add extra performance to the data disk. Only works when disk type is CLOUD_TSSD or CLOUD_HSSD.
 	// Add extra performance to the data disk. Only works when disk type is `CLOUD_TSSD` or `CLOUD_HSSD`.
 	// +kubebuilder:validation:Optional
@@ -144,6 +157,10 @@ type InstanceInitParameters struct {
 	// Associate a public IP address with an instance in a VPC or Classic. Boolean value, Default is false.
 	// Associate a public IP address with an instance in a VPC or Classic. Boolean value, Default is false.
 	AllocatePublicIP *bool `json:"allocatePublicIp,omitempty" tf:"allocate_public_ip,omitempty"`
+
+	// Anti-DDoS service package ID. This is required when you want to request an AntiDDoS IP.
+	// Anti-DDoS service package ID. This is required when you want to request an AntiDDoS IP.
+	AntiDdosPackageID *string `json:"antiDdosPackageId,omitempty" tf:"anti_ddos_package_id,omitempty"`
 
 	// The available zone for the CVM instance.
 	// The available zone for the CVM instance.
@@ -173,6 +190,15 @@ type InstanceInitParameters struct {
 	// Exclusive cluster id.
 	DedicatedClusterID *string `json:"dedicatedClusterId,omitempty" tf:"dedicated_cluster_id,omitempty"`
 
+	// List of dedicated resource pack IDs (e.g., rpp-xxxxxxxx). When creating instances using pre-purchased resource pool packs, this parameter must be specified together with dedicated_resource_pack_tenancy to match the corresponding tenancy strategy. Related resource: tencentcloud_cvm_resource_pool_packs.
+	// List of dedicated resource pack IDs (e.g., rpp-xxxxxxxx). When creating instances using pre-purchased resource pool packs, this parameter must be specified together with `dedicated_resource_pack_tenancy` to match the corresponding tenancy strategy. Related resource: `tencentcloud_cvm_resource_pool_packs`.
+	// +listType=set
+	DedicatedResourcePackIds []*string `json:"dedicatedResourcePackIds,omitempty" tf:"dedicated_resource_pack_ids,omitempty"`
+
+	// Dedicated resource pack tenancy strategy. Valid values: ResourcePool (use instance resource pool for resource pre-deduction).
+	// Dedicated resource pack tenancy strategy. Valid values: `ResourcePool` (use instance resource pool for resource pre-deduction).
+	DedicatedResourcePackTenancy *string `json:"dedicatedResourcePackTenancy,omitempty" tf:"dedicated_resource_pack_tenancy,omitempty"`
+
 	// Whether the termination protection is enabled. Default is false. If set true, which means that this instance can not be deleted by an API action.
 	// Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not be deleted by an API action.
 	DisableAPITermination *bool `json:"disableApiTermination,omitempty" tf:"disable_api_termination,omitempty"`
@@ -189,20 +215,45 @@ type InstanceInitParameters struct {
 	// Disable enhance service for security, it is enabled by default. When this options is set, security agent won't be installed. Modifications may lead to the reinstallation of the instance's operating system.
 	DisableSecurityService *bool `json:"disableSecurityService,omitempty" tf:"disable_security_service,omitempty"`
 
+	// Placement group ID.
+	// Placement group ID.
+	// +listType=set
+	DisasterRecoverGroupIds []*string `json:"disasterRecoverGroupIds,omitempty" tf:"disaster_recover_group_ids,omitempty"`
+
 	// Indicate whether to force delete the instance. Default is false. If set true, the instance will be permanently deleted instead of being moved into the recycle bin. Note: only works for PREPAID instance.
 	// Indicate whether to force delete the instance. Default is `false`. If set true, the instance will be permanently deleted instead of being moved into the recycle bin. Note: only works for `PREPAID` instance.
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
-	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Modifications may lead to the reinstallation of the instance's operating system.
-	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Modifications may lead to the reinstallation of the instance's operating system.
+	// Whether to force the instance host to be replaced. Value range: true: Allows the instance to change the host and restart the instance. Local disk machines do not support specifying this parameter; false: Does not allow the instance to change the host and only join the placement group on the current host. This may cause the placement group to fail to change. Only useful for change placement_group_id, Default is false.
+	// Whether to force the instance host to be replaced. Value range: true: Allows the instance to change the host and restart the instance. Local disk machines do not support specifying this parameter; false: Does not allow the instance to change the host and only join the placement group on the current host. This may cause the placement group to fail to change. Only useful for change `placement_group_id`, Default is false.
+	ForceReplacePlacementGroupID *bool `json:"forceReplacePlacementGroupId,omitempty" tf:"force_replace_placement_group_id,omitempty"`
+
+	// Whether to forcibly shut down a running instance. Default is false. Forcing a shutdown is equivalent to switching off the power button on a physical computer. Forcing a shutdown may result in data loss or file system corruption; therefore, please use this option only when the server cannot be shut down normally.
+	// Whether to forcibly shut down a running instance. Default is false. Forcing a shutdown is equivalent to switching off the power button on a physical computer. Forcing a shutdown may result in data loss or file system corruption; therefore, please use this option only when the server cannot be shut down normally.
+	ForceStop *bool `json:"forceStop,omitempty" tf:"force_stop,omitempty"`
+
+	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Changing the hostname will cause the instance system to restart.
+	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Changing the `hostname` will cause the instance system to restart.
 	Hostname *string `json:"hostname,omitempty" tf:"hostname,omitempty"`
 
 	// High-performance computing cluster ID. If the instance created is a high-performance computing instance, you need to specify the cluster in which the instance is placed, otherwise it cannot be specified.
 	// High-performance computing cluster ID. If the instance created is a high-performance computing instance, you need to specify the cluster in which the instance is placed, otherwise it cannot be specified.
 	HpcClusterID *string `json:"hpcClusterId,omitempty" tf:"hpc_cluster_id,omitempty"`
 
-	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system..
-	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system..
+	// AddressType. Default value: WanIP. For beta users of dedicated IP. the value can be: HighQualityEIP: Dedicated IP. Note that dedicated IPs are only available in partial regions. For beta users of Anti-DDoS IP, the value can be: AntiDDoSEIP: Anti-DDoS EIP. Note that Anti-DDoS IPs are only available in partial regions.
+	// AddressType. Default value: WanIP. For beta users of dedicated IP. the value can be: HighQualityEIP: Dedicated IP. Note that dedicated IPs are only available in partial regions. For beta users of Anti-DDoS IP, the value can be: AntiDDoSEIP: Anti-DDoS EIP. Note that Anti-DDoS IPs are only available in partial regions.
+	IPv4AddressType *string `json:"ipv4AddressType,omitempty" tf:"ipv4_address_type,omitempty"`
+
+	// Specify the number of randomly generated IPv6 addresses for the Elastic Network Interface.
+	// Specify the number of randomly generated IPv6 addresses for the Elastic Network Interface.
+	IPv6AddressCount *float64 `json:"ipv6AddressCount,omitempty" tf:"ipv6_address_count,omitempty"`
+
+	// IPv6 AddressType. Default value: WanIP. EIPv6: Elastic IPv6; HighQualityEIPv6: Premium IPv6, only China Hong Kong supports premium IPv6. To allocate IPv6 addresses to resources, please specify the Elastic IPv6 type.
+	// IPv6 AddressType. Default value: WanIP. EIPv6: Elastic IPv6; HighQualityEIPv6: Premium IPv6, only China Hong Kong supports premium IPv6. To allocate IPv6 addresses to resources, please specify the Elastic IPv6 type.
+	IPv6AddressType *string `json:"ipv6AddressType,omitempty" tf:"ipv6_address_type,omitempty"`
+
+	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system.
+	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system.
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
 	// The charge type of instance. Valid values are PREPAID, POSTPAID_BY_HOUR, SPOTPAID, CDHPAID and CDCPAID. The default is POSTPAID_BY_HOUR. Note: TencentCloud International only supports POSTPAID_BY_HOUR and CDHPAID. PREPAID instance may not allow to delete before expired. SPOTPAID instance must set spot_instance_type and spot_max_price at the same time. CDHPAID instance must set cdh_instance_type and cdh_host_id.
@@ -216,10 +267,6 @@ type InstanceInitParameters struct {
 	// Auto renewal flag. Valid values: NOTIFY_AND_AUTO_RENEW: notify upon expiration and renew automatically, NOTIFY_AND_MANUAL_RENEW: notify upon expiration but do not renew automatically, DISABLE_NOTIFY_AND_MANUAL_RENEW: neither notify upon expiration nor renew automatically. Default value: NOTIFY_AND_MANUAL_RENEW. If this parameter is specified as NOTIFY_AND_AUTO_RENEW, the instance will be automatically renewed on a monthly basis if the account balance is sufficient. NOTE: it only works when instance_charge_type is set to PREPAID.
 	// Auto renewal flag. Valid values: `NOTIFY_AND_AUTO_RENEW`: notify upon expiration and renew automatically, `NOTIFY_AND_MANUAL_RENEW`: notify upon expiration but do not renew automatically, `DISABLE_NOTIFY_AND_MANUAL_RENEW`: neither notify upon expiration nor renew automatically. Default value: `NOTIFY_AND_MANUAL_RENEW`. If this parameter is specified as `NOTIFY_AND_AUTO_RENEW`, the instance will be automatically renewed on a monthly basis if the account balance is sufficient. NOTE: it only works when instance_charge_type is set to `PREPAID`.
 	InstanceChargeTypePrepaidRenewFlag *string `json:"instanceChargeTypePrepaidRenewFlag,omitempty" tf:"instance_charge_type_prepaid_renew_flag,omitempty"`
-
-	// It has been deprecated from version 1.59.18. Use built-in count instead. The number of instances to be purchased. Value range:[1,100]; default value: 1.
-	// The number of instances to be purchased. Value range:[1,100]; default value: 1.
-	InstanceCount *float64 `json:"instanceCount,omitempty" tf:"instance_count,omitempty"`
 
 	// The name of the instance.
 	// The name of the instance.
@@ -250,6 +297,14 @@ type InstanceInitParameters struct {
 	// The key pair to use for the instance, it looks like `skey-16jig7tx`. Modifications may lead to the reinstallation of the instance's operating system.
 	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
 
+	// Instance launch template ID. This parameter allows you to create an instance using the preset parameters in the instance template.
+	// Instance launch template ID. This parameter allows you to create an instance using the preset parameters in the instance template.
+	LaunchTemplateID *string `json:"launchTemplateId,omitempty" tf:"launch_template_id,omitempty"`
+
+	// The instance launch template version number. If given, a new instance launch template will be created based on the given version number.
+	// The instance launch template version number. If given, a new instance launch template will be created based on the given version number.
+	LaunchTemplateVersion *float64 `json:"launchTemplateVersion,omitempty" tf:"launch_template_version,omitempty"`
+
 	// A list of orderly security group IDs to associate with.
 	// A list of orderly security group IDs to associate with.
 	OrderlySecurityGroups []*string `json:"orderlySecurityGroups,omitempty" tf:"orderly_security_groups,omitempty"`
@@ -265,6 +320,10 @@ type InstanceInitParameters struct {
 	// The project the instance belongs to, default to 0.
 	// The project the instance belongs to, default to 0.
 	ProjectID *float64 `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Release elastic IP. Under EIP 2.0, only the first EIP under the primary network card is provided, and the EIP types are limited to HighQualityEIP, AntiDDoSEIP, EIPv6, and HighQualityEIPv6. Default behavior is not released.
+	// Release elastic IP. Under EIP 2.0, only the first EIP under the primary network card is provided, and the EIP types are limited to HighQualityEIP, AntiDDoSEIP, EIPv6, and HighQualityEIPv6. Default behavior is not released.
+	ReleaseAddress *bool `json:"releaseAddress,omitempty" tf:"release_address,omitempty"`
 
 	// Set instance to running or stop. Default value is true, the instance will shutdown when this flag is false.
 	// Set instance to running or stop. Default value is true, the instance will shutdown when this flag is false.
@@ -282,6 +341,10 @@ type InstanceInitParameters struct {
 	// Max price of a spot instance, is the format of decimal string, for example "0.50". Note: it only works when instance_charge_type is set to SPOTPAID.
 	// Max price of a spot instance, is the format of decimal string, for example "0.50". Note: it only works when instance_charge_type is set to `SPOTPAID`.
 	SpotMaxPrice *string `json:"spotMaxPrice,omitempty" tf:"spot_max_price,omitempty"`
+
+	// Instance shutdown mode. Valid values: SOFT_FIRST: perform a soft shutdown first, and force shut down the instance if the soft shutdown fails; HARD: force shut down the instance directly; SOFT: soft shutdown only. Default value: SOFT.
+	// Instance shutdown mode. Valid values: SOFT_FIRST: perform a soft shutdown first, and force shut down the instance if the soft shutdown fails; HARD: force shut down the instance directly; SOFT: soft shutdown only. Default value: SOFT.
+	StopType *string `json:"stopType,omitempty" tf:"stop_type,omitempty"`
 
 	// Billing method of a pay-as-you-go instance after shutdown. Available values: KEEP_CHARGING,STOP_CHARGING. Default KEEP_CHARGING.
 	// Billing method of a pay-as-you-go instance after shutdown. Available values: `KEEP_CHARGING`,`STOP_CHARGING`. Default `KEEP_CHARGING`.
@@ -321,13 +384,17 @@ type InstanceInitParameters struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB.
-	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB.
+	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB. If user_data_replace_on_change is set to true, updates to this field will trigger the destruction and recreation of the CVM instance.
+	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB. If `user_data_replace_on_change` is set to `true`, updates to this field will trigger the destruction and recreation of the CVM instance.
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
 
-	// The user data to be injected into this instance, in plain text. Conflicts with user_data. Up to 16 KB after base64 encoded.
-	// The user data to be injected into this instance, in plain text. Conflicts with `user_data`. Up to 16 KB after base64 encoded.
+	// The user data to be injected into this instance, in plain text. Conflicts with user_data. Up to 16 KB after base64 encoded. If user_data_replace_on_change is set to true, updates to this field will trigger the destruction and recreation of the CVM instance.
+	// The user data to be injected into this instance, in plain text. Conflicts with `user_data`. Up to 16 KB after base64 encoded. If `user_data_replace_on_change` is set to `true`, updates to this field will trigger the destruction and recreation of the CVM instance.
 	UserDataRaw *string `json:"userDataRaw,omitempty" tf:"user_data_raw,omitempty"`
+
+	// When used in combination with user_data or user_data_raw will trigger a destroy and recreate of the CVM instance when set to true. Default is false.
+	// When used in combination with `user_data` or `user_data_raw` will trigger a destroy and recreate of the CVM instance when set to `true`. Default is `false`.
+	UserDataReplaceOnChange *bool `json:"userDataReplaceOnChange,omitempty" tf:"user_data_replace_on_change,omitempty"`
 
 	// The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.
 	// The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.
@@ -348,6 +415,10 @@ type InstanceObservation struct {
 	// Associate a public IP address with an instance in a VPC or Classic. Boolean value, Default is false.
 	// Associate a public IP address with an instance in a VPC or Classic. Boolean value, Default is false.
 	AllocatePublicIP *bool `json:"allocatePublicIp,omitempty" tf:"allocate_public_ip,omitempty"`
+
+	// Anti-DDoS service package ID. This is required when you want to request an AntiDDoS IP.
+	// Anti-DDoS service package ID. This is required when you want to request an AntiDDoS IP.
+	AntiDdosPackageID *string `json:"antiDdosPackageId,omitempty" tf:"anti_ddos_package_id,omitempty"`
 
 	// The available zone for the CVM instance.
 	// The available zone for the CVM instance.
@@ -385,6 +456,15 @@ type InstanceObservation struct {
 	// Exclusive cluster id.
 	DedicatedClusterID *string `json:"dedicatedClusterId,omitempty" tf:"dedicated_cluster_id,omitempty"`
 
+	// List of dedicated resource pack IDs (e.g., rpp-xxxxxxxx). When creating instances using pre-purchased resource pool packs, this parameter must be specified together with dedicated_resource_pack_tenancy to match the corresponding tenancy strategy. Related resource: tencentcloud_cvm_resource_pool_packs.
+	// List of dedicated resource pack IDs (e.g., rpp-xxxxxxxx). When creating instances using pre-purchased resource pool packs, this parameter must be specified together with `dedicated_resource_pack_tenancy` to match the corresponding tenancy strategy. Related resource: `tencentcloud_cvm_resource_pool_packs`.
+	// +listType=set
+	DedicatedResourcePackIds []*string `json:"dedicatedResourcePackIds,omitempty" tf:"dedicated_resource_pack_ids,omitempty"`
+
+	// Dedicated resource pack tenancy strategy. Valid values: ResourcePool (use instance resource pool for resource pre-deduction).
+	// Dedicated resource pack tenancy strategy. Valid values: `ResourcePool` (use instance resource pool for resource pre-deduction).
+	DedicatedResourcePackTenancy *string `json:"dedicatedResourcePackTenancy,omitempty" tf:"dedicated_resource_pack_tenancy,omitempty"`
+
 	// Whether the termination protection is enabled. Default is false. If set true, which means that this instance can not be deleted by an API action.
 	// Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not be deleted by an API action.
 	DisableAPITermination *bool `json:"disableApiTermination,omitempty" tf:"disable_api_termination,omitempty"`
@@ -401,6 +481,11 @@ type InstanceObservation struct {
 	// Disable enhance service for security, it is enabled by default. When this options is set, security agent won't be installed. Modifications may lead to the reinstallation of the instance's operating system.
 	DisableSecurityService *bool `json:"disableSecurityService,omitempty" tf:"disable_security_service,omitempty"`
 
+	// Placement group ID.
+	// Placement group ID.
+	// +listType=set
+	DisasterRecoverGroupIds []*string `json:"disasterRecoverGroupIds,omitempty" tf:"disaster_recover_group_ids,omitempty"`
+
 	// Expired time of the instance.
 	// Expired time of the instance.
 	ExpiredTime *string `json:"expiredTime,omitempty" tf:"expired_time,omitempty"`
@@ -409,8 +494,16 @@ type InstanceObservation struct {
 	// Indicate whether to force delete the instance. Default is `false`. If set true, the instance will be permanently deleted instead of being moved into the recycle bin. Note: only works for `PREPAID` instance.
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
-	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Modifications may lead to the reinstallation of the instance's operating system.
-	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Modifications may lead to the reinstallation of the instance's operating system.
+	// Whether to force the instance host to be replaced. Value range: true: Allows the instance to change the host and restart the instance. Local disk machines do not support specifying this parameter; false: Does not allow the instance to change the host and only join the placement group on the current host. This may cause the placement group to fail to change. Only useful for change placement_group_id, Default is false.
+	// Whether to force the instance host to be replaced. Value range: true: Allows the instance to change the host and restart the instance. Local disk machines do not support specifying this parameter; false: Does not allow the instance to change the host and only join the placement group on the current host. This may cause the placement group to fail to change. Only useful for change `placement_group_id`, Default is false.
+	ForceReplacePlacementGroupID *bool `json:"forceReplacePlacementGroupId,omitempty" tf:"force_replace_placement_group_id,omitempty"`
+
+	// Whether to forcibly shut down a running instance. Default is false. Forcing a shutdown is equivalent to switching off the power button on a physical computer. Forcing a shutdown may result in data loss or file system corruption; therefore, please use this option only when the server cannot be shut down normally.
+	// Whether to forcibly shut down a running instance. Default is false. Forcing a shutdown is equivalent to switching off the power button on a physical computer. Forcing a shutdown may result in data loss or file system corruption; therefore, please use this option only when the server cannot be shut down normally.
+	ForceStop *bool `json:"forceStop,omitempty" tf:"force_stop,omitempty"`
+
+	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Changing the hostname will cause the instance system to restart.
+	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Changing the `hostname` will cause the instance system to restart.
 	Hostname *string `json:"hostname,omitempty" tf:"hostname,omitempty"`
 
 	// High-performance computing cluster ID. If the instance created is a high-performance computing instance, you need to specify the cluster in which the instance is placed, otherwise it cannot be specified.
@@ -420,8 +513,24 @@ type InstanceObservation struct {
 	// ID of the resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system..
-	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system..
+	// AddressType. Default value: WanIP. For beta users of dedicated IP. the value can be: HighQualityEIP: Dedicated IP. Note that dedicated IPs are only available in partial regions. For beta users of Anti-DDoS IP, the value can be: AntiDDoSEIP: Anti-DDoS EIP. Note that Anti-DDoS IPs are only available in partial regions.
+	// AddressType. Default value: WanIP. For beta users of dedicated IP. the value can be: HighQualityEIP: Dedicated IP. Note that dedicated IPs are only available in partial regions. For beta users of Anti-DDoS IP, the value can be: AntiDDoSEIP: Anti-DDoS EIP. Note that Anti-DDoS IPs are only available in partial regions.
+	IPv4AddressType *string `json:"ipv4AddressType,omitempty" tf:"ipv4_address_type,omitempty"`
+
+	// Specify the number of randomly generated IPv6 addresses for the Elastic Network Interface.
+	// Specify the number of randomly generated IPv6 addresses for the Elastic Network Interface.
+	IPv6AddressCount *float64 `json:"ipv6AddressCount,omitempty" tf:"ipv6_address_count,omitempty"`
+
+	// IPv6 AddressType. Default value: WanIP. EIPv6: Elastic IPv6; HighQualityEIPv6: Premium IPv6, only China Hong Kong supports premium IPv6. To allocate IPv6 addresses to resources, please specify the Elastic IPv6 type.
+	// IPv6 AddressType. Default value: WanIP. EIPv6: Elastic IPv6; HighQualityEIPv6: Premium IPv6, only China Hong Kong supports premium IPv6. To allocate IPv6 addresses to resources, please specify the Elastic IPv6 type.
+	IPv6AddressType *string `json:"ipv6AddressType,omitempty" tf:"ipv6_address_type,omitempty"`
+
+	// IPv6 address of the instance.
+	// IPv6 address of the instance.
+	IPv6Addresses []*string `json:"ipv6Addresses,omitempty" tf:"ipv6_addresses,omitempty"`
+
+	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system.
+	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system.
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
 	// The charge type of instance. Valid values are PREPAID, POSTPAID_BY_HOUR, SPOTPAID, CDHPAID and CDCPAID. The default is POSTPAID_BY_HOUR. Note: TencentCloud International only supports POSTPAID_BY_HOUR and CDHPAID. PREPAID instance may not allow to delete before expired. SPOTPAID instance must set spot_instance_type and spot_max_price at the same time. CDHPAID instance must set cdh_instance_type and cdh_host_id.
@@ -435,10 +544,6 @@ type InstanceObservation struct {
 	// Auto renewal flag. Valid values: NOTIFY_AND_AUTO_RENEW: notify upon expiration and renew automatically, NOTIFY_AND_MANUAL_RENEW: notify upon expiration but do not renew automatically, DISABLE_NOTIFY_AND_MANUAL_RENEW: neither notify upon expiration nor renew automatically. Default value: NOTIFY_AND_MANUAL_RENEW. If this parameter is specified as NOTIFY_AND_AUTO_RENEW, the instance will be automatically renewed on a monthly basis if the account balance is sufficient. NOTE: it only works when instance_charge_type is set to PREPAID.
 	// Auto renewal flag. Valid values: `NOTIFY_AND_AUTO_RENEW`: notify upon expiration and renew automatically, `NOTIFY_AND_MANUAL_RENEW`: notify upon expiration but do not renew automatically, `DISABLE_NOTIFY_AND_MANUAL_RENEW`: neither notify upon expiration nor renew automatically. Default value: `NOTIFY_AND_MANUAL_RENEW`. If this parameter is specified as `NOTIFY_AND_AUTO_RENEW`, the instance will be automatically renewed on a monthly basis if the account balance is sufficient. NOTE: it only works when instance_charge_type is set to `PREPAID`.
 	InstanceChargeTypePrepaidRenewFlag *string `json:"instanceChargeTypePrepaidRenewFlag,omitempty" tf:"instance_charge_type_prepaid_renew_flag,omitempty"`
-
-	// It has been deprecated from version 1.59.18. Use built-in count instead. The number of instances to be purchased. Value range:[1,100]; default value: 1.
-	// The number of instances to be purchased. Value range:[1,100]; default value: 1.
-	InstanceCount *float64 `json:"instanceCount,omitempty" tf:"instance_count,omitempty"`
 
 	// The name of the instance.
 	// The name of the instance.
@@ -473,6 +578,14 @@ type InstanceObservation struct {
 	// The key pair to use for the instance, it looks like `skey-16jig7tx`. Modifications may lead to the reinstallation of the instance's operating system.
 	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
 
+	// Instance launch template ID. This parameter allows you to create an instance using the preset parameters in the instance template.
+	// Instance launch template ID. This parameter allows you to create an instance using the preset parameters in the instance template.
+	LaunchTemplateID *string `json:"launchTemplateId,omitempty" tf:"launch_template_id,omitempty"`
+
+	// The instance launch template version number. If given, a new instance launch template will be created based on the given version number.
+	// The instance launch template version number. If given, a new instance launch template will be created based on the given version number.
+	LaunchTemplateVersion *float64 `json:"launchTemplateVersion,omitempty" tf:"launch_template_version,omitempty"`
+
 	// Instance memory capacity, unit in GB.
 	// Instance memory capacity, unit in GB.
 	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
@@ -501,6 +614,18 @@ type InstanceObservation struct {
 	// Public IP of the instance.
 	PublicIP *string `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
 
+	// The public IPv6 address to which the instance is bound.
+	// The public IPv6 address to which the instance is bound.
+	PublicIPv6Addresses []*string `json:"publicIpv6Addresses,omitempty" tf:"public_ipv6_addresses,omitempty"`
+
+	// The rack ID of the instance resource pool to which the instance belongs.
+	// The rack ID of the instance resource pool to which the instance belongs.
+	RackID *string `json:"rackId,omitempty" tf:"rack_id,omitempty"`
+
+	// Release elastic IP. Under EIP 2.0, only the first EIP under the primary network card is provided, and the EIP types are limited to HighQualityEIP, AntiDDoSEIP, EIPv6, and HighQualityEIPv6. Default behavior is not released.
+	// Release elastic IP. Under EIP 2.0, only the first EIP under the primary network card is provided, and the EIP types are limited to HighQualityEIP, AntiDDoSEIP, EIPv6, and HighQualityEIPv6. Default behavior is not released.
+	ReleaseAddress *bool `json:"releaseAddress,omitempty" tf:"release_address,omitempty"`
+
 	// Set instance to running or stop. Default value is true, the instance will shutdown when this flag is false.
 	// Set instance to running or stop. Default value is true, the instance will shutdown when this flag is false.
 	RunningFlag *bool `json:"runningFlag,omitempty" tf:"running_flag,omitempty"`
@@ -517,6 +642,10 @@ type InstanceObservation struct {
 	// Max price of a spot instance, is the format of decimal string, for example "0.50". Note: it only works when instance_charge_type is set to SPOTPAID.
 	// Max price of a spot instance, is the format of decimal string, for example "0.50". Note: it only works when instance_charge_type is set to `SPOTPAID`.
 	SpotMaxPrice *string `json:"spotMaxPrice,omitempty" tf:"spot_max_price,omitempty"`
+
+	// Instance shutdown mode. Valid values: SOFT_FIRST: perform a soft shutdown first, and force shut down the instance if the soft shutdown fails; HARD: force shut down the instance directly; SOFT: soft shutdown only. Default value: SOFT.
+	// Instance shutdown mode. Valid values: SOFT_FIRST: perform a soft shutdown first, and force shut down the instance if the soft shutdown fails; HARD: force shut down the instance directly; SOFT: soft shutdown only. Default value: SOFT.
+	StopType *string `json:"stopType,omitempty" tf:"stop_type,omitempty"`
 
 	// Billing method of a pay-as-you-go instance after shutdown. Available values: KEEP_CHARGING,STOP_CHARGING. Default KEEP_CHARGING.
 	// Billing method of a pay-as-you-go instance after shutdown. Available values: `KEEP_CHARGING`,`STOP_CHARGING`. Default `KEEP_CHARGING`.
@@ -555,13 +684,17 @@ type InstanceObservation struct {
 	// Globally unique ID of the instance.
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 
-	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB.
-	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB.
+	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB. If user_data_replace_on_change is set to true, updates to this field will trigger the destruction and recreation of the CVM instance.
+	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB. If `user_data_replace_on_change` is set to `true`, updates to this field will trigger the destruction and recreation of the CVM instance.
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
 
-	// The user data to be injected into this instance, in plain text. Conflicts with user_data. Up to 16 KB after base64 encoded.
-	// The user data to be injected into this instance, in plain text. Conflicts with `user_data`. Up to 16 KB after base64 encoded.
+	// The user data to be injected into this instance, in plain text. Conflicts with user_data. Up to 16 KB after base64 encoded. If user_data_replace_on_change is set to true, updates to this field will trigger the destruction and recreation of the CVM instance.
+	// The user data to be injected into this instance, in plain text. Conflicts with `user_data`. Up to 16 KB after base64 encoded. If `user_data_replace_on_change` is set to `true`, updates to this field will trigger the destruction and recreation of the CVM instance.
 	UserDataRaw *string `json:"userDataRaw,omitempty" tf:"user_data_raw,omitempty"`
+
+	// When used in combination with user_data or user_data_raw will trigger a destroy and recreate of the CVM instance when set to true. Default is false.
+	// When used in combination with `user_data` or `user_data_raw` will trigger a destroy and recreate of the CVM instance when set to `true`. Default is `false`.
+	UserDataReplaceOnChange *bool `json:"userDataReplaceOnChange,omitempty" tf:"user_data_replace_on_change,omitempty"`
 
 	// The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.
 	// The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.
@@ -574,6 +707,11 @@ type InstanceParameters struct {
 	// Associate a public IP address with an instance in a VPC or Classic. Boolean value, Default is false.
 	// +kubebuilder:validation:Optional
 	AllocatePublicIP *bool `json:"allocatePublicIp,omitempty" tf:"allocate_public_ip,omitempty"`
+
+	// Anti-DDoS service package ID. This is required when you want to request an AntiDDoS IP.
+	// Anti-DDoS service package ID. This is required when you want to request an AntiDDoS IP.
+	// +kubebuilder:validation:Optional
+	AntiDdosPackageID *string `json:"antiDdosPackageId,omitempty" tf:"anti_ddos_package_id,omitempty"`
 
 	// The available zone for the CVM instance.
 	// The available zone for the CVM instance.
@@ -610,6 +748,17 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	DedicatedClusterID *string `json:"dedicatedClusterId,omitempty" tf:"dedicated_cluster_id,omitempty"`
 
+	// List of dedicated resource pack IDs (e.g., rpp-xxxxxxxx). When creating instances using pre-purchased resource pool packs, this parameter must be specified together with dedicated_resource_pack_tenancy to match the corresponding tenancy strategy. Related resource: tencentcloud_cvm_resource_pool_packs.
+	// List of dedicated resource pack IDs (e.g., rpp-xxxxxxxx). When creating instances using pre-purchased resource pool packs, this parameter must be specified together with `dedicated_resource_pack_tenancy` to match the corresponding tenancy strategy. Related resource: `tencentcloud_cvm_resource_pool_packs`.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	DedicatedResourcePackIds []*string `json:"dedicatedResourcePackIds,omitempty" tf:"dedicated_resource_pack_ids,omitempty"`
+
+	// Dedicated resource pack tenancy strategy. Valid values: ResourcePool (use instance resource pool for resource pre-deduction).
+	// Dedicated resource pack tenancy strategy. Valid values: `ResourcePool` (use instance resource pool for resource pre-deduction).
+	// +kubebuilder:validation:Optional
+	DedicatedResourcePackTenancy *string `json:"dedicatedResourcePackTenancy,omitempty" tf:"dedicated_resource_pack_tenancy,omitempty"`
+
 	// Whether the termination protection is enabled. Default is false. If set true, which means that this instance can not be deleted by an API action.
 	// Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not be deleted by an API action.
 	// +kubebuilder:validation:Optional
@@ -630,13 +779,29 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	DisableSecurityService *bool `json:"disableSecurityService,omitempty" tf:"disable_security_service,omitempty"`
 
+	// Placement group ID.
+	// Placement group ID.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	DisasterRecoverGroupIds []*string `json:"disasterRecoverGroupIds,omitempty" tf:"disaster_recover_group_ids,omitempty"`
+
 	// Indicate whether to force delete the instance. Default is false. If set true, the instance will be permanently deleted instead of being moved into the recycle bin. Note: only works for PREPAID instance.
 	// Indicate whether to force delete the instance. Default is `false`. If set true, the instance will be permanently deleted instead of being moved into the recycle bin. Note: only works for `PREPAID` instance.
 	// +kubebuilder:validation:Optional
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
-	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Modifications may lead to the reinstallation of the instance's operating system.
-	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Modifications may lead to the reinstallation of the instance's operating system.
+	// Whether to force the instance host to be replaced. Value range: true: Allows the instance to change the host and restart the instance. Local disk machines do not support specifying this parameter; false: Does not allow the instance to change the host and only join the placement group on the current host. This may cause the placement group to fail to change. Only useful for change placement_group_id, Default is false.
+	// Whether to force the instance host to be replaced. Value range: true: Allows the instance to change the host and restart the instance. Local disk machines do not support specifying this parameter; false: Does not allow the instance to change the host and only join the placement group on the current host. This may cause the placement group to fail to change. Only useful for change `placement_group_id`, Default is false.
+	// +kubebuilder:validation:Optional
+	ForceReplacePlacementGroupID *bool `json:"forceReplacePlacementGroupId,omitempty" tf:"force_replace_placement_group_id,omitempty"`
+
+	// Whether to forcibly shut down a running instance. Default is false. Forcing a shutdown is equivalent to switching off the power button on a physical computer. Forcing a shutdown may result in data loss or file system corruption; therefore, please use this option only when the server cannot be shut down normally.
+	// Whether to forcibly shut down a running instance. Default is false. Forcing a shutdown is equivalent to switching off the power button on a physical computer. Forcing a shutdown may result in data loss or file system corruption; therefore, please use this option only when the server cannot be shut down normally.
+	// +kubebuilder:validation:Optional
+	ForceStop *bool `json:"forceStop,omitempty" tf:"force_stop,omitempty"`
+
+	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Changing the hostname will cause the instance system to restart.
+	// The hostname of the instance. Windows instance: The name should be a combination of 2 to 15 characters comprised of letters (case insensitive), numbers, and hyphens (-). Period (.) is not supported, and the name cannot be a string of pure numbers. Other types (such as Linux) of instances: The name should be a combination of 2 to 60 characters, supporting multiple periods (.). The piece between two periods is composed of letters (case insensitive), numbers, and hyphens (-). Changing the `hostname` will cause the instance system to restart.
 	// +kubebuilder:validation:Optional
 	Hostname *string `json:"hostname,omitempty" tf:"hostname,omitempty"`
 
@@ -645,8 +810,23 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	HpcClusterID *string `json:"hpcClusterId,omitempty" tf:"hpc_cluster_id,omitempty"`
 
-	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system..
-	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system..
+	// AddressType. Default value: WanIP. For beta users of dedicated IP. the value can be: HighQualityEIP: Dedicated IP. Note that dedicated IPs are only available in partial regions. For beta users of Anti-DDoS IP, the value can be: AntiDDoSEIP: Anti-DDoS EIP. Note that Anti-DDoS IPs are only available in partial regions.
+	// AddressType. Default value: WanIP. For beta users of dedicated IP. the value can be: HighQualityEIP: Dedicated IP. Note that dedicated IPs are only available in partial regions. For beta users of Anti-DDoS IP, the value can be: AntiDDoSEIP: Anti-DDoS EIP. Note that Anti-DDoS IPs are only available in partial regions.
+	// +kubebuilder:validation:Optional
+	IPv4AddressType *string `json:"ipv4AddressType,omitempty" tf:"ipv4_address_type,omitempty"`
+
+	// Specify the number of randomly generated IPv6 addresses for the Elastic Network Interface.
+	// Specify the number of randomly generated IPv6 addresses for the Elastic Network Interface.
+	// +kubebuilder:validation:Optional
+	IPv6AddressCount *float64 `json:"ipv6AddressCount,omitempty" tf:"ipv6_address_count,omitempty"`
+
+	// IPv6 AddressType. Default value: WanIP. EIPv6: Elastic IPv6; HighQualityEIPv6: Premium IPv6, only China Hong Kong supports premium IPv6. To allocate IPv6 addresses to resources, please specify the Elastic IPv6 type.
+	// IPv6 AddressType. Default value: WanIP. EIPv6: Elastic IPv6; HighQualityEIPv6: Premium IPv6, only China Hong Kong supports premium IPv6. To allocate IPv6 addresses to resources, please specify the Elastic IPv6 type.
+	// +kubebuilder:validation:Optional
+	IPv6AddressType *string `json:"ipv6AddressType,omitempty" tf:"ipv6_address_type,omitempty"`
+
+	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system.
+	// The image to use for the instance. Modifications may lead to the reinstallation of the instance's operating system.
 	// +kubebuilder:validation:Optional
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
@@ -664,11 +844,6 @@ type InstanceParameters struct {
 	// Auto renewal flag. Valid values: `NOTIFY_AND_AUTO_RENEW`: notify upon expiration and renew automatically, `NOTIFY_AND_MANUAL_RENEW`: notify upon expiration but do not renew automatically, `DISABLE_NOTIFY_AND_MANUAL_RENEW`: neither notify upon expiration nor renew automatically. Default value: `NOTIFY_AND_MANUAL_RENEW`. If this parameter is specified as `NOTIFY_AND_AUTO_RENEW`, the instance will be automatically renewed on a monthly basis if the account balance is sufficient. NOTE: it only works when instance_charge_type is set to `PREPAID`.
 	// +kubebuilder:validation:Optional
 	InstanceChargeTypePrepaidRenewFlag *string `json:"instanceChargeTypePrepaidRenewFlag,omitempty" tf:"instance_charge_type_prepaid_renew_flag,omitempty"`
-
-	// It has been deprecated from version 1.59.18. Use built-in count instead. The number of instances to be purchased. Value range:[1,100]; default value: 1.
-	// The number of instances to be purchased. Value range:[1,100]; default value: 1.
-	// +kubebuilder:validation:Optional
-	InstanceCount *float64 `json:"instanceCount,omitempty" tf:"instance_count,omitempty"`
 
 	// The name of the instance.
 	// The name of the instance.
@@ -706,6 +881,16 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
 
+	// Instance launch template ID. This parameter allows you to create an instance using the preset parameters in the instance template.
+	// Instance launch template ID. This parameter allows you to create an instance using the preset parameters in the instance template.
+	// +kubebuilder:validation:Optional
+	LaunchTemplateID *string `json:"launchTemplateId,omitempty" tf:"launch_template_id,omitempty"`
+
+	// The instance launch template version number. If given, a new instance launch template will be created based on the given version number.
+	// The instance launch template version number. If given, a new instance launch template will be created based on the given version number.
+	// +kubebuilder:validation:Optional
+	LaunchTemplateVersion *float64 `json:"launchTemplateVersion,omitempty" tf:"launch_template_version,omitempty"`
+
 	// A list of orderly security group IDs to associate with.
 	// A list of orderly security group IDs to associate with.
 	// +kubebuilder:validation:Optional
@@ -731,6 +916,11 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	ProjectID *float64 `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
+	// Release elastic IP. Under EIP 2.0, only the first EIP under the primary network card is provided, and the EIP types are limited to HighQualityEIP, AntiDDoSEIP, EIPv6, and HighQualityEIPv6. Default behavior is not released.
+	// Release elastic IP. Under EIP 2.0, only the first EIP under the primary network card is provided, and the EIP types are limited to HighQualityEIP, AntiDDoSEIP, EIPv6, and HighQualityEIPv6. Default behavior is not released.
+	// +kubebuilder:validation:Optional
+	ReleaseAddress *bool `json:"releaseAddress,omitempty" tf:"release_address,omitempty"`
+
 	// Set instance to running or stop. Default value is true, the instance will shutdown when this flag is false.
 	// Set instance to running or stop. Default value is true, the instance will shutdown when this flag is false.
 	// +kubebuilder:validation:Optional
@@ -751,6 +941,11 @@ type InstanceParameters struct {
 	// Max price of a spot instance, is the format of decimal string, for example "0.50". Note: it only works when instance_charge_type is set to `SPOTPAID`.
 	// +kubebuilder:validation:Optional
 	SpotMaxPrice *string `json:"spotMaxPrice,omitempty" tf:"spot_max_price,omitempty"`
+
+	// Instance shutdown mode. Valid values: SOFT_FIRST: perform a soft shutdown first, and force shut down the instance if the soft shutdown fails; HARD: force shut down the instance directly; SOFT: soft shutdown only. Default value: SOFT.
+	// Instance shutdown mode. Valid values: SOFT_FIRST: perform a soft shutdown first, and force shut down the instance if the soft shutdown fails; HARD: force shut down the instance directly; SOFT: soft shutdown only. Default value: SOFT.
+	// +kubebuilder:validation:Optional
+	StopType *string `json:"stopType,omitempty" tf:"stop_type,omitempty"`
 
 	// Billing method of a pay-as-you-go instance after shutdown. Available values: KEEP_CHARGING,STOP_CHARGING. Default KEEP_CHARGING.
 	// Billing method of a pay-as-you-go instance after shutdown. Available values: `KEEP_CHARGING`,`STOP_CHARGING`. Default `KEEP_CHARGING`.
@@ -797,15 +992,20 @@ type InstanceParameters struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB.
-	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB.
+	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB. If user_data_replace_on_change is set to true, updates to this field will trigger the destruction and recreation of the CVM instance.
+	// The user data to be injected into this instance. Must be base64 encoded and up to 16 KB. If `user_data_replace_on_change` is set to `true`, updates to this field will trigger the destruction and recreation of the CVM instance.
 	// +kubebuilder:validation:Optional
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
 
-	// The user data to be injected into this instance, in plain text. Conflicts with user_data. Up to 16 KB after base64 encoded.
-	// The user data to be injected into this instance, in plain text. Conflicts with `user_data`. Up to 16 KB after base64 encoded.
+	// The user data to be injected into this instance, in plain text. Conflicts with user_data. Up to 16 KB after base64 encoded. If user_data_replace_on_change is set to true, updates to this field will trigger the destruction and recreation of the CVM instance.
+	// The user data to be injected into this instance, in plain text. Conflicts with `user_data`. Up to 16 KB after base64 encoded. If `user_data_replace_on_change` is set to `true`, updates to this field will trigger the destruction and recreation of the CVM instance.
 	// +kubebuilder:validation:Optional
 	UserDataRaw *string `json:"userDataRaw,omitempty" tf:"user_data_raw,omitempty"`
+
+	// When used in combination with user_data or user_data_raw will trigger a destroy and recreate of the CVM instance when set to true. Default is false.
+	// When used in combination with `user_data` or `user_data_raw` will trigger a destroy and recreate of the CVM instance when set to `true`. Default is `false`.
+	// +kubebuilder:validation:Optional
+	UserDataReplaceOnChange *bool `json:"userDataReplaceOnChange,omitempty" tf:"user_data_replace_on_change,omitempty"`
 
 	// The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.
 	// The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.
@@ -858,10 +1058,8 @@ type InstanceStatus struct {
 type Instance struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.availabilityZone) || (has(self.initProvider) && has(self.initProvider.availabilityZone))",message="spec.forProvider.availabilityZone is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.imageId) || (has(self.initProvider) && has(self.initProvider.imageId))",message="spec.forProvider.imageId is a required parameter"
-	Spec   InstanceSpec   `json:"spec"`
-	Status InstanceStatus `json:"status,omitempty"`
+	Spec              InstanceSpec   `json:"spec"`
+	Status            InstanceStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

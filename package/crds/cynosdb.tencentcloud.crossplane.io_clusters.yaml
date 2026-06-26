@@ -105,8 +105,8 @@ spec:
                     type: string
                   cynosVersion:
                     description: |-
-                      Kernel version, you can enter it when modifying.
-                      Kernel version, you can enter it when modifying.
+                      Kernel minor version, like 3.1.16.002.
+                      Kernel minor version, like `3.1.16.002`.
                     type: string
                   dbMode:
                     description: |-
@@ -128,6 +128,11 @@ spec:
                       Indicate whether to delete cluster instance directly or not. Default is false. If set true, the cluster and its All RELATED INSTANCES will be deleted instead of staying recycle bin. Note: works for both PREPAID and POSTPAID_BY_HOUR cluster.
                       Indicate whether to delete cluster instance directly or not. Default is false. If set true, the cluster and its `All RELATED INSTANCES` will be deleted instead of staying recycle bin. Note: works for both `PREPAID` and `POSTPAID_BY_HOUR` cluster.
                     type: boolean
+                  instanceCount:
+                    description: |-
+                      The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+                      The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+                    type: number
                   instanceCpuCore:
                     description: |-
                       The number of CPU cores of read-write type instance in the CynosDB cluster. Required while creating normal cluster. Note: modification of this field will take effect immediately, if want to upgrade on maintenance window, please upgrade from console.
@@ -151,7 +156,7 @@ spec:
                           type: string
                         instanceCount:
                           description: |-
-                            Instance count. Range: [1, 15].
+                            The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
                             Instance count. Range: [1, 15].
                           type: number
                         instanceType:
@@ -537,8 +542,8 @@ spec:
                     type: string
                   cynosVersion:
                     description: |-
-                      Kernel version, you can enter it when modifying.
-                      Kernel version, you can enter it when modifying.
+                      Kernel minor version, like 3.1.16.002.
+                      Kernel minor version, like `3.1.16.002`.
                     type: string
                   dbMode:
                     description: |-
@@ -560,6 +565,11 @@ spec:
                       Indicate whether to delete cluster instance directly or not. Default is false. If set true, the cluster and its All RELATED INSTANCES will be deleted instead of staying recycle bin. Note: works for both PREPAID and POSTPAID_BY_HOUR cluster.
                       Indicate whether to delete cluster instance directly or not. Default is false. If set true, the cluster and its `All RELATED INSTANCES` will be deleted instead of staying recycle bin. Note: works for both `PREPAID` and `POSTPAID_BY_HOUR` cluster.
                     type: boolean
+                  instanceCount:
+                    description: |-
+                      The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+                      The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+                    type: number
                   instanceCpuCore:
                     description: |-
                       The number of CPU cores of read-write type instance in the CynosDB cluster. Required while creating normal cluster. Note: modification of this field will take effect immediately, if want to upgrade on maintenance window, please upgrade from console.
@@ -583,7 +593,7 @@ spec:
                           type: string
                         instanceCount:
                           description: |-
-                            Instance count. Range: [1, 15].
+                            The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
                             Instance count. Range: [1, 15].
                           type: number
                         instanceType:
@@ -1144,8 +1154,8 @@ spec:
                     type: string
                   cynosVersion:
                     description: |-
-                      Kernel version, you can enter it when modifying.
-                      Kernel version, you can enter it when modifying.
+                      Kernel minor version, like 3.1.16.002.
+                      Kernel minor version, like `3.1.16.002`.
                     type: string
                   dbMode:
                     description: |-
@@ -1170,6 +1180,11 @@ spec:
                   id:
                     description: ID of the resource.
                     type: string
+                  instanceCount:
+                    description: |-
+                      The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+                      The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
+                    type: number
                   instanceCpuCore:
                     description: |-
                       The number of CPU cores of read-write type instance in the CynosDB cluster. Required while creating normal cluster. Note: modification of this field will take effect immediately, if want to upgrade on maintenance window, please upgrade from console.
@@ -1198,7 +1213,7 @@ spec:
                           type: string
                         instanceCount:
                           description: |-
-                            Instance count. Range: [1, 15].
+                            The number of instances, the range is (0,16], the default value is 2 (i.e. one RW instance + one Ro instance), the passed n means 1 RW instance + n-1 Ro instances (with the same specifications), if you need a more accurate cluster composition, please use InstanceInitInfos.
                             Instance count. Range: [1, 15].
                           type: number
                         instanceType:

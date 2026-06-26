@@ -166,8 +166,8 @@ spec:
                     type: string
                   clusterInternetSecurityGroup:
                     description: |-
-                      Specify security group, NOTE: This argument must not be empty if cluster internet enabled.
-                      Specify security group, NOTE: This argument must not be empty if cluster internet enabled.
+                      Security group ID for internet cluster endpoint. NOTE: This argument must not be empty if cluster internet enabled.
+                      Security group ID for internet cluster endpoint. NOTE: This argument must not be empty if cluster internet enabled.
                     type: string
                   clusterIntranet:
                     description: |-
@@ -178,6 +178,11 @@ spec:
                     description: |-
                       Domain name for cluster Kube-apiserver intranet access. Be careful if you modify value of this parameter, the pgw_endpoint value may be changed automatically too.
                       Domain name for cluster Kube-apiserver intranet access. Be careful if you modify value of this parameter, the pgw_endpoint value may be changed automatically too.
+                    type: string
+                  clusterIntranetSecurityGroup:
+                    description: |-
+                      Security group ID for intranet cluster endpoint.
+                      Security group ID for intranet cluster endpoint.
                     type: string
                   clusterIntranetSubnetId:
                     description: |-
@@ -375,8 +380,8 @@ spec:
                     type: string
                   clusterInternetSecurityGroup:
                     description: |-
-                      Specify security group, NOTE: This argument must not be empty if cluster internet enabled.
-                      Specify security group, NOTE: This argument must not be empty if cluster internet enabled.
+                      Security group ID for internet cluster endpoint. NOTE: This argument must not be empty if cluster internet enabled.
+                      Security group ID for internet cluster endpoint. NOTE: This argument must not be empty if cluster internet enabled.
                     type: string
                   clusterIntranet:
                     description: |-
@@ -387,6 +392,11 @@ spec:
                     description: |-
                       Domain name for cluster Kube-apiserver intranet access. Be careful if you modify value of this parameter, the pgw_endpoint value may be changed automatically too.
                       Domain name for cluster Kube-apiserver intranet access. Be careful if you modify value of this parameter, the pgw_endpoint value may be changed automatically too.
+                    type: string
+                  clusterIntranetSecurityGroup:
+                    description: |-
+                      Security group ID for intranet cluster endpoint.
+                      Security group ID for intranet cluster endpoint.
                     type: string
                   clusterIntranetSubnetId:
                     description: |-
@@ -684,8 +694,8 @@ spec:
                     type: string
                   clusterInternetSecurityGroup:
                     description: |-
-                      Specify security group, NOTE: This argument must not be empty if cluster internet enabled.
-                      Specify security group, NOTE: This argument must not be empty if cluster internet enabled.
+                      Security group ID for internet cluster endpoint. NOTE: This argument must not be empty if cluster internet enabled.
+                      Security group ID for internet cluster endpoint. NOTE: This argument must not be empty if cluster internet enabled.
                     type: string
                   clusterIntranet:
                     description: |-
@@ -696,6 +706,11 @@ spec:
                     description: |-
                       Domain name for cluster Kube-apiserver intranet access. Be careful if you modify value of this parameter, the pgw_endpoint value may be changed automatically too.
                       Domain name for cluster Kube-apiserver intranet access. Be careful if you modify value of this parameter, the pgw_endpoint value may be changed automatically too.
+                    type: string
+                  clusterIntranetSecurityGroup:
+                    description: |-
+                      Security group ID for intranet cluster endpoint.
+                      Security group ID for intranet cluster endpoint.
                     type: string
                   clusterIntranetSubnetId:
                     description: |-
@@ -714,16 +729,6 @@ spec:
                     type: string
                   id:
                     description: ID of the resource.
-                    type: string
-                  kubeConfig:
-                    description: |-
-                      The Intranet address used for access.
-                      The Intranet address used for access.
-                    type: string
-                  kubeConfigIntranet:
-                    description: |-
-                      Kubernetes config of private network.
-                      Kubernetes config of private network.
                     type: string
                   managedClusterInternetSecurityPolicies:
                     description: |-

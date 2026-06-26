@@ -267,7 +267,6 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"tencentcloud_kubernetes_scale_worker":       config.IdentifierFromProvider,
 	"tencentcloud_kubernetes_cluster_attachment": config.IdentifierFromProvider,
 	"tencentcloud_kubernetes_node_pool":          config.IdentifierFromProvider,
-	"tencentcloud_kubernetes_addon_attachment":   config.IdentifierFromProvider,
 	"tencentcloud_kubernetes_auth_attachment":    config.IdentifierFromProvider,
 	"tencentcloud_kubernetes_cluster_endpoint":   config.IdentifierFromProvider,
 	// vod

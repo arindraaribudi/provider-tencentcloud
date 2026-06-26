@@ -136,7 +136,7 @@ spec:
                         format:
                           description: |-
                             Compression format. Valid values: gzip, lzop, none (no compression).
-                            Content format. Valid values: json, csv.
+                            Content format. Valid values: json, csv, parquet.
                           type: string
                         json:
                           description: |-
@@ -159,6 +159,37 @@ spec:
                                   type: string
                                 type: array
                                 x-kubernetes-list-type: set
+                            type: object
+                          type: array
+                        parquet:
+                          description: |-
+                            Parquet format content description.Note: this field may return null, indicating that no valid values can be obtained.
+                            Parquet format content description.Note: this field may return null, indicating that no valid values can be obtained.
+                          items:
+                            properties:
+                              parquetKeyInfo:
+                                description: |-
+                                  Array of Parquet column definitions.
+                                  Array of Parquet column definitions.
+                                items:
+                                  properties:
+                                    keyName:
+                                      description: |-
+                                        Column name in the Parquet file.
+                                        Column name in the Parquet file.
+                                      type: string
+                                    keyNonExistingField:
+                                      description: |-
+                                        Value to assign when the field does not exist or parsing fails.
+                                        Value to assign when the field does not exist or parsing fails.
+                                      type: string
+                                    keyType:
+                                      description: |-
+                                        Data type of the column. Valid values: string, boolean, int32, int64, float, double.
+                                        Data type of the column. Valid values: string, boolean, int32, int64, float, double.
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                       type: object
@@ -387,7 +418,7 @@ spec:
                         format:
                           description: |-
                             Compression format. Valid values: gzip, lzop, none (no compression).
-                            Content format. Valid values: json, csv.
+                            Content format. Valid values: json, csv, parquet.
                           type: string
                         json:
                           description: |-
@@ -410,6 +441,37 @@ spec:
                                   type: string
                                 type: array
                                 x-kubernetes-list-type: set
+                            type: object
+                          type: array
+                        parquet:
+                          description: |-
+                            Parquet format content description.Note: this field may return null, indicating that no valid values can be obtained.
+                            Parquet format content description.Note: this field may return null, indicating that no valid values can be obtained.
+                          items:
+                            properties:
+                              parquetKeyInfo:
+                                description: |-
+                                  Array of Parquet column definitions.
+                                  Array of Parquet column definitions.
+                                items:
+                                  properties:
+                                    keyName:
+                                      description: |-
+                                        Column name in the Parquet file.
+                                        Column name in the Parquet file.
+                                      type: string
+                                    keyNonExistingField:
+                                      description: |-
+                                        Value to assign when the field does not exist or parsing fails.
+                                        Value to assign when the field does not exist or parsing fails.
+                                      type: string
+                                    keyType:
+                                      description: |-
+                                        Data type of the column. Valid values: string, boolean, int32, int64, float, double.
+                                        Data type of the column. Valid values: string, boolean, int32, int64, float, double.
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                       type: object
@@ -810,7 +872,7 @@ spec:
                         format:
                           description: |-
                             Compression format. Valid values: gzip, lzop, none (no compression).
-                            Content format. Valid values: json, csv.
+                            Content format. Valid values: json, csv, parquet.
                           type: string
                         json:
                           description: |-
@@ -833,6 +895,37 @@ spec:
                                   type: string
                                 type: array
                                 x-kubernetes-list-type: set
+                            type: object
+                          type: array
+                        parquet:
+                          description: |-
+                            Parquet format content description.Note: this field may return null, indicating that no valid values can be obtained.
+                            Parquet format content description.Note: this field may return null, indicating that no valid values can be obtained.
+                          items:
+                            properties:
+                              parquetKeyInfo:
+                                description: |-
+                                  Array of Parquet column definitions.
+                                  Array of Parquet column definitions.
+                                items:
+                                  properties:
+                                    keyName:
+                                      description: |-
+                                        Column name in the Parquet file.
+                                        Column name in the Parquet file.
+                                      type: string
+                                    keyNonExistingField:
+                                      description: |-
+                                        Value to assign when the field does not exist or parsing fails.
+                                        Value to assign when the field does not exist or parsing fails.
+                                      type: string
+                                    keyType:
+                                      description: |-
+                                        Data type of the column. Valid values: string, boolean, int32, int64, float, double.
+                                        Data type of the column. Valid values: string, boolean, int32, int64, float, double.
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                       type: object

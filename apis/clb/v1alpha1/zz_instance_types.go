@@ -13,11 +13,135 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ClassicalClusterInitParameters struct {
+
+	// Cluster ID.
+	// Unique cluster ID.
+	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Cluster name.
+	// Cluster name.
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	Zone *string `json:"zone,omitempty" tf:"zone,omitempty"`
+}
+
+type ClassicalClusterObservation struct {
+
+	// Cluster ID.
+	// Unique cluster ID.
+	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Cluster name.
+	// Cluster name.
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	Zone *string `json:"zone,omitempty" tf:"zone,omitempty"`
+}
+
+type ClassicalClusterParameters struct {
+
+	// Cluster ID.
+	// Unique cluster ID.
+	// +kubebuilder:validation:Optional
+	ClusterID *string `json:"clusterId" tf:"cluster_id,omitempty"`
+
+	// Cluster name.
+	// Cluster name.
+	// +kubebuilder:validation:Optional
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// +kubebuilder:validation:Optional
+	Zone *string `json:"zone,omitempty" tf:"zone,omitempty"`
+}
+
+type ExclusiveClusterInitParameters struct {
+
+	// vpcgw cluster
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// vpcgw cluster
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	ClassicalCluster []ClassicalClusterInitParameters `json:"classicalCluster,omitempty" tf:"classical_cluster,omitempty"`
+
+	// Layer-4 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Layer-4 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	L4Clusters []L4ClustersInitParameters `json:"l4Clusters,omitempty" tf:"l4_clusters,omitempty"`
+
+	// Layer-7 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Layer-7 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	L7Clusters []L7ClustersInitParameters `json:"l7Clusters,omitempty" tf:"l7_clusters,omitempty"`
+}
+
+type ExclusiveClusterObservation struct {
+
+	// vpcgw cluster
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// vpcgw cluster
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	ClassicalCluster []ClassicalClusterObservation `json:"classicalCluster,omitempty" tf:"classical_cluster,omitempty"`
+
+	// Layer-4 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Layer-4 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	L4Clusters []L4ClustersObservation `json:"l4Clusters,omitempty" tf:"l4_clusters,omitempty"`
+
+	// Layer-7 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Layer-7 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	L7Clusters []L7ClustersObservation `json:"l7Clusters,omitempty" tf:"l7_clusters,omitempty"`
+}
+
+type ExclusiveClusterParameters struct {
+
+	// vpcgw cluster
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// vpcgw cluster
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// +kubebuilder:validation:Optional
+	ClassicalCluster []ClassicalClusterParameters `json:"classicalCluster,omitempty" tf:"classical_cluster,omitempty"`
+
+	// Layer-4 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Layer-4 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// +kubebuilder:validation:Optional
+	L4Clusters []L4ClustersParameters `json:"l4Clusters,omitempty" tf:"l4_clusters,omitempty"`
+
+	// Layer-7 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Layer-7 dedicated cluster list
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// +kubebuilder:validation:Optional
+	L7Clusters []L7ClustersParameters `json:"l7Clusters,omitempty" tf:"l7_clusters,omitempty"`
+}
+
 type InstanceInitParameters struct {
 
 	// It's only applicable to public network CLB instances. IP version. Values: IPV4, IPV6 and IPv6FullChain (case-insensitive). Default: IPV4. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
 	// It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain` (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
 	AddressIPVersion *string `json:"addressIpVersion,omitempty" tf:"address_ip_version,omitempty"`
+
+	// The associated terminal node ID; passing an empty string indicates unassociating the node.
+	// The associated terminal node ID; passing an empty string indicates unassociating the node.
+	AssociateEndpoint *string `json:"associateEndpoint,omitempty" tf:"associate_endpoint,omitempty"`
 
 	// Bandwidth package id. If set, the internet_charge_type must be BANDWIDTH_PACKAGE.
 	// Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
@@ -42,6 +166,10 @@ type InstanceInitParameters struct {
 	// The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During the EIP change, there may be a brief network interruption.
 	// The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During the EIP change, there may be a brief network interruption.
 	EIPAddressID *string `json:"eipAddressId,omitempty" tf:"eip_address_id,omitempty"`
+
+	// Information about the dedicated CLB instance. You must specify this parameter when you create a dedicated CLB instance in a private network.
+	// Information about the dedicated CLB instance. You must specify this parameter when you create a dedicated CLB instance in a private network.
+	ExclusiveCluster []ExclusiveClusterInitParameters `json:"exclusiveCluster,omitempty" tf:"exclusive_cluster,omitempty"`
 
 	// Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is Mbps.
 	// Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is Mbps.
@@ -157,6 +285,10 @@ type InstanceObservation struct {
 	// The IPv6 address of the load balancing instance.
 	AddressIPv6 *string `json:"addressIpv6,omitempty" tf:"address_ipv6,omitempty"`
 
+	// The associated terminal node ID; passing an empty string indicates unassociating the node.
+	// The associated terminal node ID; passing an empty string indicates unassociating the node.
+	AssociateEndpoint *string `json:"associateEndpoint,omitempty" tf:"associate_endpoint,omitempty"`
+
 	// Bandwidth package id. If set, the internet_charge_type must be BANDWIDTH_PACKAGE.
 	// Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
 	BandwidthPackageID *string `json:"bandwidthPackageId,omitempty" tf:"bandwidth_package_id,omitempty"`
@@ -188,6 +320,10 @@ type InstanceObservation struct {
 	// The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During the EIP change, there may be a brief network interruption.
 	// The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During the EIP change, there may be a brief network interruption.
 	EIPAddressID *string `json:"eipAddressId,omitempty" tf:"eip_address_id,omitempty"`
+
+	// Information about the dedicated CLB instance. You must specify this parameter when you create a dedicated CLB instance in a private network.
+	// Information about the dedicated CLB instance. You must specify this parameter when you create a dedicated CLB instance in a private network.
+	ExclusiveCluster []ExclusiveClusterObservation `json:"exclusiveCluster,omitempty" tf:"exclusive_cluster,omitempty"`
 
 	// ID of the resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -289,6 +425,11 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	AddressIPVersion *string `json:"addressIpVersion,omitempty" tf:"address_ip_version,omitempty"`
 
+	// The associated terminal node ID; passing an empty string indicates unassociating the node.
+	// The associated terminal node ID; passing an empty string indicates unassociating the node.
+	// +kubebuilder:validation:Optional
+	AssociateEndpoint *string `json:"associateEndpoint,omitempty" tf:"associate_endpoint,omitempty"`
+
 	// Bandwidth package id. If set, the internet_charge_type must be BANDWIDTH_PACKAGE.
 	// Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
 	// +kubebuilder:validation:Optional
@@ -318,6 +459,11 @@ type InstanceParameters struct {
 	// The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During the EIP change, there may be a brief network interruption.
 	// +kubebuilder:validation:Optional
 	EIPAddressID *string `json:"eipAddressId,omitempty" tf:"eip_address_id,omitempty"`
+
+	// Information about the dedicated CLB instance. You must specify this parameter when you create a dedicated CLB instance in a private network.
+	// Information about the dedicated CLB instance. You must specify this parameter when you create a dedicated CLB instance in a private network.
+	// +kubebuilder:validation:Optional
+	ExclusiveCluster []ExclusiveClusterParameters `json:"exclusiveCluster,omitempty" tf:"exclusive_cluster,omitempty"`
 
 	// Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is Mbps.
 	// Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is Mbps.
@@ -442,6 +588,114 @@ type InstanceParameters struct {
 	// Available zone id, only applicable to open CLB.
 	// +kubebuilder:validation:Optional
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
+}
+
+type L4ClustersInitParameters struct {
+
+	// Cluster ID.
+	// Unique cluster ID.
+	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Cluster name.
+	// Cluster name.
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	Zone *string `json:"zone,omitempty" tf:"zone,omitempty"`
+}
+
+type L4ClustersObservation struct {
+
+	// Cluster ID.
+	// Unique cluster ID.
+	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Cluster name.
+	// Cluster name.
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	Zone *string `json:"zone,omitempty" tf:"zone,omitempty"`
+}
+
+type L4ClustersParameters struct {
+
+	// Cluster ID.
+	// Unique cluster ID.
+	// +kubebuilder:validation:Optional
+	ClusterID *string `json:"clusterId" tf:"cluster_id,omitempty"`
+
+	// Cluster name.
+	// Cluster name.
+	// +kubebuilder:validation:Optional
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// +kubebuilder:validation:Optional
+	Zone *string `json:"zone,omitempty" tf:"zone,omitempty"`
+}
+
+type L7ClustersInitParameters struct {
+
+	// Cluster ID.
+	// Unique cluster ID.
+	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Cluster name.
+	// Cluster name.
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	Zone *string `json:"zone,omitempty" tf:"zone,omitempty"`
+}
+
+type L7ClustersObservation struct {
+
+	// Cluster ID.
+	// Unique cluster ID.
+	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Cluster name.
+	// Cluster name.
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	Zone *string `json:"zone,omitempty" tf:"zone,omitempty"`
+}
+
+type L7ClustersParameters struct {
+
+	// Cluster ID.
+	// Unique cluster ID.
+	// +kubebuilder:validation:Optional
+	ClusterID *string `json:"clusterId" tf:"cluster_id,omitempty"`
+
+	// Cluster name.
+	// Cluster name.
+	// +kubebuilder:validation:Optional
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// Cluster AZ, such as ap-guangzhou-1
+	// Note: this field may return null, indicating that no valid values can be obtained.
+	// +kubebuilder:validation:Optional
+	Zone *string `json:"zone,omitempty" tf:"zone,omitempty"`
 }
 
 type SnatIpsInitParameters struct {

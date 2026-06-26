@@ -14,8 +14,7 @@ spec:
     ips:
     - ip: 172.16.0.1
       subnetId: subnet-12345678
-    - ip: 172.16.0.2
-      subnetId: subnet-12345678
+    - subnetId: subnet-56789012
 
 ---
 

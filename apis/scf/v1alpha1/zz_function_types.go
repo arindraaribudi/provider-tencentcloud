@@ -588,8 +588,11 @@ type ImageConfigInitParameters struct {
 	// The image type. personal or enterprise.
 	ImageType *string `json:"imageType,omitempty" tf:"image_type,omitempty"`
 
-	// The uri of image.
-	// The uri of image.
+	// The uri of image. Supports three formats:
+	// The uri of image. Supports three formats:
+	// - Format A: registry/repo:tag
+	// - Format B: registry/repo@sha256:digest
+	// - Format C: registry/repo:tag@sha256:digest.
 	ImageURI *string `json:"imageUri,omitempty" tf:"image_uri,omitempty"`
 
 	// The registry id of TCR. When image type is enterprise, it must be set.
@@ -623,8 +626,11 @@ type ImageConfigObservation struct {
 	// The image type. personal or enterprise.
 	ImageType *string `json:"imageType,omitempty" tf:"image_type,omitempty"`
 
-	// The uri of image.
-	// The uri of image.
+	// The uri of image. Supports three formats:
+	// The uri of image. Supports three formats:
+	// - Format A: registry/repo:tag
+	// - Format B: registry/repo@sha256:digest
+	// - Format C: registry/repo:tag@sha256:digest.
 	ImageURI *string `json:"imageUri,omitempty" tf:"image_uri,omitempty"`
 
 	// The registry id of TCR. When image type is enterprise, it must be set.
@@ -664,8 +670,11 @@ type ImageConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	ImageType *string `json:"imageType" tf:"image_type,omitempty"`
 
-	// The uri of image.
-	// The uri of image.
+	// The uri of image. Supports three formats:
+	// The uri of image. Supports three formats:
+	// - Format A: registry/repo:tag
+	// - Format B: registry/repo@sha256:digest
+	// - Format C: registry/repo:tag@sha256:digest.
 	// +kubebuilder:validation:Optional
 	ImageURI *string `json:"imageUri" tf:"image_uri,omitempty"`
 

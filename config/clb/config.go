@@ -16,7 +16,14 @@ limitations under the License.
 
 package clb
 
-import "github.com/crossplane/upjet/pkg/config"
+import (
+	"context"
+	"fmt"
+
+	"github.com/crossplane/upjet/pkg/config"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/customdiff"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+)
 
 const shortGroupClb = "clb"
 
@@ -48,7 +55,25 @@ func Configure(p *config.Provider) {
 			Type: "Instance",
 		}
 		r.References["listener_id"] = config.Reference{
-			Type: "Listener",
+			Type:      "Listener",
+			Extractor: "github.com/crossplane/upjet/pkg/resource.ExtractParamPath(\"listener_id\",true)",
+		}
+		// domain and domains are mutually exclusive: the API accepts only one.
+		// The upstream schema does not declare ConflictsWith, so both fields can
+		// be populated simultaneously (e.g. domain late-initialized from the API
+		// response while domains is set in spec), causing refresh to fail.
+		if s, ok := r.TerraformResource.Schema["domain"]; ok {
+			s.ConflictsWith = []string{"domains"}
+		}
+		if s, ok := r.TerraformResource.Schema["domains"]; ok {
+			s.ConflictsWith = []string{"domain"}
+		}
+		// Prevent late-init from copying whichever field the user did NOT set.
+		// The API echoes both domain and domains in its response; without this
+		// guard, the unused field gets injected into spec and triggers the
+		// ConflictsWith error on the next reconcile.
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{"domain", "domains"},
 		}
 	})
 
@@ -59,10 +84,12 @@ func Configure(p *config.Provider) {
 			Type: "Instance",
 		}
 		r.References["listener_id"] = config.Reference{
-			Type: "Listener",
+			Type:      "Listener",
+			Extractor: "github.com/crossplane/upjet/pkg/resource.ExtractParamPath(\"listener_id\",true)",
 		}
 		r.References["rule_id"] = config.Reference{
-			Type: "ListenerRule",
+			Type:      "ListenerRule",
+			Extractor: "github.com/crossplane/upjet/pkg/resource.ExtractParamPath(\"rule_id\",true)",
 		}
 	})
 
@@ -91,10 +118,12 @@ func Configure(p *config.Provider) {
 			Type: "Instance",
 		}
 		r.References["source_listener_id"] = config.Reference{
-			Type: "Listener",
+			Type:      "Listener",
+			Extractor: "github.com/crossplane/upjet/pkg/resource.ExtractParamPath(\"listener_id\",true)",
 		}
 		r.References["target_listener_id"] = config.Reference{
-			Type: "Listener",
+			Type:      "Listener",
+			Extractor: "github.com/crossplane/upjet/pkg/resource.ExtractParamPath(\"listener_id\",true)",
 		}
 		r.References["source_rule_id"] = config.Reference{
 			Type: "ListenerRule",
@@ -115,6 +144,31 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("tencentcloud_clb_target_group", func(r *config.Resource) {
 		r.ShortGroup = shortGroupClb
 		r.Kind = "TargetGroup"
+		r.References["vpc_id"] = config.Reference{
+			Type: "github.com/crossplane-contrib/provider-tencentcloud/apis/vpc/v1alpha1.VPC",
+		}
+		// Protocol is required by TencentCloud API when type=v2 but the upstream
+		// Terraform schema marks it optional. Enforce it here to surface the error
+		// at plan time rather than getting a cryptic API error during apply.
+		//
+		// type is ForceNew: the TencentCloud API does not support in-place type
+		// changes (v1→v2). Without ForceNew the controller would send a no-op
+		// update, leaving a v1 TG on the API side and causing
+		// "not targetgroup v2 mode" errors on TargetGroupAttachment apply.
+		r.TerraformResource.CustomizeDiff = customdiff.All(
+			r.TerraformResource.CustomizeDiff,
+			func(_ context.Context, d *schema.ResourceDiff, _ any) error {
+				t, _ := d.GetOk("type")
+				p, _ := d.GetOk("protocol")
+				if t == "v2" && (p == nil || p == "") {
+					return fmt.Errorf("protocol is required when type is v2")
+				}
+				return nil
+			},
+			customdiff.ForceNewIfChange("type", func(_ context.Context, old, new, _ interface{}) bool {
+				return old != new
+			}),
+		)
 	})
 
 	p.AddResourceConfigurator("tencentcloud_clb_target_group_attachment", func(r *config.Resource) {
@@ -124,10 +178,12 @@ func Configure(p *config.Provider) {
 			Type: "Instance",
 		}
 		r.References["listener_id"] = config.Reference{
-			Type: "Listener",
+			Type:      "Listener",
+			Extractor: "github.com/crossplane/upjet/pkg/resource.ExtractParamPath(\"listener_id\",true)",
 		}
 		r.References["rule_id"] = config.Reference{
-			Type: "ListenerRule",
+			Type:      "ListenerRule",
+			Extractor: "github.com/crossplane/upjet/pkg/resource.ExtractParamPath(\"rule_id\",true)",
 		}
 		r.References["target_group_id"] = config.Reference{
 			Type: "TargetGroup",

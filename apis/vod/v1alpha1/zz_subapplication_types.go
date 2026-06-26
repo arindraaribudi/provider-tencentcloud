@@ -26,6 +26,11 @@ type SubApplicationInitParameters struct {
 	// Sub appliaction status.
 	// Sub appliaction status.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// Tag key-value pairs for resource management. Maximum 10 tags.
+	// Tag key-value pairs for resource management. Maximum 10 tags.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type SubApplicationObservation struct {
@@ -48,6 +53,11 @@ type SubApplicationObservation struct {
 	// Sub appliaction status.
 	// Sub appliaction status.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// Tag key-value pairs for resource management. Maximum 10 tags.
+	// Tag key-value pairs for resource management. Maximum 10 tags.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type SubApplicationParameters struct {
@@ -66,6 +76,12 @@ type SubApplicationParameters struct {
 	// Sub appliaction status.
 	// +kubebuilder:validation:Optional
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// Tag key-value pairs for resource management. Maximum 10 tags.
+	// Tag key-value pairs for resource management. Maximum 10 tags.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 // SubApplicationSpec defines the desired state of SubApplication

@@ -35,6 +35,7 @@ type AttachmentInitParameters struct {
 	// ID of the CLB listener.
 	// ID of the CLB listener.
 	// +crossplane:generate:reference:type=Listener
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("listener_id",true)
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
 	// Reference to a Listener to populate listenerId.
@@ -48,6 +49,7 @@ type AttachmentInitParameters struct {
 	// ID of the CLB listener rule. Only supports listeners of HTTPS and HTTP protocol.
 	// ID of the CLB listener rule. Only supports listeners of `HTTPS` and `HTTP` protocol.
 	// +crossplane:generate:reference:type=ListenerRule
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("rule_id",true)
 	RuleID *string `json:"ruleId,omitempty" tf:"rule_id,omitempty"`
 
 	// Reference to a ListenerRule to populate ruleId.
@@ -125,6 +127,7 @@ type AttachmentParameters struct {
 	// ID of the CLB listener.
 	// ID of the CLB listener.
 	// +crossplane:generate:reference:type=Listener
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("listener_id",true)
 	// +kubebuilder:validation:Optional
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
@@ -139,6 +142,7 @@ type AttachmentParameters struct {
 	// ID of the CLB listener rule. Only supports listeners of HTTPS and HTTP protocol.
 	// ID of the CLB listener rule. Only supports listeners of `HTTPS` and `HTTP` protocol.
 	// +crossplane:generate:reference:type=ListenerRule
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("rule_id",true)
 	// +kubebuilder:validation:Optional
 	RuleID *string `json:"ruleId,omitempty" tf:"rule_id,omitempty"`
 

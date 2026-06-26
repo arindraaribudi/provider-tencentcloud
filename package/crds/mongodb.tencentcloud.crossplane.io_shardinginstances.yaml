@@ -105,8 +105,15 @@ spec:
                     type: string
                   engineVersion:
                     description: |-
-                      Version of the Mongodb, and available values include MONGO_36_WT (MongoDB 3.6 WiredTiger Edition), MONGO_40_WT (MongoDB 4.0 WiredTiger Edition) and MONGO_42_WT  (MongoDB 4.2 WiredTiger Edition). NOTE: MONGO_3_WT (MongoDB 3.2 WiredTiger Edition) and MONGO_3_ROCKS (MongoDB 3.2 RocksDB Edition) will deprecated.
-                      Version of the Mongodb, and available values include `MONGO_36_WT` (MongoDB 3.6 WiredTiger Edition), `MONGO_40_WT` (MongoDB 4.0 WiredTiger Edition) and `MONGO_42_WT`  (MongoDB 4.2 WiredTiger Edition). NOTE: `MONGO_3_WT` (MongoDB 3.2 WiredTiger Edition) and `MONGO_3_ROCKS` (MongoDB 3.2 RocksDB Edition) will deprecated.
+                      Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+                      Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+                      - MONGO_40_WT: version of the MongoDB 4.0 WiredTiger storage engine.
+                      - MONGO_42_WT: version of the MongoDB 4.2 WiredTiger storage engine.
+                      - MONGO_44_WT: version of the MongoDB 4.4 WiredTiger storage engine.
+                      - MONGO_50_WT: version of the MongoDB 5.0 WiredTiger storage engine.
+                      - MONGO_60_WT: version of the MongoDB 6.0 WiredTiger storage engine.
+                      - MONGO_70_WT: version of the MongoDB 7.0 WiredTiger storage engine.
+                      - MONGO_80_WT: version of the MongoDB 8.0 WiredTiger storage engine.
                     type: string
                   hiddenZone:
                     description: |-
@@ -153,8 +160,8 @@ spec:
                     type: number
                   nodesPerShard:
                     description: |-
-                      Number of nodes per shard, at least 3(one master and two slaves).
-                      Number of nodes per shard, at least 3(one master and two slaves).
+                      Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
+                      Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
                     type: number
                   passwordSecretRef:
                     description: |-
@@ -415,8 +422,15 @@ spec:
                     type: string
                   engineVersion:
                     description: |-
-                      Version of the Mongodb, and available values include MONGO_36_WT (MongoDB 3.6 WiredTiger Edition), MONGO_40_WT (MongoDB 4.0 WiredTiger Edition) and MONGO_42_WT  (MongoDB 4.2 WiredTiger Edition). NOTE: MONGO_3_WT (MongoDB 3.2 WiredTiger Edition) and MONGO_3_ROCKS (MongoDB 3.2 RocksDB Edition) will deprecated.
-                      Version of the Mongodb, and available values include `MONGO_36_WT` (MongoDB 3.6 WiredTiger Edition), `MONGO_40_WT` (MongoDB 4.0 WiredTiger Edition) and `MONGO_42_WT`  (MongoDB 4.2 WiredTiger Edition). NOTE: `MONGO_3_WT` (MongoDB 3.2 WiredTiger Edition) and `MONGO_3_ROCKS` (MongoDB 3.2 RocksDB Edition) will deprecated.
+                      Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+                      Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+                      - MONGO_40_WT: version of the MongoDB 4.0 WiredTiger storage engine.
+                      - MONGO_42_WT: version of the MongoDB 4.2 WiredTiger storage engine.
+                      - MONGO_44_WT: version of the MongoDB 4.4 WiredTiger storage engine.
+                      - MONGO_50_WT: version of the MongoDB 5.0 WiredTiger storage engine.
+                      - MONGO_60_WT: version of the MongoDB 6.0 WiredTiger storage engine.
+                      - MONGO_70_WT: version of the MongoDB 7.0 WiredTiger storage engine.
+                      - MONGO_80_WT: version of the MongoDB 8.0 WiredTiger storage engine.
                     type: string
                   hiddenZone:
                     description: |-
@@ -463,8 +477,8 @@ spec:
                     type: number
                   nodesPerShard:
                     description: |-
-                      Number of nodes per shard, at least 3(one master and two slaves).
-                      Number of nodes per shard, at least 3(one master and two slaves).
+                      Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
+                      Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
                     type: number
                   prepaidPeriod:
                     description: |-
@@ -903,8 +917,15 @@ spec:
                     type: string
                   engineVersion:
                     description: |-
-                      Version of the Mongodb, and available values include MONGO_36_WT (MongoDB 3.6 WiredTiger Edition), MONGO_40_WT (MongoDB 4.0 WiredTiger Edition) and MONGO_42_WT  (MongoDB 4.2 WiredTiger Edition). NOTE: MONGO_3_WT (MongoDB 3.2 WiredTiger Edition) and MONGO_3_ROCKS (MongoDB 3.2 RocksDB Edition) will deprecated.
-                      Version of the Mongodb, and available values include `MONGO_36_WT` (MongoDB 3.6 WiredTiger Edition), `MONGO_40_WT` (MongoDB 4.0 WiredTiger Edition) and `MONGO_42_WT`  (MongoDB 4.2 WiredTiger Edition). NOTE: `MONGO_3_WT` (MongoDB 3.2 WiredTiger Edition) and `MONGO_3_ROCKS` (MongoDB 3.2 RocksDB Edition) will deprecated.
+                      Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+                      Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+                      - MONGO_40_WT: version of the MongoDB 4.0 WiredTiger storage engine.
+                      - MONGO_42_WT: version of the MongoDB 4.2 WiredTiger storage engine.
+                      - MONGO_44_WT: version of the MongoDB 4.4 WiredTiger storage engine.
+                      - MONGO_50_WT: version of the MongoDB 5.0 WiredTiger storage engine.
+                      - MONGO_60_WT: version of the MongoDB 6.0 WiredTiger storage engine.
+                      - MONGO_70_WT: version of the MongoDB 7.0 WiredTiger storage engine.
+                      - MONGO_80_WT: version of the MongoDB 8.0 WiredTiger storage engine.
                     type: string
                   hiddenZone:
                     description: |-
@@ -954,8 +975,8 @@ spec:
                     type: number
                   nodesPerShard:
                     description: |-
-                      Number of nodes per shard, at least 3(one master and two slaves).
-                      Number of nodes per shard, at least 3(one master and two slaves).
+                      Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
+                      Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
                     type: number
                   prepaidPeriod:
                     description: |-

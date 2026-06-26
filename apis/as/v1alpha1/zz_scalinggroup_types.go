@@ -129,6 +129,10 @@ type ScalingGroupInitParameters struct {
 	// Multi zone or subnet strategy, Valid values: PRIORITY and EQUALITY.
 	MultiZoneSubnetPolicy *string `json:"multiZoneSubnetPolicy,omitempty" tf:"multi_zone_subnet_policy,omitempty"`
 
+	// Whether to enable priority for unhealthy instances during scale-in operations. If set to true, unhealthy instances will be removed first when scaling in.
+	// Whether to enable priority for unhealthy instances during scale-in operations. If set to `true`, unhealthy instances will be removed first when scaling in.
+	PriorityScaleInUnhealthy *bool `json:"priorityScaleInUnhealthy,omitempty" tf:"priority_scale_in_unhealthy,omitempty"`
+
 	// Specifies to which project the scaling group belongs.
 	// Specifies to which project the scaling group belongs.
 	ProjectID *float64 `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -235,6 +239,10 @@ type ScalingGroupObservation struct {
 	// Multi zone or subnet strategy, Valid values: PRIORITY and EQUALITY.
 	// Multi zone or subnet strategy, Valid values: PRIORITY and EQUALITY.
 	MultiZoneSubnetPolicy *string `json:"multiZoneSubnetPolicy,omitempty" tf:"multi_zone_subnet_policy,omitempty"`
+
+	// Whether to enable priority for unhealthy instances during scale-in operations. If set to true, unhealthy instances will be removed first when scaling in.
+	// Whether to enable priority for unhealthy instances during scale-in operations. If set to `true`, unhealthy instances will be removed first when scaling in.
+	PriorityScaleInUnhealthy *bool `json:"priorityScaleInUnhealthy,omitempty" tf:"priority_scale_in_unhealthy,omitempty"`
 
 	// Specifies to which project the scaling group belongs.
 	// Specifies to which project the scaling group belongs.
@@ -355,6 +363,11 @@ type ScalingGroupParameters struct {
 	// Multi zone or subnet strategy, Valid values: PRIORITY and EQUALITY.
 	// +kubebuilder:validation:Optional
 	MultiZoneSubnetPolicy *string `json:"multiZoneSubnetPolicy,omitempty" tf:"multi_zone_subnet_policy,omitempty"`
+
+	// Whether to enable priority for unhealthy instances during scale-in operations. If set to true, unhealthy instances will be removed first when scaling in.
+	// Whether to enable priority for unhealthy instances during scale-in operations. If set to `true`, unhealthy instances will be removed first when scaling in.
+	// +kubebuilder:validation:Optional
+	PriorityScaleInUnhealthy *bool `json:"priorityScaleInUnhealthy,omitempty" tf:"priority_scale_in_unhealthy,omitempty"`
 
 	// Specifies to which project the scaling group belongs.
 	// Specifies to which project the scaling group belongs.

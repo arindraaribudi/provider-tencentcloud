@@ -39,8 +39,15 @@ type ShardingInstanceInitParameters struct {
 	// The charge type of instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`. Default value is `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR`. Caution that update operation on this field will delete old instances and create new one with new charge type.
 	ChargeType *string `json:"chargeType,omitempty" tf:"charge_type,omitempty"`
 
-	// Version of the Mongodb, and available values include MONGO_36_WT (MongoDB 3.6 WiredTiger Edition), MONGO_40_WT (MongoDB 4.0 WiredTiger Edition) and MONGO_42_WT  (MongoDB 4.2 WiredTiger Edition). NOTE: MONGO_3_WT (MongoDB 3.2 WiredTiger Edition) and MONGO_3_ROCKS (MongoDB 3.2 RocksDB Edition) will deprecated.
-	// Version of the Mongodb, and available values include `MONGO_36_WT` (MongoDB 3.6 WiredTiger Edition), `MONGO_40_WT` (MongoDB 4.0 WiredTiger Edition) and `MONGO_42_WT`  (MongoDB 4.2 WiredTiger Edition). NOTE: `MONGO_3_WT` (MongoDB 3.2 WiredTiger Edition) and `MONGO_3_ROCKS` (MongoDB 3.2 RocksDB Edition) will deprecated.
+	// Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+	// Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+	// - MONGO_40_WT: version of the MongoDB 4.0 WiredTiger storage engine.
+	// - MONGO_42_WT: version of the MongoDB 4.2 WiredTiger storage engine.
+	// - MONGO_44_WT: version of the MongoDB 4.4 WiredTiger storage engine.
+	// - MONGO_50_WT: version of the MongoDB 5.0 WiredTiger storage engine.
+	// - MONGO_60_WT: version of the MongoDB 6.0 WiredTiger storage engine.
+	// - MONGO_70_WT: version of the MongoDB 7.0 WiredTiger storage engine.
+	// - MONGO_80_WT: version of the MongoDB 8.0 WiredTiger storage engine.
 	EngineVersion *string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
 
 	// The availability zone to which the Hidden node belongs. This parameter is required in cross-AZ instance deployment.
@@ -78,8 +85,8 @@ type ShardingInstanceInitParameters struct {
 	// Number of mongos.
 	MongosNodeNum *float64 `json:"mongosNodeNum,omitempty" tf:"mongos_node_num,omitempty"`
 
-	// Number of nodes per shard, at least 3(one master and two slaves).
-	// Number of nodes per shard, at least 3(one master and two slaves).
+	// Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
+	// Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
 	NodesPerShard *float64 `json:"nodesPerShard,omitempty" tf:"nodes_per_shard,omitempty"`
 
 	// The tenancy (time unit is month) of the prepaid instance. Valid values are 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24, 36. NOTE: it only works when charge_type is set to PREPAID.
@@ -165,8 +172,15 @@ type ShardingInstanceObservation struct {
 	// Creation time of the Mongodb instance.
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
-	// Version of the Mongodb, and available values include MONGO_36_WT (MongoDB 3.6 WiredTiger Edition), MONGO_40_WT (MongoDB 4.0 WiredTiger Edition) and MONGO_42_WT  (MongoDB 4.2 WiredTiger Edition). NOTE: MONGO_3_WT (MongoDB 3.2 WiredTiger Edition) and MONGO_3_ROCKS (MongoDB 3.2 RocksDB Edition) will deprecated.
-	// Version of the Mongodb, and available values include `MONGO_36_WT` (MongoDB 3.6 WiredTiger Edition), `MONGO_40_WT` (MongoDB 4.0 WiredTiger Edition) and `MONGO_42_WT`  (MongoDB 4.2 WiredTiger Edition). NOTE: `MONGO_3_WT` (MongoDB 3.2 WiredTiger Edition) and `MONGO_3_ROCKS` (MongoDB 3.2 RocksDB Edition) will deprecated.
+	// Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+	// Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+	// - MONGO_40_WT: version of the MongoDB 4.0 WiredTiger storage engine.
+	// - MONGO_42_WT: version of the MongoDB 4.2 WiredTiger storage engine.
+	// - MONGO_44_WT: version of the MongoDB 4.4 WiredTiger storage engine.
+	// - MONGO_50_WT: version of the MongoDB 5.0 WiredTiger storage engine.
+	// - MONGO_60_WT: version of the MongoDB 6.0 WiredTiger storage engine.
+	// - MONGO_70_WT: version of the MongoDB 7.0 WiredTiger storage engine.
+	// - MONGO_80_WT: version of the MongoDB 8.0 WiredTiger storage engine.
 	EngineVersion *string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
 
 	// The availability zone to which the Hidden node belongs. This parameter is required in cross-AZ instance deployment.
@@ -207,8 +221,8 @@ type ShardingInstanceObservation struct {
 	// Number of mongos.
 	MongosNodeNum *float64 `json:"mongosNodeNum,omitempty" tf:"mongos_node_num,omitempty"`
 
-	// Number of nodes per shard, at least 3(one master and two slaves).
-	// Number of nodes per shard, at least 3(one master and two slaves).
+	// Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
+	// Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
 	NodesPerShard *float64 `json:"nodesPerShard,omitempty" tf:"nodes_per_shard,omitempty"`
 
 	// The tenancy (time unit is month) of the prepaid instance. Valid values are 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24, 36. NOTE: it only works when charge_type is set to PREPAID.
@@ -288,8 +302,15 @@ type ShardingInstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	ChargeType *string `json:"chargeType,omitempty" tf:"charge_type,omitempty"`
 
-	// Version of the Mongodb, and available values include MONGO_36_WT (MongoDB 3.6 WiredTiger Edition), MONGO_40_WT (MongoDB 4.0 WiredTiger Edition) and MONGO_42_WT  (MongoDB 4.2 WiredTiger Edition). NOTE: MONGO_3_WT (MongoDB 3.2 WiredTiger Edition) and MONGO_3_ROCKS (MongoDB 3.2 RocksDB Edition) will deprecated.
-	// Version of the Mongodb, and available values include `MONGO_36_WT` (MongoDB 3.6 WiredTiger Edition), `MONGO_40_WT` (MongoDB 4.0 WiredTiger Edition) and `MONGO_42_WT`  (MongoDB 4.2 WiredTiger Edition). NOTE: `MONGO_3_WT` (MongoDB 3.2 WiredTiger Edition) and `MONGO_3_ROCKS` (MongoDB 3.2 RocksDB Edition) will deprecated.
+	// Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+	// Refers to version information. The DescribeSpecInfo API can be called to obtain detailed information about the supported versions.
+	// - MONGO_40_WT: version of the MongoDB 4.0 WiredTiger storage engine.
+	// - MONGO_42_WT: version of the MongoDB 4.2 WiredTiger storage engine.
+	// - MONGO_44_WT: version of the MongoDB 4.4 WiredTiger storage engine.
+	// - MONGO_50_WT: version of the MongoDB 5.0 WiredTiger storage engine.
+	// - MONGO_60_WT: version of the MongoDB 6.0 WiredTiger storage engine.
+	// - MONGO_70_WT: version of the MongoDB 7.0 WiredTiger storage engine.
+	// - MONGO_80_WT: version of the MongoDB 8.0 WiredTiger storage engine.
 	// +kubebuilder:validation:Optional
 	EngineVersion *string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
 
@@ -336,8 +357,8 @@ type ShardingInstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	MongosNodeNum *float64 `json:"mongosNodeNum,omitempty" tf:"mongos_node_num,omitempty"`
 
-	// Number of nodes per shard, at least 3(one master and two slaves).
-	// Number of nodes per shard, at least 3(one master and two slaves).
+	// Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
+	// Number of nodes per shard, at least 3(one master and two slaves). Allow value[3, 5, 7].
 	// +kubebuilder:validation:Optional
 	NodesPerShard *float64 `json:"nodesPerShard,omitempty" tf:"nodes_per_shard,omitempty"`
 

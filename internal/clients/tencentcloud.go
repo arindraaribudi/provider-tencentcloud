@@ -7,7 +7,9 @@ package clients
 import (
 	"context"
 	"encoding/json"
+	"os"
 
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/types"
@@ -25,9 +27,16 @@ const (
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal tencentcloud credentials as JSON"
+	errMissingWebIdentityEnv = "TKE pod identity requires TKE_ROLE_ARN, TKE_WEB_IDENTITY_TOKEN_FILE, and TKE_PROVIDER_ID env vars"
 	keySecretID             = "secret_id"
 	keySecretKey            = "secret_key"
 	keyRegion               = "region"
+
+	tkeEnvRoleARN              = "TKE_ROLE_ARN"
+	tkeEnvWebIdentityTokenFile = "TKE_WEB_IDENTITY_TOKEN_FILE"
+	tkeEnvProviderID           = "TKE_PROVIDER_ID"
+	tkeEnvRegion               = "TKE_REGION"
+	tkeEnvDefaultRegion        = "TKE_DEFAULT_REGION"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -56,6 +65,38 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			return ps, errors.Wrap(err, errTrackUsage)
 		}
 
+		ps.Configuration = map[string]interface{}{}
+
+		if pc.Spec.Credentials.Source == xpv1.CredentialsSourceInjectedIdentity {
+			roleARN := os.Getenv(tkeEnvRoleARN)
+			tokenFile := os.Getenv(tkeEnvWebIdentityTokenFile)
+			providerID := os.Getenv(tkeEnvProviderID)
+			if roleARN == "" || tokenFile == "" || providerID == "" {
+				return ps, errors.New(errMissingWebIdentityEnv)
+			}
+			tokenBytes, err := os.ReadFile(tokenFile)
+			if err != nil {
+				return ps, errors.Wrap(err, "cannot read web identity token file")
+			}
+			ps.Configuration["assume_role_with_web_identity"] = []interface{}{
+				map[string]interface{}{
+					"provider_id":        providerID,
+					"role_arn":           roleARN,
+					"session_name":       "crossplane",
+					"session_duration":   3600,
+					"web_identity_token": string(tokenBytes),
+				},
+			}
+			region := os.Getenv(tkeEnvRegion)
+			if region == "" {
+				region = os.Getenv(tkeEnvDefaultRegion)
+			}
+			if region != "" {
+				ps.Configuration[keyRegion] = region
+			}
+			return ps, nil
+		}
+
 		data, err := resource.CommonCredentialExtractor(ctx, pc.Spec.Credentials.Source, client, pc.Spec.Credentials.CommonCredentialSelectors)
 		if err != nil {
 			return ps, errors.Wrap(err, errExtractCredentials)
@@ -65,8 +106,6 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
-		// Set credentials in Terraform provider configuration.
-		ps.Configuration = map[string]interface{}{}
 		if v, ok := creds[keySecretID]; ok {
 			ps.Configuration[keySecretID] = v
 		}

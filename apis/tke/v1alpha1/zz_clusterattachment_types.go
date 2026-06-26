@@ -280,8 +280,8 @@ type ClusterAttachmentWorkerConfigInitParameters struct {
 	// Indicate to set desired pod number in node. valid when the cluster is podCIDR.
 	DesiredPodNum *float64 `json:"desiredPodNum,omitempty" tf:"desired_pod_num,omitempty"`
 
-	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-	// Docker graph path. Default is `/var/lib/docker`.
+	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+	// Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
 	DockerGraphPath *string `json:"dockerGraphPath,omitempty" tf:"docker_graph_path,omitempty"`
 
 	// This argument was no longer supported by TencentCloud TKE. Custom parameter information related to the node. This is a white-list parameter.
@@ -323,8 +323,8 @@ type ClusterAttachmentWorkerConfigObservation struct {
 	// Indicate to set desired pod number in node. valid when the cluster is podCIDR.
 	DesiredPodNum *float64 `json:"desiredPodNum,omitempty" tf:"desired_pod_num,omitempty"`
 
-	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-	// Docker graph path. Default is `/var/lib/docker`.
+	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+	// Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
 	DockerGraphPath *string `json:"dockerGraphPath,omitempty" tf:"docker_graph_path,omitempty"`
 
 	// This argument was no longer supported by TencentCloud TKE. Custom parameter information related to the node. This is a white-list parameter.
@@ -368,8 +368,8 @@ type ClusterAttachmentWorkerConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	DesiredPodNum *float64 `json:"desiredPodNum,omitempty" tf:"desired_pod_num,omitempty"`
 
-	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-	// Docker graph path. Default is `/var/lib/docker`.
+	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+	// Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
 	// +kubebuilder:validation:Optional
 	DockerGraphPath *string `json:"dockerGraphPath,omitempty" tf:"docker_graph_path,omitempty"`
 
@@ -678,8 +678,8 @@ type WorkerConfigOverridesInitParameters struct {
 	// Indicate to set desired pod number in node. valid when the cluster is podCIDR.
 	DesiredPodNum *float64 `json:"desiredPodNum,omitempty" tf:"desired_pod_num,omitempty"`
 
-	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-	// Docker graph path. Default is `/var/lib/docker`.
+	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+	// Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
 	DockerGraphPath *string `json:"dockerGraphPath,omitempty" tf:"docker_graph_path,omitempty"`
 
 	// This argument was no longer supported by TencentCloud TKE. Custom parameter information related to the node. This is a white-list parameter.
@@ -717,8 +717,8 @@ type WorkerConfigOverridesObservation struct {
 	// Indicate to set desired pod number in node. valid when the cluster is podCIDR.
 	DesiredPodNum *float64 `json:"desiredPodNum,omitempty" tf:"desired_pod_num,omitempty"`
 
-	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-	// Docker graph path. Default is `/var/lib/docker`.
+	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+	// Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
 	DockerGraphPath *string `json:"dockerGraphPath,omitempty" tf:"docker_graph_path,omitempty"`
 
 	// This argument was no longer supported by TencentCloud TKE. Custom parameter information related to the node. This is a white-list parameter.
@@ -758,8 +758,8 @@ type WorkerConfigOverridesParameters struct {
 	// +kubebuilder:validation:Optional
 	DesiredPodNum *float64 `json:"desiredPodNum,omitempty" tf:"desired_pod_num,omitempty"`
 
-	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is /var/lib/docker.
-	// Docker graph path. Default is `/var/lib/docker`.
+	// This argument was no longer supported by TencentCloud TKE. Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
+	// Docker graph path. Default is determined by the platform (currently /var/lib/containerd for containerd-based nodes).
 	// +kubebuilder:validation:Optional
 	DockerGraphPath *string `json:"dockerGraphPath,omitempty" tf:"docker_graph_path,omitempty"`
 

@@ -375,8 +375,8 @@ spec:
                     type: boolean
                   scheduler:
                     description: |-
-                      Scheduling method of the CLB listener rules. Valid values: WRR, IP HASH, LEAST_CONN. The default is WRR.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
-                      Scheduling method of the CLB listener rules. Valid values: `WRR`, `IP HASH`, `LEAST_CONN`. The default is `WRR`.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in `tencentcloud_clb_listener_rule`.
+                      Scheduling method of the CLB listener rules. Valid values: WRR, IP HASH, LEAST_CONN. The default is WRR when target_type is not TARGETGROUP-V2.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+                      Scheduling method of the CLB listener rules. Valid values: `WRR`, `IP HASH`, `LEAST_CONN`. The default is `WRR` when `target_type` is not `TARGETGROUP-V2`.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in `tencentcloud_clb_listener_rule`.
                     type: string
                   sessionExpireTime:
                     description: |-
@@ -385,8 +385,8 @@ spec:
                     type: number
                   targetType:
                     description: |-
-                      Backend target type. Valid values: NODE, TARGETGROUP. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group.
-                      Backend target type. Valid values: `NODE`, `TARGETGROUP`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group.
+                      Backend target type. Valid values: NODE, TARGETGROUP, TARGETGROUP-V2. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group.
+                      Backend target type. Valid values: `NODE`, `TARGETGROUP`, `TARGETGROUP-V2`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group.
                     type: string
                   url:
                     description: |-
@@ -709,8 +709,8 @@ spec:
                     type: boolean
                   scheduler:
                     description: |-
-                      Scheduling method of the CLB listener rules. Valid values: WRR, IP HASH, LEAST_CONN. The default is WRR.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
-                      Scheduling method of the CLB listener rules. Valid values: `WRR`, `IP HASH`, `LEAST_CONN`. The default is `WRR`.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in `tencentcloud_clb_listener_rule`.
+                      Scheduling method of the CLB listener rules. Valid values: WRR, IP HASH, LEAST_CONN. The default is WRR when target_type is not TARGETGROUP-V2.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+                      Scheduling method of the CLB listener rules. Valid values: `WRR`, `IP HASH`, `LEAST_CONN`. The default is `WRR` when `target_type` is not `TARGETGROUP-V2`.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in `tencentcloud_clb_listener_rule`.
                     type: string
                   sessionExpireTime:
                     description: |-
@@ -719,8 +719,8 @@ spec:
                     type: number
                   targetType:
                     description: |-
-                      Backend target type. Valid values: NODE, TARGETGROUP. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group.
-                      Backend target type. Valid values: `NODE`, `TARGETGROUP`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group.
+                      Backend target type. Valid values: NODE, TARGETGROUP, TARGETGROUP-V2. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group.
+                      Backend target type. Valid values: `NODE`, `TARGETGROUP`, `TARGETGROUP-V2`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group.
                     type: string
                   url:
                     description: |-
@@ -1067,8 +1067,8 @@ spec:
                     type: string
                   scheduler:
                     description: |-
-                      Scheduling method of the CLB listener rules. Valid values: WRR, IP HASH, LEAST_CONN. The default is WRR.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
-                      Scheduling method of the CLB listener rules. Valid values: `WRR`, `IP HASH`, `LEAST_CONN`. The default is `WRR`.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in `tencentcloud_clb_listener_rule`.
+                      Scheduling method of the CLB listener rules. Valid values: WRR, IP HASH, LEAST_CONN. The default is WRR when target_type is not TARGETGROUP-V2.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+                      Scheduling method of the CLB listener rules. Valid values: `WRR`, `IP HASH`, `LEAST_CONN`. The default is `WRR` when `target_type` is not `TARGETGROUP-V2`.  NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in `tencentcloud_clb_listener_rule`.
                     type: string
                   sessionExpireTime:
                     description: |-
@@ -1077,8 +1077,8 @@ spec:
                     type: number
                   targetType:
                     description: |-
-                      Backend target type. Valid values: NODE, TARGETGROUP. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group.
-                      Backend target type. Valid values: `NODE`, `TARGETGROUP`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group.
+                      Backend target type. Valid values: NODE, TARGETGROUP, TARGETGROUP-V2. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group.
+                      Backend target type. Valid values: `NODE`, `TARGETGROUP`, `TARGETGROUP-V2`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group.
                     type: string
                   url:
                     description: |-

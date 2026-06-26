@@ -358,6 +358,11 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.KibanaPrivateAccess != nil {
+		in, out := &in.KibanaPrivateAccess, &out.KibanaPrivateAccess
+		*out = new(string)
+		**out = **in
+	}
 	if in.KibanaPublicAccess != nil {
 		in, out := &in.KibanaPublicAccess, &out.KibanaPublicAccess
 		*out = new(string)
@@ -382,6 +387,11 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Protocol != nil {
+		in, out := &in.Protocol, &out.Protocol
+		*out = new(string)
+		**out = **in
+	}
 	if in.PublicAccess != nil {
 		in, out := &in.PublicAccess, &out.PublicAccess
 		*out = new(string)
@@ -390,6 +400,11 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 	if in.RenewFlag != nil {
 		in, out := &in.RenewFlag, &out.RenewFlag
 		*out = new(string)
+		**out = **in
+	}
+	if in.SceneType != nil {
+		in, out := &in.SceneType, &out.SceneType
+		*out = new(float64)
 		**out = **in
 	}
 	if in.SubnetID != nil {
@@ -578,6 +593,16 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.KibanaPrivateAccess != nil {
+		in, out := &in.KibanaPrivateAccess, &out.KibanaPrivateAccess
+		*out = new(string)
+		**out = **in
+	}
+	if in.KibanaPrivateURL != nil {
+		in, out := &in.KibanaPrivateURL, &out.KibanaPrivateURL
+		*out = new(string)
+		**out = **in
+	}
 	if in.KibanaPublicAccess != nil {
 		in, out := &in.KibanaPublicAccess, &out.KibanaPublicAccess
 		*out = new(string)
@@ -607,6 +632,11 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Protocol != nil {
+		in, out := &in.Protocol, &out.Protocol
+		*out = new(string)
+		**out = **in
+	}
 	if in.PublicAccess != nil {
 		in, out := &in.PublicAccess, &out.PublicAccess
 		*out = new(string)
@@ -615,6 +645,11 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 	if in.RenewFlag != nil {
 		in, out := &in.RenewFlag, &out.RenewFlag
 		*out = new(string)
+		**out = **in
+	}
+	if in.SceneType != nil {
+		in, out := &in.SceneType, &out.SceneType
+		*out = new(float64)
 		**out = **in
 	}
 	if in.SubnetID != nil {
@@ -721,6 +756,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.KibanaPrivateAccess != nil {
+		in, out := &in.KibanaPrivateAccess, &out.KibanaPrivateAccess
+		*out = new(string)
+		**out = **in
+	}
 	if in.KibanaPublicAccess != nil {
 		in, out := &in.KibanaPublicAccess, &out.KibanaPublicAccess
 		*out = new(string)
@@ -746,6 +786,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		}
 	}
 	out.PasswordSecretRef = in.PasswordSecretRef
+	if in.Protocol != nil {
+		in, out := &in.Protocol, &out.Protocol
+		*out = new(string)
+		**out = **in
+	}
 	if in.PublicAccess != nil {
 		in, out := &in.PublicAccess, &out.PublicAccess
 		*out = new(string)
@@ -754,6 +799,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	if in.RenewFlag != nil {
 		in, out := &in.RenewFlag, &out.RenewFlag
 		*out = new(string)
+		**out = **in
+	}
+	if in.SceneType != nil {
+		in, out := &in.SceneType, &out.SceneType
+		*out = new(float64)
 		**out = **in
 	}
 	if in.SubnetID != nil {

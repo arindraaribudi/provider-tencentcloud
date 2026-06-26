@@ -1,0 +1,135 @@
+---
+apiVersion: clb.tencentcloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  labels:
+    central.tech/resource-group: echo-server
+  name: test-echo-clb
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    addressIpVersion: ipv4
+    clbName: test-echo-clb
+    internetBandwidthMaxOut: 10
+    internetChargeType: TRAFFIC_POSTPAID_BY_HOUR
+    loadBalancerPassToTarget: true
+    masterZoneId: ap-bangkok-2
+    networkType: OPEN
+    slaveZoneId: ap-bangkok-1
+    tags:
+      application: crc-tke
+      bu: crc
+      environment: crc-poc
+      managed_by: crossplane
+    targetRegionInfoRegion: ap-bangkok
+    vipIsp: BGP
+    vpcIdSelector:
+      matchLabels:
+        central.tech/resource-group: vpc
+    zoneId: ap-bangkok-2
+  managementPolicies:
+  - '*'
+  providerConfigRef:
+    name: default
+---
+apiVersion: clb.tencentcloud.crossplane.io/v1alpha1
+kind: Listener
+metadata:
+  labels:
+    central.tech/resource-group: echo-server
+  name: echo-server-listener-https
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    certificateId: WhKYrSnp
+    certificateSslMode: UNIDIRECTIONAL
+    clbIdSelector:
+      matchLabels:
+        central.tech/resource-group: echo-server
+    listenerName: echo-server-https-443
+    port: 443
+    protocol: HTTPS
+    targetType: TARGETGROUP
+  managementPolicies:
+  - '*'
+  providerConfigRef:
+    name: default
+---
+apiVersion: clb.tencentcloud.crossplane.io/v1alpha1
+kind: ListenerRule
+metadata:
+  labels:
+    central.tech/resource-group: echo-server
+  name: echo-server-listener-https-rule
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    certificateId: WhKYrSnp
+    certificateSslMode: UNIDIRECTIONAL
+    clbIdSelector:
+      matchLabels:
+        central.tech/resource-group: echo-server
+    domain: echo.central.co.th
+    forwardType: HTTP
+    http2Switch: true
+    listenerIdSelector:
+      matchLabels:
+        central.tech/resource-group: echo-server
+    targetType: TARGETGROUP-V2
+    url: /
+  managementPolicies:
+  - '*'
+  providerConfigRef:
+    name: default
+---
+apiVersion: clb.tencentcloud.crossplane.io/v1alpha1
+kind: TargetGroup
+metadata:
+  labels:
+    central.tech/resource-group: echo-server
+  name: echo-server-tg
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    port: 80
+    protocol: HTTP
+    tags:
+      application: crc-tke
+      bu: crc
+      environment: crc-poc
+      managed_by: crossplane
+    targetGroupName: echo-server-tg
+    type: v2
+    vpcIdSelector:
+      matchLabels:
+        central.tech/resource-group: vpc
+  managementPolicies:
+  - '*'
+  providerConfigRef:
+    name: default
+---
+apiVersion: clb.tencentcloud.crossplane.io/v1alpha1
+kind: TargetGroupAttachment
+metadata:
+  labels:
+    central.tech/resource-group: echo-server
+  name: echo-server-listener-https-tg-attachment
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    clbIdSelector:
+      matchLabels:
+        central.tech/resource-group: echo-server
+    listenerIdSelector:
+      matchLabels:
+        central.tech/resource-group: echo-server
+    ruleIdSelector:
+      matchLabels:
+        central.tech/resource-group: echo-server
+    targetGroupIdSelector:
+      matchLabels:
+        central.tech/resource-group: echo-server
+  managementPolicies:
+  - '*'
+  providerConfigRef:
+    name: default

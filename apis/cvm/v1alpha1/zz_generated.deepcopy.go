@@ -56,6 +56,11 @@ func (in *DataDisksInitParameters) DeepCopyInto(out *DataDisksInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.KMSKeyID != nil {
+		in, out := &in.KMSKeyID, &out.KMSKeyID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ThroughputPerformance != nil {
 		in, out := &in.ThroughputPerformance, &out.ThroughputPerformance
 		*out = new(float64)
@@ -116,6 +121,11 @@ func (in *DataDisksObservation) DeepCopyInto(out *DataDisksObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.KMSKeyID != nil {
+		in, out := &in.KMSKeyID, &out.KMSKeyID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ThroughputPerformance != nil {
 		in, out := &in.ThroughputPerformance, &out.ThroughputPerformance
 		*out = new(float64)
@@ -174,6 +184,11 @@ func (in *DataDisksParameters) DeepCopyInto(out *DataDisksParameters) {
 	if in.Encrypt != nil {
 		in, out := &in.Encrypt, &out.Encrypt
 		*out = new(bool)
+		**out = **in
+	}
+	if in.KMSKeyID != nil {
+		in, out := &in.KMSKeyID, &out.KMSKeyID
+		*out = new(string)
 		**out = **in
 	}
 	if in.ThroughputPerformance != nil {
@@ -576,6 +591,11 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.AntiDdosPackageID != nil {
+		in, out := &in.AntiDdosPackageID, &out.AntiDdosPackageID
+		*out = new(string)
+		**out = **in
+	}
 	if in.AvailabilityZone != nil {
 		in, out := &in.AvailabilityZone, &out.AvailabilityZone
 		*out = new(string)
@@ -613,6 +633,22 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DedicatedResourcePackIds != nil {
+		in, out := &in.DedicatedResourcePackIds, &out.DedicatedResourcePackIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
+	if in.DedicatedResourcePackTenancy != nil {
+		in, out := &in.DedicatedResourcePackTenancy, &out.DedicatedResourcePackTenancy
+		*out = new(string)
+		**out = **in
+	}
 	if in.DisableAPITermination != nil {
 		in, out := &in.DisableAPITermination, &out.DisableAPITermination
 		*out = new(bool)
@@ -633,8 +669,29 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.DisasterRecoverGroupIds != nil {
+		in, out := &in.DisasterRecoverGroupIds, &out.DisasterRecoverGroupIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.ForceDelete != nil {
 		in, out := &in.ForceDelete, &out.ForceDelete
+		*out = new(bool)
+		**out = **in
+	}
+	if in.ForceReplacePlacementGroupID != nil {
+		in, out := &in.ForceReplacePlacementGroupID, &out.ForceReplacePlacementGroupID
+		*out = new(bool)
+		**out = **in
+	}
+	if in.ForceStop != nil {
+		in, out := &in.ForceStop, &out.ForceStop
 		*out = new(bool)
 		**out = **in
 	}
@@ -645,6 +702,21 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 	}
 	if in.HpcClusterID != nil {
 		in, out := &in.HpcClusterID, &out.HpcClusterID
+		*out = new(string)
+		**out = **in
+	}
+	if in.IPv4AddressType != nil {
+		in, out := &in.IPv4AddressType, &out.IPv4AddressType
+		*out = new(string)
+		**out = **in
+	}
+	if in.IPv6AddressCount != nil {
+		in, out := &in.IPv6AddressCount, &out.IPv6AddressCount
+		*out = new(float64)
+		**out = **in
+	}
+	if in.IPv6AddressType != nil {
+		in, out := &in.IPv6AddressType, &out.IPv6AddressType
 		*out = new(string)
 		**out = **in
 	}
@@ -666,11 +738,6 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 	if in.InstanceChargeTypePrepaidRenewFlag != nil {
 		in, out := &in.InstanceChargeTypePrepaidRenewFlag, &out.InstanceChargeTypePrepaidRenewFlag
 		*out = new(string)
-		**out = **in
-	}
-	if in.InstanceCount != nil {
-		in, out := &in.InstanceCount, &out.InstanceCount
-		*out = new(float64)
 		**out = **in
 	}
 	if in.InstanceName != nil {
@@ -714,6 +781,16 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.LaunchTemplateID != nil {
+		in, out := &in.LaunchTemplateID, &out.LaunchTemplateID
+		*out = new(string)
+		**out = **in
+	}
+	if in.LaunchTemplateVersion != nil {
+		in, out := &in.LaunchTemplateVersion, &out.LaunchTemplateVersion
+		*out = new(float64)
+		**out = **in
+	}
 	if in.OrderlySecurityGroups != nil {
 		in, out := &in.OrderlySecurityGroups, &out.OrderlySecurityGroups
 		*out = make([]*string, len(*in))
@@ -740,6 +817,11 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(float64)
 		**out = **in
 	}
+	if in.ReleaseAddress != nil {
+		in, out := &in.ReleaseAddress, &out.ReleaseAddress
+		*out = new(bool)
+		**out = **in
+	}
 	if in.RunningFlag != nil {
 		in, out := &in.RunningFlag, &out.RunningFlag
 		*out = new(bool)
@@ -763,6 +845,11 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 	}
 	if in.SpotMaxPrice != nil {
 		in, out := &in.SpotMaxPrice, &out.SpotMaxPrice
+		*out = new(string)
+		**out = **in
+	}
+	if in.StopType != nil {
+		in, out := &in.StopType, &out.StopType
 		*out = new(string)
 		**out = **in
 	}
@@ -830,6 +917,11 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 	if in.UserDataRaw != nil {
 		in, out := &in.UserDataRaw, &out.UserDataRaw
 		*out = new(string)
+		**out = **in
+	}
+	if in.UserDataReplaceOnChange != nil {
+		in, out := &in.UserDataReplaceOnChange, &out.UserDataReplaceOnChange
+		*out = new(bool)
 		**out = **in
 	}
 	if in.VPCID != nil {
@@ -899,6 +991,11 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.AntiDdosPackageID != nil {
+		in, out := &in.AntiDdosPackageID, &out.AntiDdosPackageID
+		*out = new(string)
+		**out = **in
+	}
 	if in.AvailabilityZone != nil {
 		in, out := &in.AvailabilityZone, &out.AvailabilityZone
 		*out = new(string)
@@ -946,6 +1043,22 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DedicatedResourcePackIds != nil {
+		in, out := &in.DedicatedResourcePackIds, &out.DedicatedResourcePackIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
+	if in.DedicatedResourcePackTenancy != nil {
+		in, out := &in.DedicatedResourcePackTenancy, &out.DedicatedResourcePackTenancy
+		*out = new(string)
+		**out = **in
+	}
 	if in.DisableAPITermination != nil {
 		in, out := &in.DisableAPITermination, &out.DisableAPITermination
 		*out = new(bool)
@@ -966,6 +1079,17 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.DisasterRecoverGroupIds != nil {
+		in, out := &in.DisasterRecoverGroupIds, &out.DisasterRecoverGroupIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.ExpiredTime != nil {
 		in, out := &in.ExpiredTime, &out.ExpiredTime
 		*out = new(string)
@@ -973,6 +1097,16 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 	}
 	if in.ForceDelete != nil {
 		in, out := &in.ForceDelete, &out.ForceDelete
+		*out = new(bool)
+		**out = **in
+	}
+	if in.ForceReplacePlacementGroupID != nil {
+		in, out := &in.ForceReplacePlacementGroupID, &out.ForceReplacePlacementGroupID
+		*out = new(bool)
+		**out = **in
+	}
+	if in.ForceStop != nil {
+		in, out := &in.ForceStop, &out.ForceStop
 		*out = new(bool)
 		**out = **in
 	}
@@ -990,6 +1124,32 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IPv4AddressType != nil {
+		in, out := &in.IPv4AddressType, &out.IPv4AddressType
+		*out = new(string)
+		**out = **in
+	}
+	if in.IPv6AddressCount != nil {
+		in, out := &in.IPv6AddressCount, &out.IPv6AddressCount
+		*out = new(float64)
+		**out = **in
+	}
+	if in.IPv6AddressType != nil {
+		in, out := &in.IPv6AddressType, &out.IPv6AddressType
+		*out = new(string)
+		**out = **in
+	}
+	if in.IPv6Addresses != nil {
+		in, out := &in.IPv6Addresses, &out.IPv6Addresses
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.ImageID != nil {
 		in, out := &in.ImageID, &out.ImageID
@@ -1009,11 +1169,6 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 	if in.InstanceChargeTypePrepaidRenewFlag != nil {
 		in, out := &in.InstanceChargeTypePrepaidRenewFlag, &out.InstanceChargeTypePrepaidRenewFlag
 		*out = new(string)
-		**out = **in
-	}
-	if in.InstanceCount != nil {
-		in, out := &in.InstanceCount, &out.InstanceCount
-		*out = new(float64)
 		**out = **in
 	}
 	if in.InstanceName != nil {
@@ -1062,6 +1217,16 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.LaunchTemplateID != nil {
+		in, out := &in.LaunchTemplateID, &out.LaunchTemplateID
+		*out = new(string)
+		**out = **in
+	}
+	if in.LaunchTemplateVersion != nil {
+		in, out := &in.LaunchTemplateVersion, &out.LaunchTemplateVersion
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Memory != nil {
 		in, out := &in.Memory, &out.Memory
 		*out = new(float64)
@@ -1103,6 +1268,27 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PublicIPv6Addresses != nil {
+		in, out := &in.PublicIPv6Addresses, &out.PublicIPv6Addresses
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
+	if in.RackID != nil {
+		in, out := &in.RackID, &out.RackID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ReleaseAddress != nil {
+		in, out := &in.ReleaseAddress, &out.ReleaseAddress
+		*out = new(bool)
+		**out = **in
+	}
 	if in.RunningFlag != nil {
 		in, out := &in.RunningFlag, &out.RunningFlag
 		*out = new(bool)
@@ -1126,6 +1312,11 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 	}
 	if in.SpotMaxPrice != nil {
 		in, out := &in.SpotMaxPrice, &out.SpotMaxPrice
+		*out = new(string)
+		**out = **in
+	}
+	if in.StopType != nil {
+		in, out := &in.StopType, &out.StopType
 		*out = new(string)
 		**out = **in
 	}
@@ -1195,6 +1386,11 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.UserDataReplaceOnChange != nil {
+		in, out := &in.UserDataReplaceOnChange, &out.UserDataReplaceOnChange
+		*out = new(bool)
+		**out = **in
+	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
@@ -1218,6 +1414,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	if in.AllocatePublicIP != nil {
 		in, out := &in.AllocatePublicIP, &out.AllocatePublicIP
 		*out = new(bool)
+		**out = **in
+	}
+	if in.AntiDdosPackageID != nil {
+		in, out := &in.AntiDdosPackageID, &out.AntiDdosPackageID
+		*out = new(string)
 		**out = **in
 	}
 	if in.AvailabilityZone != nil {
@@ -1257,6 +1458,22 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DedicatedResourcePackIds != nil {
+		in, out := &in.DedicatedResourcePackIds, &out.DedicatedResourcePackIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
+	if in.DedicatedResourcePackTenancy != nil {
+		in, out := &in.DedicatedResourcePackTenancy, &out.DedicatedResourcePackTenancy
+		*out = new(string)
+		**out = **in
+	}
 	if in.DisableAPITermination != nil {
 		in, out := &in.DisableAPITermination, &out.DisableAPITermination
 		*out = new(bool)
@@ -1277,8 +1494,29 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.DisasterRecoverGroupIds != nil {
+		in, out := &in.DisasterRecoverGroupIds, &out.DisasterRecoverGroupIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.ForceDelete != nil {
 		in, out := &in.ForceDelete, &out.ForceDelete
+		*out = new(bool)
+		**out = **in
+	}
+	if in.ForceReplacePlacementGroupID != nil {
+		in, out := &in.ForceReplacePlacementGroupID, &out.ForceReplacePlacementGroupID
+		*out = new(bool)
+		**out = **in
+	}
+	if in.ForceStop != nil {
+		in, out := &in.ForceStop, &out.ForceStop
 		*out = new(bool)
 		**out = **in
 	}
@@ -1289,6 +1527,21 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	}
 	if in.HpcClusterID != nil {
 		in, out := &in.HpcClusterID, &out.HpcClusterID
+		*out = new(string)
+		**out = **in
+	}
+	if in.IPv4AddressType != nil {
+		in, out := &in.IPv4AddressType, &out.IPv4AddressType
+		*out = new(string)
+		**out = **in
+	}
+	if in.IPv6AddressCount != nil {
+		in, out := &in.IPv6AddressCount, &out.IPv6AddressCount
+		*out = new(float64)
+		**out = **in
+	}
+	if in.IPv6AddressType != nil {
+		in, out := &in.IPv6AddressType, &out.IPv6AddressType
 		*out = new(string)
 		**out = **in
 	}
@@ -1310,11 +1563,6 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	if in.InstanceChargeTypePrepaidRenewFlag != nil {
 		in, out := &in.InstanceChargeTypePrepaidRenewFlag, &out.InstanceChargeTypePrepaidRenewFlag
 		*out = new(string)
-		**out = **in
-	}
-	if in.InstanceCount != nil {
-		in, out := &in.InstanceCount, &out.InstanceCount
-		*out = new(float64)
 		**out = **in
 	}
 	if in.InstanceName != nil {
@@ -1358,6 +1606,16 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.LaunchTemplateID != nil {
+		in, out := &in.LaunchTemplateID, &out.LaunchTemplateID
+		*out = new(string)
+		**out = **in
+	}
+	if in.LaunchTemplateVersion != nil {
+		in, out := &in.LaunchTemplateVersion, &out.LaunchTemplateVersion
+		*out = new(float64)
+		**out = **in
+	}
 	if in.OrderlySecurityGroups != nil {
 		in, out := &in.OrderlySecurityGroups, &out.OrderlySecurityGroups
 		*out = make([]*string, len(*in))
@@ -1389,6 +1647,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(float64)
 		**out = **in
 	}
+	if in.ReleaseAddress != nil {
+		in, out := &in.ReleaseAddress, &out.ReleaseAddress
+		*out = new(bool)
+		**out = **in
+	}
 	if in.RunningFlag != nil {
 		in, out := &in.RunningFlag, &out.RunningFlag
 		*out = new(bool)
@@ -1412,6 +1675,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	}
 	if in.SpotMaxPrice != nil {
 		in, out := &in.SpotMaxPrice, &out.SpotMaxPrice
+		*out = new(string)
+		**out = **in
+	}
+	if in.StopType != nil {
+		in, out := &in.StopType, &out.StopType
 		*out = new(string)
 		**out = **in
 	}
@@ -1479,6 +1747,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	if in.UserDataRaw != nil {
 		in, out := &in.UserDataRaw, &out.UserDataRaw
 		*out = new(string)
+		**out = **in
+	}
+	if in.UserDataReplaceOnChange != nil {
+		in, out := &in.UserDataReplaceOnChange, &out.UserDataReplaceOnChange
+		*out = new(bool)
 		**out = **in
 	}
 	if in.VPCID != nil {
@@ -2249,6 +2522,11 @@ func (in *KeyPair) DeepCopyObject() runtime.Object {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *KeyPairInitParameters) DeepCopyInto(out *KeyPairInitParameters) {
 	*out = *in
+	if in.ForceStop != nil {
+		in, out := &in.ForceStop, &out.ForceStop
+		*out = new(bool)
+		**out = **in
+	}
 	if in.KeyName != nil {
 		in, out := &in.KeyName, &out.KeyName
 		*out = new(string)
@@ -2327,6 +2605,16 @@ func (in *KeyPairList) DeepCopyObject() runtime.Object {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *KeyPairObservation) DeepCopyInto(out *KeyPairObservation) {
 	*out = *in
+	if in.CreatedTime != nil {
+		in, out := &in.CreatedTime, &out.CreatedTime
+		*out = new(string)
+		**out = **in
+	}
+	if in.ForceStop != nil {
+		in, out := &in.ForceStop, &out.ForceStop
+		*out = new(bool)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -2334,6 +2622,11 @@ func (in *KeyPairObservation) DeepCopyInto(out *KeyPairObservation) {
 	}
 	if in.KeyName != nil {
 		in, out := &in.KeyName, &out.KeyName
+		*out = new(string)
+		**out = **in
+	}
+	if in.PrivateKey != nil {
+		in, out := &in.PrivateKey, &out.PrivateKey
 		*out = new(string)
 		**out = **in
 	}
@@ -2378,6 +2671,11 @@ func (in *KeyPairObservation) DeepCopy() *KeyPairObservation {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *KeyPairParameters) DeepCopyInto(out *KeyPairParameters) {
 	*out = *in
+	if in.ForceStop != nil {
+		in, out := &in.ForceStop, &out.ForceStop
+		*out = new(bool)
+		**out = **in
+	}
 	if in.KeyName != nil {
 		in, out := &in.KeyName, &out.KeyName
 		*out = new(string)

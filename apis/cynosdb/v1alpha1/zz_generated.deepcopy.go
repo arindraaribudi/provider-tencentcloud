@@ -103,6 +103,11 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 		*out = new(float64)
 		**out = **in
 	}
+	if in.InstanceCount != nil {
+		in, out := &in.InstanceCount, &out.InstanceCount
+		*out = new(float64)
+		**out = **in
+	}
 	if in.InstanceInitInfos != nil {
 		in, out := &in.InstanceInitInfos, &out.InstanceInitInfos
 		*out = make([]InstanceInitInfosInitParameters, len(*in))
@@ -398,6 +403,11 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 		*out = new(float64)
 		**out = **in
 	}
+	if in.InstanceCount != nil {
+		in, out := &in.InstanceCount, &out.InstanceCount
+		*out = new(float64)
+		**out = **in
+	}
 	if in.InstanceID != nil {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
@@ -686,6 +696,11 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	}
 	if in.InstanceCPUCore != nil {
 		in, out := &in.InstanceCPUCore, &out.InstanceCPUCore
+		*out = new(float64)
+		**out = **in
+	}
+	if in.InstanceCount != nil {
+		in, out := &in.InstanceCount, &out.InstanceCount
 		*out = new(float64)
 		**out = **in
 	}

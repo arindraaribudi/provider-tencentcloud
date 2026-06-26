@@ -217,8 +217,11 @@ spec:
                           type: string
                         imageUri:
                           description: |-
-                            The uri of image.
-                            The uri of image.
+                            The uri of image. Supports three formats:
+                            The uri of image. Supports three formats:
+                            - Format A: registry/repo:tag
+                            - Format B: registry/repo@sha256:digest
+                            - Format C: registry/repo:tag@sha256:digest.
                           type: string
                         registryId:
                           description: |-
@@ -502,8 +505,11 @@ spec:
                           type: string
                         imageUri:
                           description: |-
-                            The uri of image.
-                            The uri of image.
+                            The uri of image. Supports three formats:
+                            The uri of image. Supports three formats:
+                            - Format A: registry/repo:tag
+                            - Format B: registry/repo@sha256:digest
+                            - Format C: registry/repo:tag@sha256:digest.
                           type: string
                         registryId:
                           description: |-
@@ -1009,8 +1015,11 @@ spec:
                           type: string
                         imageUri:
                           description: |-
-                            The uri of image.
-                            The uri of image.
+                            The uri of image. Supports three formats:
+                            The uri of image. Supports three formats:
+                            - Format A: registry/repo:tag
+                            - Format B: registry/repo@sha256:digest
+                            - Format C: registry/repo:tag@sha256:digest.
                           type: string
                         registryId:
                           description: |-

@@ -40,6 +40,10 @@ type ListenerInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ClbIDSelector *v1.Selector `json:"clbIdSelector,omitempty" tf:"-"`
 
+	// Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+	// Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+	DeregisterTargetRst *bool `json:"deregisterTargetRst,omitempty" tf:"deregister_target_rst,omitempty"`
+
 	// This parameter is used to specify the end port and is required when creating a port range listener. Only one member can be passed in when inputting the Ports parameter, which is used to specify the start port. If you want to try the port range feature, please submit a ticket.
 	// This parameter is used to specify the end port and is required when creating a port range listener. Only one member can be passed in when inputting the `Ports` parameter, which is used to specify the start port. If you want to try the port range feature, please [submit a ticket](https://console.cloud.tencent.com/workorder/category).
 	EndPort *float64 `json:"endPort,omitempty" tf:"end_port,omitempty"`
@@ -112,6 +116,10 @@ type ListenerInitParameters struct {
 	// Specifies the type of health check source IP. `0` (default): CLB VIP. `1`: 100.64 IP range.
 	HealthSourceIPType *float64 `json:"healthSourceIpType,omitempty" tf:"health_source_ip_type,omitempty"`
 
+	// Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+	// Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+	IdleConnectTimeout *float64 `json:"idleConnectTimeout,omitempty" tf:"idle_connect_timeout,omitempty"`
+
 	// Whether to enable a persistent connection. This parameter is applicable only to HTTP and HTTPS listeners. Valid values: 0 (disable; default value) and 1 (enable).
 	// Whether to enable a persistent connection. This parameter is applicable only to HTTP and HTTPS listeners. Valid values: 0 (disable; default value) and 1 (enable).
 	KeepaliveEnable *float64 `json:"keepaliveEnable,omitempty" tf:"keepalive_enable,omitempty"`
@@ -131,6 +139,26 @@ type ListenerInitParameters struct {
 	// Type of protocol within the listener. Valid values: TCP, UDP, HTTP, HTTPS, TCP_SSL and QUIC.
 	// Type of protocol within the listener. Valid values: `TCP`, `UDP`, `HTTP`, `HTTPS`, `TCP_SSL` and `QUIC`.
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
+
+	// The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+	// The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+	RescheduleExpandTarget *bool `json:"rescheduleExpandTarget,omitempty" tf:"reschedule_expand_target,omitempty"`
+
+	// Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+	// Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+	RescheduleInterval *float64 `json:"rescheduleInterval,omitempty" tf:"reschedule_interval,omitempty"`
+
+	// Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+	// Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+	RescheduleStartTime *float64 `json:"rescheduleStartTime,omitempty" tf:"reschedule_start_time,omitempty"`
+
+	// The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+	// The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+	RescheduleTargetZeroWeight *bool `json:"rescheduleTargetZeroWeight,omitempty" tf:"reschedule_target_zero_weight,omitempty"`
+
+	// Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+	// Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+	RescheduleUnhealthy *bool `json:"rescheduleUnhealthy,omitempty" tf:"reschedule_unhealthy,omitempty"`
 
 	// Scheduling method of the CLB listener, and available values are 'WRR' and 'LEAST_CONN'. The default is 'WRR'. NOTES: The listener of HTTP and HTTPS protocol additionally supports the IP Hash method. NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
 	// Scheduling method of the CLB listener, and available values are 'WRR' and 'LEAST_CONN'. The default is 'WRR'. NOTES: The listener of `HTTP` and `HTTPS` protocol additionally supports the `IP Hash` method. NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in `tencentcloud_clb_listener_rule`.
@@ -152,8 +180,8 @@ type ListenerInitParameters struct {
 	// Indicates whether SNI is enabled, and only supported with protocol `HTTPS`. If enabled, you can set a certificate for each rule in `tencentcloud_clb_listener_rule`, otherwise all rules have a certificate.
 	SniSwitch *bool `json:"sniSwitch,omitempty" tf:"sni_switch,omitempty"`
 
-	// Backend target type. Valid values: NODE, TARGETGROUP. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
-	// Backend target type. Valid values: `NODE`, `TARGETGROUP`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+	// Backend target type. Valid values: NODE, TARGETGROUP, TARGETGROUP-V2. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+	// Backend target type. Valid values: `NODE`, `TARGETGROUP`, `TARGETGROUP-V2`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
 	TargetType *string `json:"targetType,omitempty" tf:"target_type,omitempty"`
 }
 
@@ -174,6 +202,10 @@ type ListenerObservation struct {
 	// ID of the CLB.
 	// ID of the CLB.
 	ClbID *string `json:"clbId,omitempty" tf:"clb_id,omitempty"`
+
+	// Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+	// Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+	DeregisterTargetRst *bool `json:"deregisterTargetRst,omitempty" tf:"deregister_target_rst,omitempty"`
 
 	// This parameter is used to specify the end port and is required when creating a port range listener. Only one member can be passed in when inputting the Ports parameter, which is used to specify the start port. If you want to try the port range feature, please submit a ticket.
 	// This parameter is used to specify the end port and is required when creating a port range listener. Only one member can be passed in when inputting the `Ports` parameter, which is used to specify the start port. If you want to try the port range feature, please [submit a ticket](https://console.cloud.tencent.com/workorder/category).
@@ -250,6 +282,10 @@ type ListenerObservation struct {
 	// ID of the resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+	// Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+	IdleConnectTimeout *float64 `json:"idleConnectTimeout,omitempty" tf:"idle_connect_timeout,omitempty"`
+
 	// Whether to enable a persistent connection. This parameter is applicable only to HTTP and HTTPS listeners. Valid values: 0 (disable; default value) and 1 (enable).
 	// Whether to enable a persistent connection. This parameter is applicable only to HTTP and HTTPS listeners. Valid values: 0 (disable; default value) and 1 (enable).
 	KeepaliveEnable *float64 `json:"keepaliveEnable,omitempty" tf:"keepalive_enable,omitempty"`
@@ -274,6 +310,26 @@ type ListenerObservation struct {
 	// Type of protocol within the listener. Valid values: `TCP`, `UDP`, `HTTP`, `HTTPS`, `TCP_SSL` and `QUIC`.
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
 
+	// The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+	// The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+	RescheduleExpandTarget *bool `json:"rescheduleExpandTarget,omitempty" tf:"reschedule_expand_target,omitempty"`
+
+	// Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+	// Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+	RescheduleInterval *float64 `json:"rescheduleInterval,omitempty" tf:"reschedule_interval,omitempty"`
+
+	// Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+	// Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+	RescheduleStartTime *float64 `json:"rescheduleStartTime,omitempty" tf:"reschedule_start_time,omitempty"`
+
+	// The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+	// The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+	RescheduleTargetZeroWeight *bool `json:"rescheduleTargetZeroWeight,omitempty" tf:"reschedule_target_zero_weight,omitempty"`
+
+	// Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+	// Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+	RescheduleUnhealthy *bool `json:"rescheduleUnhealthy,omitempty" tf:"reschedule_unhealthy,omitempty"`
+
 	// Scheduling method of the CLB listener, and available values are 'WRR' and 'LEAST_CONN'. The default is 'WRR'. NOTES: The listener of HTTP and HTTPS protocol additionally supports the IP Hash method. NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
 	// Scheduling method of the CLB listener, and available values are 'WRR' and 'LEAST_CONN'. The default is 'WRR'. NOTES: The listener of `HTTP` and `HTTPS` protocol additionally supports the `IP Hash` method. NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in `tencentcloud_clb_listener_rule`.
 	Scheduler *string `json:"scheduler,omitempty" tf:"scheduler,omitempty"`
@@ -294,8 +350,8 @@ type ListenerObservation struct {
 	// Indicates whether SNI is enabled, and only supported with protocol `HTTPS`. If enabled, you can set a certificate for each rule in `tencentcloud_clb_listener_rule`, otherwise all rules have a certificate.
 	SniSwitch *bool `json:"sniSwitch,omitempty" tf:"sni_switch,omitempty"`
 
-	// Backend target type. Valid values: NODE, TARGETGROUP. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
-	// Backend target type. Valid values: `NODE`, `TARGETGROUP`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+	// Backend target type. Valid values: NODE, TARGETGROUP, TARGETGROUP-V2. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+	// Backend target type. Valid values: `NODE`, `TARGETGROUP`, `TARGETGROUP-V2`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
 	TargetType *string `json:"targetType,omitempty" tf:"target_type,omitempty"`
 }
 
@@ -329,6 +385,11 @@ type ListenerParameters struct {
 	// Selector for a Instance to populate clbId.
 	// +kubebuilder:validation:Optional
 	ClbIDSelector *v1.Selector `json:"clbIdSelector,omitempty" tf:"-"`
+
+	// Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+	// Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+	// +kubebuilder:validation:Optional
+	DeregisterTargetRst *bool `json:"deregisterTargetRst,omitempty" tf:"deregister_target_rst,omitempty"`
 
 	// This parameter is used to specify the end port and is required when creating a port range listener. Only one member can be passed in when inputting the Ports parameter, which is used to specify the start port. If you want to try the port range feature, please submit a ticket.
 	// This parameter is used to specify the end port and is required when creating a port range listener. Only one member can be passed in when inputting the `Ports` parameter, which is used to specify the start port. If you want to try the port range feature, please [submit a ticket](https://console.cloud.tencent.com/workorder/category).
@@ -420,6 +481,11 @@ type ListenerParameters struct {
 	// +kubebuilder:validation:Optional
 	HealthSourceIPType *float64 `json:"healthSourceIpType,omitempty" tf:"health_source_ip_type,omitempty"`
 
+	// Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+	// Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+	// +kubebuilder:validation:Optional
+	IdleConnectTimeout *float64 `json:"idleConnectTimeout,omitempty" tf:"idle_connect_timeout,omitempty"`
+
 	// Whether to enable a persistent connection. This parameter is applicable only to HTTP and HTTPS listeners. Valid values: 0 (disable; default value) and 1 (enable).
 	// Whether to enable a persistent connection. This parameter is applicable only to HTTP and HTTPS listeners. Valid values: 0 (disable; default value) and 1 (enable).
 	// +kubebuilder:validation:Optional
@@ -444,6 +510,31 @@ type ListenerParameters struct {
 	// Type of protocol within the listener. Valid values: `TCP`, `UDP`, `HTTP`, `HTTPS`, `TCP_SSL` and `QUIC`.
 	// +kubebuilder:validation:Optional
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
+
+	// The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+	// The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+	// +kubebuilder:validation:Optional
+	RescheduleExpandTarget *bool `json:"rescheduleExpandTarget,omitempty" tf:"reschedule_expand_target,omitempty"`
+
+	// Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+	// Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+	// +kubebuilder:validation:Optional
+	RescheduleInterval *float64 `json:"rescheduleInterval,omitempty" tf:"reschedule_interval,omitempty"`
+
+	// Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+	// Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+	// +kubebuilder:validation:Optional
+	RescheduleStartTime *float64 `json:"rescheduleStartTime,omitempty" tf:"reschedule_start_time,omitempty"`
+
+	// The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+	// The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+	// +kubebuilder:validation:Optional
+	RescheduleTargetZeroWeight *bool `json:"rescheduleTargetZeroWeight,omitempty" tf:"reschedule_target_zero_weight,omitempty"`
+
+	// Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+	// Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+	// +kubebuilder:validation:Optional
+	RescheduleUnhealthy *bool `json:"rescheduleUnhealthy,omitempty" tf:"reschedule_unhealthy,omitempty"`
 
 	// Scheduling method of the CLB listener, and available values are 'WRR' and 'LEAST_CONN'. The default is 'WRR'. NOTES: The listener of HTTP and HTTPS protocol additionally supports the IP Hash method. NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
 	// Scheduling method of the CLB listener, and available values are 'WRR' and 'LEAST_CONN'. The default is 'WRR'. NOTES: The listener of `HTTP` and `HTTPS` protocol additionally supports the `IP Hash` method. NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in `tencentcloud_clb_listener_rule`.
@@ -470,8 +561,8 @@ type ListenerParameters struct {
 	// +kubebuilder:validation:Optional
 	SniSwitch *bool `json:"sniSwitch,omitempty" tf:"sni_switch,omitempty"`
 
-	// Backend target type. Valid values: NODE, TARGETGROUP. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
-	// Backend target type. Valid values: `NODE`, `TARGETGROUP`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+	// Backend target type. Valid values: NODE, TARGETGROUP, TARGETGROUP-V2. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+	// Backend target type. Valid values: `NODE`, `TARGETGROUP`, `TARGETGROUP-V2`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
 	// +kubebuilder:validation:Optional
 	TargetType *string `json:"targetType,omitempty" tf:"target_type,omitempty"`
 }

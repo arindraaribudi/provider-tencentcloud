@@ -128,6 +128,12 @@ type TopicInitParameters struct {
 	// Log Topic Description.
 	Describes *string `json:"describes,omitempty" tf:"describes,omitempty"`
 
+	// Encryption-related parameters. This parameter is supported for users with an open access list and from encrypted regions; it cannot be passed in other scenarios. 0 or not passed: No encryption. 1: KMS-CLS cloud product key encryption. Once enabled, it cannot be disabled.
+	// Supported regions: ap-beijing, ap-guangzhou, ap-shanghai, ap-singapore, ap-bangkok, ap-jakarta, eu-frankfurt, ap-seoul, ap-tokyo.
+	// Encryption-related parameters. This parameter is supported for users with an open access list and from encrypted regions; it cannot be passed in other scenarios. 0 or not passed: No encryption. 1: KMS-CLS cloud product key encryption. Once enabled, it cannot be disabled.
+	// Supported regions: ap-beijing, ap-guangzhou, ap-shanghai, ap-singapore, ap-bangkok, ap-jakarta, eu-frankfurt, ap-seoul, ap-tokyo.
+	Encryption *float64 `json:"encryption,omitempty" tf:"encryption,omitempty"`
+
 	// Log Subject Extension Information.
 	// Log Subject Extension Information.
 	Extends []ExtendsInitParameters `json:"extends,omitempty" tf:"extends,omitempty"`
@@ -161,8 +167,8 @@ type TopicInitParameters struct {
 	// Number of log topic partitions. Default value: 1. Maximum value: 10.
 	PartitionCount *float64 `json:"partitionCount,omitempty" tf:"partition_count,omitempty"`
 
-	// Lifecycle in days. Value range: 1~366. Default value: 30.
-	// Lifecycle in days. Value range: 1~366. Default value: 30.
+	// lifetime. Unit: days. Standard storage value range: 1 to 3600. Infrequent storage value range: 7 to 3600 days. A value of 3640 indicates permanent retention.If this value is not input, it defaults to the Period value of the log set corresponding to the accessed log topic (defaults to 30 days in case of access failure).
+	// lifetime. Unit: days. Standard storage value range: 1 to 3600. Infrequent storage value range: 7 to 3600 days. A value of 3640 indicates permanent retention.If this value is not input, it defaults to the Period value of the log set corresponding to the accessed log topic (defaults to 30 days in case of access failure).
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Log topic storage class. Valid values: hot: real-time storage; cold: offline storage. Default value: hot. If cold is passed in, please contact the customer service to add the log topic to the allowlist first.
@@ -188,6 +194,12 @@ type TopicObservation struct {
 	// Log Topic Description.
 	// Log Topic Description.
 	Describes *string `json:"describes,omitempty" tf:"describes,omitempty"`
+
+	// Encryption-related parameters. This parameter is supported for users with an open access list and from encrypted regions; it cannot be passed in other scenarios. 0 or not passed: No encryption. 1: KMS-CLS cloud product key encryption. Once enabled, it cannot be disabled.
+	// Supported regions: ap-beijing, ap-guangzhou, ap-shanghai, ap-singapore, ap-bangkok, ap-jakarta, eu-frankfurt, ap-seoul, ap-tokyo.
+	// Encryption-related parameters. This parameter is supported for users with an open access list and from encrypted regions; it cannot be passed in other scenarios. 0 or not passed: No encryption. 1: KMS-CLS cloud product key encryption. Once enabled, it cannot be disabled.
+	// Supported regions: ap-beijing, ap-guangzhou, ap-shanghai, ap-singapore, ap-bangkok, ap-jakarta, eu-frankfurt, ap-seoul, ap-tokyo.
+	Encryption *float64 `json:"encryption,omitempty" tf:"encryption,omitempty"`
 
 	// Log Subject Extension Information.
 	// Log Subject Extension Information.
@@ -216,8 +228,8 @@ type TopicObservation struct {
 	// Number of log topic partitions. Default value: 1. Maximum value: 10.
 	PartitionCount *float64 `json:"partitionCount,omitempty" tf:"partition_count,omitempty"`
 
-	// Lifecycle in days. Value range: 1~366. Default value: 30.
-	// Lifecycle in days. Value range: 1~366. Default value: 30.
+	// lifetime. Unit: days. Standard storage value range: 1 to 3600. Infrequent storage value range: 7 to 3600 days. A value of 3640 indicates permanent retention.If this value is not input, it defaults to the Period value of the log set corresponding to the accessed log topic (defaults to 30 days in case of access failure).
+	// lifetime. Unit: days. Standard storage value range: 1 to 3600. Infrequent storage value range: 7 to 3600 days. A value of 3640 indicates permanent retention.If this value is not input, it defaults to the Period value of the log set corresponding to the accessed log topic (defaults to 30 days in case of access failure).
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Log topic storage class. Valid values: hot: real-time storage; cold: offline storage. Default value: hot. If cold is passed in, please contact the customer service to add the log topic to the allowlist first.
@@ -245,6 +257,13 @@ type TopicParameters struct {
 	// Log Topic Description.
 	// +kubebuilder:validation:Optional
 	Describes *string `json:"describes,omitempty" tf:"describes,omitempty"`
+
+	// Encryption-related parameters. This parameter is supported for users with an open access list and from encrypted regions; it cannot be passed in other scenarios. 0 or not passed: No encryption. 1: KMS-CLS cloud product key encryption. Once enabled, it cannot be disabled.
+	// Supported regions: ap-beijing, ap-guangzhou, ap-shanghai, ap-singapore, ap-bangkok, ap-jakarta, eu-frankfurt, ap-seoul, ap-tokyo.
+	// Encryption-related parameters. This parameter is supported for users with an open access list and from encrypted regions; it cannot be passed in other scenarios. 0 or not passed: No encryption. 1: KMS-CLS cloud product key encryption. Once enabled, it cannot be disabled.
+	// Supported regions: ap-beijing, ap-guangzhou, ap-shanghai, ap-singapore, ap-bangkok, ap-jakarta, eu-frankfurt, ap-seoul, ap-tokyo.
+	// +kubebuilder:validation:Optional
+	Encryption *float64 `json:"encryption,omitempty" tf:"encryption,omitempty"`
 
 	// Log Subject Extension Information.
 	// Log Subject Extension Information.
@@ -285,8 +304,8 @@ type TopicParameters struct {
 	// +kubebuilder:validation:Optional
 	PartitionCount *float64 `json:"partitionCount,omitempty" tf:"partition_count,omitempty"`
 
-	// Lifecycle in days. Value range: 1~366. Default value: 30.
-	// Lifecycle in days. Value range: 1~366. Default value: 30.
+	// lifetime. Unit: days. Standard storage value range: 1 to 3600. Infrequent storage value range: 7 to 3600 days. A value of 3640 indicates permanent retention.If this value is not input, it defaults to the Period value of the log set corresponding to the accessed log topic (defaults to 30 days in case of access failure).
+	// lifetime. Unit: days. Standard storage value range: 1 to 3600. Infrequent storage value range: 7 to 3600 days. A value of 3640 indicates permanent retention.If this value is not input, it defaults to the Period value of the log set corresponding to the accessed log topic (defaults to 30 days in case of access failure).
 	// +kubebuilder:validation:Optional
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 

@@ -18,6 +18,10 @@ type DimensionsInitParameters struct {
 	// Represents a collection of dimensions of an object instance, json format.eg:'{"unInstanceId":"ins-ot3cq4bi"}'.
 	// Represents a collection of dimensions of an object instance, json format.eg:'{"unInstanceId":"ins-ot3cq4bi"}'.
 	DimensionsJSON *string `json:"dimensionsJson,omitempty" tf:"dimensions_json,omitempty"`
+
+	// Region.
+	// Region.
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 type DimensionsObservation struct {
@@ -25,6 +29,10 @@ type DimensionsObservation struct {
 	// Represents a collection of dimensions of an object instance, json format.eg:'{"unInstanceId":"ins-ot3cq4bi"}'.
 	// Represents a collection of dimensions of an object instance, json format.eg:'{"unInstanceId":"ins-ot3cq4bi"}'.
 	DimensionsJSON *string `json:"dimensionsJson,omitempty" tf:"dimensions_json,omitempty"`
+
+	// Region.
+	// Region.
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// ID of the resource.
 	// Object unique ID.
@@ -37,6 +45,11 @@ type DimensionsParameters struct {
 	// Represents a collection of dimensions of an object instance, json format.eg:'{"unInstanceId":"ins-ot3cq4bi"}'.
 	// +kubebuilder:validation:Optional
 	DimensionsJSON *string `json:"dimensionsJson" tf:"dimensions_json,omitempty"`
+
+	// Region.
+	// Region.
+	// +kubebuilder:validation:Optional
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 type PolicyBindingObjectInitParameters struct {

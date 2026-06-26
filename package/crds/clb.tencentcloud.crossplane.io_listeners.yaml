@@ -167,6 +167,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  deregisterTargetRst:
+                    description: |-
+                      Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+                      Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+                    type: boolean
                   endPort:
                     description: |-
                       This parameter is used to specify the end port and is required when creating a port range listener. Only one member can be passed in when inputting the Ports parameter, which is used to specify the start port. If you want to try the port range feature, please submit a ticket.
@@ -257,6 +262,11 @@ spec:
                       Specifies the type of health check source IP. 0 (default): CLB VIP. 1: 100.64 IP range.
                       Specifies the type of health check source IP. `0` (default): CLB VIP. `1`: 100.64 IP range.
                     type: number
+                  idleConnectTimeout:
+                    description: |-
+                      Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+                      Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+                    type: number
                   keepaliveEnable:
                     description: |-
                       Whether to enable a persistent connection. This parameter is applicable only to HTTP and HTTPS listeners. Valid values: 0 (disable; default value) and 1 (enable).
@@ -298,6 +308,31 @@ spec:
                       Type of protocol within the listener. Valid values: TCP, UDP, HTTP, HTTPS, TCP_SSL and QUIC.
                       Type of protocol within the listener. Valid values: `TCP`, `UDP`, `HTTP`, `HTTPS`, `TCP_SSL` and `QUIC`.
                     type: string
+                  rescheduleExpandTarget:
+                    description: |-
+                      The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+                      The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+                    type: boolean
+                  rescheduleInterval:
+                    description: |-
+                      Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+                      Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+                    type: number
+                  rescheduleStartTime:
+                    description: |-
+                      Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+                      Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+                    type: number
+                  rescheduleTargetZeroWeight:
+                    description: |-
+                      The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+                      The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+                    type: boolean
+                  rescheduleUnhealthy:
+                    description: |-
+                      Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+                      Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+                    type: boolean
                   scheduler:
                     description: |-
                       Scheduling method of the CLB listener, and available values are 'WRR' and 'LEAST_CONN'. The default is 'WRR'. NOTES: The listener of HTTP and HTTPS protocol additionally supports the IP Hash method. NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
@@ -325,8 +360,8 @@ spec:
                     type: boolean
                   targetType:
                     description: |-
-                      Backend target type. Valid values: NODE, TARGETGROUP. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
-                      Backend target type. Valid values: `NODE`, `TARGETGROUP`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+                      Backend target type. Valid values: NODE, TARGETGROUP, TARGETGROUP-V2. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+                      Backend target type. Valid values: `NODE`, `TARGETGROUP`, `TARGETGROUP-V2`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
                     type: string
                 type: object
               initProvider:
@@ -436,6 +471,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  deregisterTargetRst:
+                    description: |-
+                      Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+                      Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+                    type: boolean
                   endPort:
                     description: |-
                       This parameter is used to specify the end port and is required when creating a port range listener. Only one member can be passed in when inputting the Ports parameter, which is used to specify the start port. If you want to try the port range feature, please submit a ticket.
@@ -526,6 +566,11 @@ spec:
                       Specifies the type of health check source IP. 0 (default): CLB VIP. 1: 100.64 IP range.
                       Specifies the type of health check source IP. `0` (default): CLB VIP. `1`: 100.64 IP range.
                     type: number
+                  idleConnectTimeout:
+                    description: |-
+                      Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+                      Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+                    type: number
                   keepaliveEnable:
                     description: |-
                       Whether to enable a persistent connection. This parameter is applicable only to HTTP and HTTPS listeners. Valid values: 0 (disable; default value) and 1 (enable).
@@ -567,6 +612,31 @@ spec:
                       Type of protocol within the listener. Valid values: TCP, UDP, HTTP, HTTPS, TCP_SSL and QUIC.
                       Type of protocol within the listener. Valid values: `TCP`, `UDP`, `HTTP`, `HTTPS`, `TCP_SSL` and `QUIC`.
                     type: string
+                  rescheduleExpandTarget:
+                    description: |-
+                      The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+                      The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+                    type: boolean
+                  rescheduleInterval:
+                    description: |-
+                      Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+                      Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+                    type: number
+                  rescheduleStartTime:
+                    description: |-
+                      Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+                      Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+                    type: number
+                  rescheduleTargetZeroWeight:
+                    description: |-
+                      The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+                      The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+                    type: boolean
+                  rescheduleUnhealthy:
+                    description: |-
+                      Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+                      Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+                    type: boolean
                   scheduler:
                     description: |-
                       Scheduling method of the CLB listener, and available values are 'WRR' and 'LEAST_CONN'. The default is 'WRR'. NOTES: The listener of HTTP and HTTPS protocol additionally supports the IP Hash method. NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
@@ -594,8 +664,8 @@ spec:
                     type: boolean
                   targetType:
                     description: |-
-                      Backend target type. Valid values: NODE, TARGETGROUP. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
-                      Backend target type. Valid values: `NODE`, `TARGETGROUP`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+                      Backend target type. Valid values: NODE, TARGETGROUP, TARGETGROUP-V2. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+                      Backend target type. Valid values: `NODE`, `TARGETGROUP`, `TARGETGROUP-V2`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
                     type: string
                 type: object
               managementPolicies:
@@ -799,6 +869,11 @@ spec:
                       ID of the CLB.
                       ID of the CLB.
                     type: string
+                  deregisterTargetRst:
+                    description: |-
+                      Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+                      Whether to send the TCP RST packet to the client when unbinding a real server. This parameter is applicable to TCP listeners only.
+                    type: boolean
                   endPort:
                     description: |-
                       This parameter is used to specify the end port and is required when creating a port range listener. Only one member can be passed in when inputting the Ports parameter, which is used to specify the start port. If you want to try the port range feature, please submit a ticket.
@@ -892,6 +967,11 @@ spec:
                   id:
                     description: ID of the resource.
                     type: string
+                  idleConnectTimeout:
+                    description: |-
+                      Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+                      Connection idle timeout period (in seconds). It's only available to TCP listeners. Value range: 300-900 for shared and dedicated instances; 300-2000 for LCU-supported CLB instances. It defaults to 900. To set a period longer than 2000 seconds (up to 3600 seconds). Please submit a work order for processing.
+                    type: number
                   keepaliveEnable:
                     description: |-
                       Whether to enable a persistent connection. This parameter is applicable only to HTTP and HTTPS listeners. Valid values: 0 (disable; default value) and 1 (enable).
@@ -938,6 +1018,31 @@ spec:
                       Type of protocol within the listener. Valid values: TCP, UDP, HTTP, HTTPS, TCP_SSL and QUIC.
                       Type of protocol within the listener. Valid values: `TCP`, `UDP`, `HTTP`, `HTTPS`, `TCP_SSL` and `QUIC`.
                     type: string
+                  rescheduleExpandTarget:
+                    description: |-
+                      The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+                      The rescheduling function, a switch for scaling backend services, triggers rescheduling when backend servers are added or removed. Only supported by TCP/UDP listeners.
+                    type: boolean
+                  rescheduleInterval:
+                    description: |-
+                      Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+                      Rescheduled trigger duration, ranging from 0 to 3600 seconds. Supported only by TCP/UDP listeners.
+                    type: number
+                  rescheduleStartTime:
+                    description: |-
+                      Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+                      Reschedule the trigger start time, with a value ranging from 0 to 3600 seconds. Only supported by TCP/UDP listeners.
+                    type: number
+                  rescheduleTargetZeroWeight:
+                    description: |-
+                      The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+                      The rescheduling function, with a weight of 0 as a switch, triggers rescheduling when the weight of the backend server is set to 0. Only supported by TCP/UDP listeners.
+                    type: boolean
+                  rescheduleUnhealthy:
+                    description: |-
+                      Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+                      Rescheduling function, health check exception switch. Enabling this switch triggers rescheduling when a backend server fails a health check. Supported only by TCP/UDP listeners.
+                    type: boolean
                   scheduler:
                     description: |-
                       Scheduling method of the CLB listener, and available values are 'WRR' and 'LEAST_CONN'. The default is 'WRR'. NOTES: The listener of HTTP and HTTPS protocol additionally supports the IP Hash method. NOTES: TCP/UDP/TCP_SSL listener allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
@@ -965,8 +1070,8 @@ spec:
                     type: boolean
                   targetType:
                     description: |-
-                      Backend target type. Valid values: NODE, TARGETGROUP. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
-                      Backend target type. Valid values: `NODE`, `TARGETGROUP`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+                      Backend target type. Valid values: NODE, TARGETGROUP, TARGETGROUP-V2. NODE means to bind ordinary nodes, TARGETGROUP means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
+                      Backend target type. Valid values: `NODE`, `TARGETGROUP`, `TARGETGROUP-V2`. `NODE` means to bind ordinary nodes, `TARGETGROUP` means to bind target group. NOTES: TCP/UDP/TCP_SSL listener must configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
                     type: string
                 type: object
               conditions:

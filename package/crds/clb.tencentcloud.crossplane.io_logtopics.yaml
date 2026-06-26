@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: LogTopic is the Schema for the LogTopics API. Provides a resource
-          to create a CLB instance topic.
+          to create a CLB log topic.
         properties:
           apiVersion:
             description: |-
@@ -152,6 +152,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  status:
+                    description: |-
+                      The status of log topic. true: enable; false: disable. Default is true.
+                      The status of log topic. true: enable; false: disable. Default is true.
+                    type: boolean
                   topicName:
                     description: |-
                       Log topic of CLB instance.
@@ -250,6 +255,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  status:
+                    description: |-
+                      The status of log topic. true: enable; false: disable. Default is true.
+                      The status of log topic. true: enable; false: disable. Default is true.
+                    type: boolean
                   topicName:
                     description: |-
                       Log topic of CLB instance.
@@ -448,8 +458,8 @@ spec:
                     type: string
                   status:
                     description: |-
-                      The status of log topic.
-                      The status of log topic.
+                      The status of log topic. true: enable; false: disable. Default is true.
+                      The status of log topic. true: enable; false: disable. Default is true.
                     type: boolean
                   topicName:
                     description: |-

@@ -9,6 +9,7 @@ import (
 	"context"
 	v1alpha1 "github.com/crossplane-contrib/provider-tencentcloud/apis/vpc/v1alpha1"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
+	resource "github.com/crossplane/upjet/pkg/resource"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -38,7 +39,7 @@ func (mg *Attachment) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ListenerID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("listener_id", true),
 		Reference:    mg.Spec.ForProvider.ListenerIDRef,
 		Selector:     mg.Spec.ForProvider.ListenerIDSelector,
 		To: reference.To{
@@ -54,7 +55,7 @@ func (mg *Attachment) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RuleID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("rule_id", true),
 		Reference:    mg.Spec.ForProvider.RuleIDRef,
 		Selector:     mg.Spec.ForProvider.RuleIDSelector,
 		To: reference.To{
@@ -86,7 +87,7 @@ func (mg *Attachment) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ListenerID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("listener_id", true),
 		Reference:    mg.Spec.InitProvider.ListenerIDRef,
 		Selector:     mg.Spec.InitProvider.ListenerIDSelector,
 		To: reference.To{
@@ -102,7 +103,7 @@ func (mg *Attachment) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RuleID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("rule_id", true),
 		Reference:    mg.Spec.InitProvider.RuleIDRef,
 		Selector:     mg.Spec.InitProvider.RuleIDSelector,
 		To: reference.To{
@@ -260,7 +261,7 @@ func (mg *ListenerRule) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ListenerID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("listener_id", true),
 		Reference:    mg.Spec.ForProvider.ListenerIDRef,
 		Selector:     mg.Spec.ForProvider.ListenerIDSelector,
 		To: reference.To{
@@ -292,7 +293,7 @@ func (mg *ListenerRule) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ListenerID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("listener_id", true),
 		Reference:    mg.Spec.InitProvider.ListenerIDRef,
 		Selector:     mg.Spec.InitProvider.ListenerIDSelector,
 		To: reference.To{
@@ -376,7 +377,7 @@ func (mg *Redirection) ResolveReferences(ctx context.Context, c client.Reader) e
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SourceListenerID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("listener_id", true),
 		Reference:    mg.Spec.ForProvider.SourceListenerIDRef,
 		Selector:     mg.Spec.ForProvider.SourceListenerIDSelector,
 		To: reference.To{
@@ -408,7 +409,7 @@ func (mg *Redirection) ResolveReferences(ctx context.Context, c client.Reader) e
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TargetListenerID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("listener_id", true),
 		Reference:    mg.Spec.ForProvider.TargetListenerIDRef,
 		Selector:     mg.Spec.ForProvider.TargetListenerIDSelector,
 		To: reference.To{
@@ -456,7 +457,7 @@ func (mg *Redirection) ResolveReferences(ctx context.Context, c client.Reader) e
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SourceListenerID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("listener_id", true),
 		Reference:    mg.Spec.InitProvider.SourceListenerIDRef,
 		Selector:     mg.Spec.InitProvider.SourceListenerIDSelector,
 		To: reference.To{
@@ -488,7 +489,7 @@ func (mg *Redirection) ResolveReferences(ctx context.Context, c client.Reader) e
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TargetListenerID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("listener_id", true),
 		Reference:    mg.Spec.InitProvider.TargetListenerIDRef,
 		Selector:     mg.Spec.InitProvider.TargetListenerIDSelector,
 		To: reference.To{
@@ -563,6 +564,48 @@ func (mg *SnatIp) ResolveReferences(ctx context.Context, c client.Reader) error 
 	return nil
 }
 
+// ResolveReferences of this TargetGroup.
+func (mg *TargetGroup) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.VPCIDRef,
+		Selector:     mg.Spec.ForProvider.VPCIDSelector,
+		To: reference.To{
+			List:    &v1alpha1.VPCList{},
+			Managed: &v1alpha1.VPC{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
+	}
+	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.VPCIDRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.VPCIDRef,
+		Selector:     mg.Spec.InitProvider.VPCIDSelector,
+		To: reference.To{
+			List:    &v1alpha1.VPCList{},
+			Managed: &v1alpha1.VPC{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
+	}
+	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.VPCIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this TargetGroupAttachment.
 func (mg *TargetGroupAttachment) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
@@ -588,7 +631,7 @@ func (mg *TargetGroupAttachment) ResolveReferences(ctx context.Context, c client
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ListenerID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("listener_id", true),
 		Reference:    mg.Spec.ForProvider.ListenerIDRef,
 		Selector:     mg.Spec.ForProvider.ListenerIDSelector,
 		To: reference.To{
@@ -604,7 +647,7 @@ func (mg *TargetGroupAttachment) ResolveReferences(ctx context.Context, c client
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RuleID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("rule_id", true),
 		Reference:    mg.Spec.ForProvider.RuleIDRef,
 		Selector:     mg.Spec.ForProvider.RuleIDSelector,
 		To: reference.To{
@@ -652,7 +695,7 @@ func (mg *TargetGroupAttachment) ResolveReferences(ctx context.Context, c client
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ListenerID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("listener_id", true),
 		Reference:    mg.Spec.InitProvider.ListenerIDRef,
 		Selector:     mg.Spec.InitProvider.ListenerIDSelector,
 		To: reference.To{
@@ -668,7 +711,7 @@ func (mg *TargetGroupAttachment) ResolveReferences(ctx context.Context, c client
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RuleID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("rule_id", true),
 		Reference:    mg.Spec.InitProvider.RuleIDRef,
 		Selector:     mg.Spec.InitProvider.RuleIDSelector,
 		To: reference.To{
