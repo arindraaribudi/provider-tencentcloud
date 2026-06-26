@@ -18,7 +18,7 @@ spec:
       key: example-key
       name: example-secret
       namespace: upbound-system
-    workerConfigOverrides:
+    workerConfig:
     - desiredPodNum: 8
 
 ---

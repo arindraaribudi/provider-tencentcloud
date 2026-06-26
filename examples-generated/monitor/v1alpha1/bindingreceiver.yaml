@@ -8,13 +8,13 @@ metadata:
   name: receiver
 spec:
   forProvider:
-    groupId: ${tencentcloud_monitor_policy_group.group.id}
+    groupId: 0  # placeholder; original: ${tencentcloud_monitor_policy_group.group.id}
     receivers:
     - endTime: 86399
       notifyWay:
       - SMS
       receiveLanguage: en-US
       receiverGroupList:
-      - ${data.tencentcloud_cam_groups.groups.group_list[0].group_id}
+      - 0  # placeholder; original: ${data.tencentcloud_cam_groups.groups.group_list[0].group_id}
       receiverType: group
       startTime: 0

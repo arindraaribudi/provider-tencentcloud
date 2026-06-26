@@ -76,7 +76,6 @@ func Configure(p *config.Provider) {
 		}
 	})
 
-
 	p.AddResourceConfigurator("tencentcloud_kubernetes_auth_attachment", func(r *config.Resource) {
 		r.ExternalName = config.IdentifierFromProvider
 		r.ShortGroup = shortGroupTke

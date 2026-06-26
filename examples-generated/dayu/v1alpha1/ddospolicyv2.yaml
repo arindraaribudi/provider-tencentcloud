@@ -34,7 +34,7 @@ spec:
     ddosGeoIpBlockConfig:
     - action: drop
       areaList:
-      - "100001"
+      - 100001
       regionType: customized
     ddosLevel: low
     ddosSpeedLimitConfig:
@@ -43,7 +43,7 @@ spec:
       mode: 1
       packetRate: 10
       protocolList: TCP
-    ddosThreshold: "100"
+    ddosThreshold: 100
     packetFilters:
     - action: drop
       dPortEnd: 20

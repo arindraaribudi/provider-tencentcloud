@@ -17,7 +17,7 @@ spec:
     rowCount: 3
     sampleInterval: 10
     sampleType: Percent
-    subAppId: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
+    subAppId: 0  # placeholder; original: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
     width: 128
 
 ---

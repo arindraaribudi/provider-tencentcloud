@@ -22,15 +22,15 @@ import (
 
 const (
 	// error messages
-	errNoProviderConfig     = "no providerConfigRef provided"
-	errGetProviderConfig    = "cannot get referenced ProviderConfig"
-	errTrackUsage           = "cannot track ProviderConfig usage"
-	errExtractCredentials   = "cannot extract credentials"
-	errUnmarshalCredentials = "cannot unmarshal tencentcloud credentials as JSON"
+	errNoProviderConfig      = "no providerConfigRef provided"
+	errGetProviderConfig     = "cannot get referenced ProviderConfig"
+	errTrackUsage            = "cannot track ProviderConfig usage"
+	errExtractCredentials    = "cannot extract credentials"
+	errUnmarshalCredentials  = "cannot unmarshal tencentcloud credentials as JSON"
 	errMissingWebIdentityEnv = "TKE pod identity requires TKE_ROLE_ARN, TKE_WEB_IDENTITY_TOKEN_FILE, and TKE_PROVIDER_ID env vars"
-	keySecretID             = "secret_id"
-	keySecretKey            = "secret_key"
-	keyRegion               = "region"
+	keySecretID              = "secret_id"
+	keySecretKey             = "secret_key"
+	keyRegion                = "region"
 
 	tkeEnvRoleARN              = "TKE_ROLE_ARN"
 	tkeEnvWebIdentityTokenFile = "TKE_WEB_IDENTITY_TOKEN_FILE"
@@ -74,6 +74,8 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			if roleARN == "" || tokenFile == "" || providerID == "" {
 				return ps, errors.New(errMissingWebIdentityEnv)
 			}
+			// Path supplied via TKE_WEB_IDENTITY_TOKEN_FILE env var, set by the platform.
+			// nolint:gosec // G304/G703: file inclusion via variable; controlled by env var.
 			tokenBytes, err := os.ReadFile(tokenFile)
 			if err != nil {
 				return ps, errors.Wrap(err, "cannot read web identity token file")

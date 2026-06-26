@@ -31,7 +31,7 @@ spec:
     vpcIdSelector:
       matchLabels:
         testing.upbound.io/example-name: vpc
-    zoneId: ${data.tencentcloud_availability_zones_by_product.gz.zones.0.id}
+    zoneId: 0  # placeholder; original: ${data.tencentcloud_availability_zones_by_product.gz.zones.0.id}
 
 ---
 

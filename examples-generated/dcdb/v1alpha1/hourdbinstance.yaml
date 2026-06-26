@@ -14,10 +14,10 @@ spec:
     - tagKey: tagKey
       tagValue: tagValue
     securityGroupId: sg-4z20n68d
-    shardCount: "2"
-    shardMemory: "4"
-    shardNodeCount: "2"
-    shardStorage: "50"
+    shardCount: 2
+    shardMemory: 4
+    shardNodeCount: 2
+    shardStorage: 50
     subnetIdSelector:
       matchLabels:
         testing.upbound.io/example-name: example

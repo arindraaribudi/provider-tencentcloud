@@ -20,4 +20,4 @@ spec:
     domain: example.com
     dvAuthMethod: DNS_AUTO
     packageType: "2"
-    validityPeriod: 12
+    validityPeriod: "12"

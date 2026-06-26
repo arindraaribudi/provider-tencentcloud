@@ -13,7 +13,7 @@ spec:
     resourceType: bgpip
     rule:
     - domain: github.com
-      keepEnable: false
+      keepEnable: 0
       keeptime: 0
       lbType: 1
       protocol: http

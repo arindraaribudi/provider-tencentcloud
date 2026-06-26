@@ -9,7 +9,7 @@ metadata:
 spec:
   forProvider:
     defaultDomain: service-ohxqslqe-1259649581.gz.apigw.tencentcs.com
-    isDefaultMapping: "false"
+    isDefaultMapping: false
     netType: OUTER
     pathMappings:
     - /good#test

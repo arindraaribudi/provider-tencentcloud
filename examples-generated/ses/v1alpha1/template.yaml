@@ -9,3 +9,5 @@ metadata:
 spec:
   forProvider:
     templateName: tf_example_ses_temp
+    templateContent:
+      - text: "Hello {{name}}"

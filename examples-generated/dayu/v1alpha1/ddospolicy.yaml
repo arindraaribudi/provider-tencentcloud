@@ -47,10 +47,10 @@ spec:
       sStartPort: 2000
     portFilters:
     - action: drop
-      endPort: "2500"
+      endPort: 2500
       kind: 1
       protocol: all
-      startPort: "2000"
+      startPort: 2000
     resourceType: bgpip
     watermarkFilters:
     - autoRemove: true

@@ -31,7 +31,7 @@ spec:
       namespace: upbound-system
     projectId: 0
     publicIpAssigned: true
-    systemDiskSize: "50"
+    systemDiskSize: 50
     systemDiskType: CLOUD_PREMIUM
     tags:
       createdBy: Terraform
