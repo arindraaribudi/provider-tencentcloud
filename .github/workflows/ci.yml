@@ -15,12 +15,12 @@ on:
 
 env:
   # Common versions
-  GO_VERSION: '1.20'
-  GOLANGCI_VERSION: 'v1.53.3'
-  DOCKER_BUILDX_VERSION: 'v0.8.2'
+  GO_VERSION: '1.25.0'
+  GOLANGCI_VERSION: 'v2.1.6'
+  DOCKER_BUILDX_VERSION: 'v0.20.1'
   XPKG_ACCESS_ID: ${{ secrets.XPKG_ACCESS_ID }}
-  CROSSPLANE_REGORG: 'ghcr.io/crossplane-contrib'
-  UPBOUND_REGORG: 'xpkg.upbound.io/crossplane-contrib'
+  CROSSPLANE_REGORG: 'ghcr.io/arindraaribudi'
+  UPBOUND_REGORG: 'xpkg.upbound.io/arindraaribudi'
   PROVIDER_REPO: provider-tencentcloud
   UP_DOMAIN: "https://upbound.io"
 
