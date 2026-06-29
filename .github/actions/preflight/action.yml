@@ -34,10 +34,12 @@ runs:
       if: inputs.install_goimports == 'true'
       shell: bash
       run: |
-        go get golang.org/x/tools/cmd/goimports@v0.45.0
-        go get golang.org/x/telemetry/counter
-        make go.modules.tidy
-        go install golang.org/x/tools/cmd/goimports
+        tmpdir=$(mktemp -d) && \
+        cd "$tmpdir" && \
+        go mod init tmp >/dev/null 2>&1 && \
+        go install golang.org/x/tools/cmd/goimports@v0.45.0 && \
+        cd - >/dev/null && \
+        rm -rf "$tmpdir"
 
     - name: Fetch History
       if: inputs.fetch_history == 'true'
