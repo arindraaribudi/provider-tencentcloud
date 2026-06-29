@@ -1,0 +1,64 @@
+name: preflight
+description: Common Go job setup — checkout, go-version, Go build/pkg caches, vendoring.
+
+inputs:
+  cache_suffix:
+    description: Suffix appended to the Go build cache key (must be unique per job).
+    required: true
+  go_version:
+    description: Go toolchain version (e.g. 1.25.0).
+    required: true
+  install_goimports:
+    description: Install golang.org/x/tools/cmd/goimports.
+    required: false
+    default: 'false'
+  fetch_history:
+    description: git fetch --prune --unshallow before caches resolve.
+    required: false
+    default: 'false'
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@b4ffde65f46336ab88ebbe808477a3936bae11 # v4
+      with:
+        submodules: true
+
+    - name: Setup Go
+      uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5
+      with:
+        go-version: ${{ inputs.go_version }}
+
+    - name: Install goimports
+      if: inputs.install_goimports == 'true'
+      shell: bash
+      run: go install golang.org/x/tools/cmd/goimports
+
+    - name: Fetch History
+      if: inputs.fetch_history == 'true'
+      shell: bash
+      run: git fetch --prune --unshallow
+
+    - name: Resolve Go Build Cache Path
+      id: go-cache
+      shell: bash
+      run: echo "cache=$(make go.cachedir)" >> "$GITHUB_OUTPUT"
+
+    - name: Cache the Go Build Cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.go-cache.outputs.cache }}
+        key: ${{ runner.os }}-build-${{ inputs.cache_suffix }}-${{ hashFiles('**/go.sum') }}
+        restore-keys: ${{ runner.os }}-build-${{ inputs.cache_suffix }}-
+
+    - name: Cache Go Dependencies
+      uses: actions/cache@v4
+      with:
+        path: .work/pkg
+        key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
+        restore-keys: ${{ runner.os }}-pkg-
+
+    - name: Vendor Dependencies
+      shell: bash
+      run: make vendor vendor.check
