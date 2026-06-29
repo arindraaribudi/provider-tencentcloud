@@ -15,7 +15,7 @@ on:
 
 env:
   GO_VERSION: "1.25.0"
-  GOLANGCI_VERSION: "v2.1.6"
+  GOLANGCI_VERSION: "v2.2.0"
   DOCKER_BUILDX_VERSION: "v0.20.1"
   DOCKER_QEMU_ACTION: "docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3" # v3
   DOCKER_BUILDX_ACTION: "docker/setup-buildx-action@2b51285047da1547ffb1b2203d8be4c0af6b1f20" # v3
