@@ -11,17 +11,17 @@ spec:
     comment: test
     mediaProcessTask:
     - adaptiveDynamicStreamingTaskList:
-      - definition: "0"  # placeholder; original: TF tonumber() interpolation("#", tencentcloud_vod_adaptive_dynamic_streaming_template.foo.id)[1])}
+      - definition: ${tonumber(split("#", tencentcloud_vod_adaptive_dynamic_streaming_template.foo.id)[1])}
       imageSpriteTaskList:
-      - definition: "0"  # placeholder; original: TF tonumber() interpolation("#", tencentcloud_vod_image_sprite_template.foo.id)[1])}
+      - definition: ${tonumber(split("#", tencentcloud_vod_image_sprite_template.foo.id)[1])}
       snapshotByTimeOffsetTaskList:
-      - definition: "0"  # placeholder; original: TF tonumber() interpolation("#", tencentcloud_vod_snapshot_by_time_offset_template.foo.id)[1])}
+      - definition: ${tonumber(split("#", tencentcloud_vod_snapshot_by_time_offset_template.foo.id)[1])}
         extTimeOffsetList:
         - 3.5s
       transcodeTaskList:
-      - definition: "0"  # placeholder; original: TF tonumber() interpolation("#", tencentcloud_vod_transcode_template.transcode_template.id)[1])}
+      - definition: ${tonumber(split("#", tencentcloud_vod_transcode_template.transcode_template.id)[1])}
     name: tf-procedure0
-    subAppId: 0  # placeholder; original: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
+    subAppId: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
 
 ---
 
@@ -62,7 +62,7 @@ spec:
       - bitrate: 256
         codec: libx264
         fps: 4
-    subAppId: 0  # placeholder; original: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
+    subAppId: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
 
 ---
 
@@ -85,7 +85,7 @@ spec:
     rowCount: 3
     sampleInterval: 10
     sampleType: Percent
-    subAppId: 0  # placeholder; original: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
+    subAppId: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
     width: 128
 
 ---
@@ -106,7 +106,7 @@ spec:
     height: 128
     name: tf-snapshot
     resolutionAdaptive: false
-    subAppId: 0  # placeholder; original: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
+    subAppId: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
     width: 128
 
 ---

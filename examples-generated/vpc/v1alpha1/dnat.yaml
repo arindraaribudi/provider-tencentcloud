@@ -10,12 +10,12 @@ spec:
   forProvider:
     description: desc.
     elasticIp: ${tencentcloud_eip.eip_example.public_ip}
-    elasticPort: "80"
+    elasticPort: 80
     natIdSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     privateIp: ${tencentcloud_instance.example.private_ip}
-    privatePort: "9090"
+    privatePort: 9090
     protocol: TCP
     vpcIdSelector:
       matchLabels:

@@ -16,10 +16,10 @@ spec:
       name: example-secret
       namespace: upbound-system
     port: 6379
-    redisReplicasNum: 0  # placeholder; original: TF interpolation
-    redisShardNum: 0  # placeholder; original: TF interpolation
+    redisReplicasNum: ${data.tencentcloud_redis_zone_config.zone.list[0].redis_replicas_nums[0]}
+    redisShardNum: ${data.tencentcloud_redis_zone_config.zone.list[0].redis_shard_nums[0]}
     subnetId: ${tencentcloud_subnet.subnet.id}
-    typeId: 0  # placeholder; original: TF interpolation
+    typeId: ${data.tencentcloud_redis_zone_config.zone.list[0].type_id}
     vpcId: ${tencentcloud_vpc.vpc.id}
 
 ---

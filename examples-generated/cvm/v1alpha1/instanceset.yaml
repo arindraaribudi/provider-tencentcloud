@@ -20,6 +20,10 @@ spec:
         testing.upbound.io/example-name: app
     systemDiskSize: 50
     systemDiskType: CLOUD_PREMIUM
+    timeouts:
+    - create: 5m
+      delete: 1h
+      read: 20s
     vpcIdSelector:
       matchLabels:
         testing.upbound.io/example-name: app

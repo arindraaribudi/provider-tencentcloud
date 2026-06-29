@@ -26,7 +26,7 @@ spec:
       - bitrate: 128
         codec: libx264
         fps: 3
-    subAppId: 0  # placeholder; original: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
+    subAppId: ${tonumber(split("#", tencentcloud_vod_sub_application.sub_application.id)[1])}
 
 ---
 

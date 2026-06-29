@@ -8,5 +8,5 @@ metadata:
   name: log-file-retention-period
 spec:
   forProvider:
-    days: 8
+    days: "8"
     instanceId: tdsql-4pzs5b67

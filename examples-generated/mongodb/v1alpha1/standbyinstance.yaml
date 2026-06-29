@@ -16,6 +16,7 @@ spec:
     instanceName: tf-mongodb-standby-test
     memory: 4
     projectId: 0
+    provider: ${tencentcloud.shanghai}
     tags:
       test: test
     volume: 100

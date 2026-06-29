@@ -10,6 +10,7 @@ spec:
   forProvider:
     instanceName: emr-cluster-test
     loginSettingsSecretRef:
+      key: example-key
       name: example-secret
       namespace: upbound-system
     payMode: 0
