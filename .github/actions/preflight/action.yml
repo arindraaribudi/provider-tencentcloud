@@ -35,6 +35,7 @@ runs:
       shell: bash
       run: |
         go get golang.org/x/tools/cmd/goimports
+        make go.modules.tidy
         go install golang.org/x/tools/cmd/goimports
 
     - name: Fetch History
