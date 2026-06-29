@@ -47,6 +47,10 @@ jobs:
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
     steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88ebbe808477a3936bae11 # v4
+        with:
+          submodules: true
       - name: Preflight
         uses: ./.github/actions/preflight
         with:
@@ -64,6 +68,10 @@ jobs:
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
     steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88ebbe808477a3936bae11 # v4
+        with:
+          submodules: true
       - name: Preflight
         uses: ./.github/actions/preflight
         with:
@@ -78,6 +86,10 @@ jobs:
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
     steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88ebbe808477a3936bae11 # v4
+        with:
+          submodules: true
       - name: Preflight
         uses: ./.github/actions/preflight
         with:
@@ -117,6 +129,10 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ env.CR_PAT }}
 
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88ebbe808477a3936bae11 # v4
+        with:
+          submodules: true
       - name: Preflight
         uses: ./.github/actions/preflight
         with:
