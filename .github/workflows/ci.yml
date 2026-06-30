@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - release-*
+    tags:
+      - 'v*'
   pull_request: {}
   workflow_dispatch:
     inputs:
@@ -160,6 +162,7 @@ jobs:
 
   mirror-to-xpkg-upbound-io:
     needs: publish-artifacts
+    if: ${{ inputs.version != '' || startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-22.04
     steps:
       - name: Setup QEMU
@@ -188,5 +191,14 @@ jobs:
           password: ${{ env.XPKG_TOKEN }}
 
       - name: Mirror to xpkg.upbound.io
+        env:
+          VERSION: ${{ inputs.version != '' && inputs.version || github.ref_name }}
         run: |
-          crane copy ${{ env.CROSSPLANE_REGORG }}/${{ env.PROVIDER_REPO }}:${{ inputs.version }} ${{ env.UPBOUND_REGORG }}/${{ env.PROVIDER_REPO }}:${{ inputs.version }} --allow-nondistributable-artifacts
+          set -euo pipefail
+          SRC="${{ env.CROSSPLANE_REGORG }}/${{ env.PROVIDER_REPO }}:${VERSION}"
+          DST="${{ env.UPBOUND_REGORG }}/${{ env.PROVIDER_REPO }}:${VERSION}"
+          # Pull full image to local tar (avoids cross-registry blob mount)
+          crane pull "$SRC" /tmp/mirror.tar
+          # Push to Upbound (full blob upload, no cross-mount attempts)
+          crane push /tmp/mirror.tar "$DST" --allow-nondistributable-artifacts
+          rm -f /tmp/mirror.tar
