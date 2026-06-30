@@ -24,10 +24,10 @@ env:
   DOCKER_LOGIN_ACTION: "docker/login-action@v3.3.0"
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   CR_PAT: ${{ secrets.CR_PAT }}
-  XPKG_ACCESS_ID: ${{ secrets.XPKG_ACCESS_ID }}
-  XPKG_TOKEN: ${{ secrets.XPKG_TOKEN }}
+  UPBOUND_TOKEN: ${{ secrets.UPBOUND_TOKEN }}
   CROSSPLANE_REGORG: "ghcr.io/arindraaribudi"
   UPBOUND_REGORG: "xpkg.upbound.io/arindraaribudi"
+  UPBOUND_REGORG_SLUG: "arindraaribudi"
   PROVIDER_REPO: provider-tencentcloud
 
 jobs:
@@ -177,28 +177,41 @@ jobs:
           install: true
 
       - name: Setup crane
-        # crane will inherit credentials from `docker login`
         uses: imjasonh/setup-crane@v0.4
 
       - name: Validate crane installation
         run: crane version
 
-      - name: Login to Upbound
-        uses: docker/login-action@v3.3.0
-        with:
-          registry: "xpkg.upbound.io"
-          username: ${{ env.XPKG_ACCESS_ID }}
-          password: ${{ env.XPKG_TOKEN }}
-
-      - name: Mirror to xpkg.upbound.io
-        env:
-          VERSION: ${{ inputs.version != '' && inputs.version || github.ref_name }}
+      - name: Install up CLI
         run: |
           set -euo pipefail
-          SRC="${{ env.CROSSPLANE_REGORG }}/${{ env.PROVIDER_REPO }}:${VERSION}"
-          DST="${{ env.UPBOUND_REGORG }}/${{ env.PROVIDER_REPO }}:${VERSION}"
-          # Pull full image to local tar (avoids cross-registry blob mount)
-          crane pull "$SRC" /tmp/mirror.tar
-          # Push to Upbound (full blob upload, no cross-mount attempts)
-          crane push /tmp/mirror.tar "$DST" --allow-nondistributable-artifacts
-          rm -f /tmp/mirror.tar
+          curl -fsSL https://cli.upbound.io | sh
+          sudo mv up /usr/local/bin/
+          up version
+
+      - name: up login (non-interactive token auth)
+        env:
+          UPBOUND_TOKEN: ${{ env.UPBOUND_TOKEN }}
+          UPBOUND_REGORG_SLUG: ${{ env.UPBOUND_REGORG_SLUG }}
+        run: |
+          set -euo pipefail
+          up login --token="$UPBOUND_TOKEN" --organization="$UPBOUND_REGORG_SLUG"
+
+      - name: Pull xpkg artifact from GHCR
+        env:
+          VERSION: ${{ inputs.version != '' && inputs.version || github.ref_name }}
+          CROSSPLANE_REGORG: ${{ env.CROSSPLANE_REGORG }}
+          PROVIDER_REPO: ${{ env.PROVIDER_REPO }}
+        run: |
+          set -euo pipefail
+          crane pull "${CROSSPLANE_REGORG}/${PROVIDER_REPO}:${VERSION}" /tmp/mirror.xpkg
+          ls -lh /tmp/mirror.xpkg
+
+      - name: up xpkg push to Upbound Marketplace
+        env:
+          VERSION: ${{ inputs.version != '' && inputs.version || github.ref_name }}
+          UPBOUND_REGORG: ${{ env.UPBOUND_REGORG }}
+          PROVIDER_REPO: ${{ env.PROVIDER_REPO }}
+        run: |
+          set -euo pipefail
+          up xpkg push "${UPBOUND_REGORG}/${PROVIDER_REPO}:${VERSION}" -f /tmp/mirror.xpkg
