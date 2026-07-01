@@ -182,11 +182,14 @@ jobs:
       - name: Validate crane installation
         run: crane version
 
-      - name: Install up CLI
+      - name: Install up CLI (pinned)
         run: |
           set -euo pipefail
-          curl -fsSL https://cli.upbound.io | sh
+          UP_VERSION="v0.49.1"
+          curl -fsSL "https://cli.upbound.io?version=${UP_VERSION}" -o up.tar
+          tar -xf up.tar
           sudo mv up /usr/local/bin/
+          rm up.tar
           up version
 
       - name: up login (non-interactive token auth)
@@ -207,11 +210,26 @@ jobs:
           crane pull "${CROSSPLANE_REGORG}/${PROVIDER_REPO}:${VERSION}" /tmp/mirror.xpkg
           ls -lh /tmp/mirror.xpkg
 
-      - name: up xpkg push to Upbound Marketplace
+      - name: Resolve source digest
         env:
           VERSION: ${{ inputs.version != '' && inputs.version || github.ref_name }}
-          UPBOUND_REGORG: ${{ env.UPBOUND_REGORG }}
+          CROSSPLANE_REGORG: ${{ env.CROSSPLANE_REGORG }}
           PROVIDER_REPO: ${{ env.PROVIDER_REPO }}
         run: |
           set -euo pipefail
-          up xpkg push "${UPBOUND_REGORG}/${PROVIDER_REPO}:${VERSION}" -f /tmp/mirror.xpkg
+          echo "DIGEST=$(crane digest "${CROSSPLANE_REGORG}/${PROVIDER_REPO}:${VERSION}")" >> "$GITHUB_ENV"
+          echo "Resolved digest: ${DIGEST}"
+
+      - name: Append marketplace assets
+        env:
+          VERSION: ${{ inputs.version != '' && inputs.version || github.ref_name }}
+          UPBOUND_REGORG: ${{ env.UPBOUND_REGORG }}
+          CROSSPLANE_REGORG: ${{ env.CROSSPLANE_REGORG }}
+          PROVIDER_REPO: ${{ env.PROVIDER_REPO }}
+          DIGEST: ${{ env.DIGEST }}
+        run: |
+          set -euo pipefail
+          up alpha xpkg-append \
+            --extensions-root=./extensions \
+            --destination="${UPBOUND_REGORG}/${PROVIDER_REPO}:${VERSION}" \
+            "${CROSSPLANE_REGORG}/${PROVIDER_REPO}@${DIGEST}"
