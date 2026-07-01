@@ -206,7 +206,8 @@ jobs:
           PROVIDER_REPO: ${{ env.PROVIDER_REPO }}
         run: |
           set -euo pipefail
-          echo "DIGEST=$(crane digest "${CROSSPLANE_REGORG}/${PROVIDER_REPO}:${VERSION}")" >> "$GITHUB_ENV"
+          DIGEST=$(crane digest "${CROSSPLANE_REGORG}/${PROVIDER_REPO}:${VERSION}")
+          echo "DIGEST=${DIGEST}" >> "$GITHUB_ENV"
           echo "Resolved digest: ${DIGEST}"
 
       - name: Append marketplace assets
