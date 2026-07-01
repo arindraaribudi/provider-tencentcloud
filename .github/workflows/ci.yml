@@ -219,7 +219,7 @@ jobs:
           DIGEST: ${{ env.DIGEST }}
         run: |
           set -euo pipefail
-          up alpha xpkg-append \
+          up alpha xpkg append \
             --extensions-root=./extensions \
             --destination="${UPBOUND_REGORG}/${PROVIDER_REPO}:${VERSION}" \
             "${CROSSPLANE_REGORG}/${PROVIDER_REPO}@${DIGEST}"
