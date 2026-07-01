@@ -182,23 +182,12 @@ jobs:
       - name: Validate crane installation
         run: crane version
 
-      - name: Install up CLI (pinned)
-        run: |
-          set -euo pipefail
-          UP_VERSION="v0.49.1"
-          curl -fsSL "https://cli.upbound.io?version=${UP_VERSION}" -o up.tar
-          tar -xf up.tar
-          sudo mv up /usr/local/bin/
-          rm up.tar
-          up version
-
-      - name: up login (non-interactive token auth)
-        env:
-          UPBOUND_TOKEN: ${{ env.UPBOUND_TOKEN }}
-          UPBOUND_REGORG_SLUG: ${{ env.UPBOUND_REGORG_SLUG }}
-        run: |
-          set -euo pipefail
-          up login --token="$UPBOUND_TOKEN" --organization="$UPBOUND_REGORG_SLUG"
+      - name: Setup up CLI
+        uses: upbound/action-up@v1.2.0
+        with:
+          version: v0.49.1
+          api-token: ${{ env.UPBOUND_TOKEN }}
+          organization: ${{ env.UPBOUND_REGORG_SLUG }}
 
       - name: Pull xpkg artifact from GHCR
         env:
