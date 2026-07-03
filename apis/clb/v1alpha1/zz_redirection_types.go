@@ -61,6 +61,7 @@ type RedirectionInitParameters struct {
 	// Rule ID of source listener.
 	// Rule ID of source listener.
 	// +crossplane:generate:reference:type=ListenerRule
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("rule_id",true)
 	SourceRuleID *string `json:"sourceRuleId,omitempty" tf:"source_rule_id,omitempty"`
 
 	// Reference to a ListenerRule to populate sourceRuleId.
@@ -92,6 +93,7 @@ type RedirectionInitParameters struct {
 	// Rule ID of target listener.
 	// Rule ID of target listener.
 	// +crossplane:generate:reference:type=ListenerRule
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("rule_id",true)
 	TargetRuleID *string `json:"targetRuleId,omitempty" tf:"target_rule_id,omitempty"`
 
 	// Reference to a ListenerRule to populate targetRuleId.
@@ -203,6 +205,7 @@ type RedirectionParameters struct {
 	// Rule ID of source listener.
 	// Rule ID of source listener.
 	// +crossplane:generate:reference:type=ListenerRule
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("rule_id",true)
 	// +kubebuilder:validation:Optional
 	SourceRuleID *string `json:"sourceRuleId,omitempty" tf:"source_rule_id,omitempty"`
 
@@ -237,6 +240,7 @@ type RedirectionParameters struct {
 	// Rule ID of target listener.
 	// Rule ID of target listener.
 	// +crossplane:generate:reference:type=ListenerRule
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("rule_id",true)
 	// +kubebuilder:validation:Optional
 	TargetRuleID *string `json:"targetRuleId,omitempty" tf:"target_rule_id,omitempty"`
 

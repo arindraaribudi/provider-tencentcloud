@@ -393,7 +393,7 @@ func (mg *Redirection) ResolveReferences(ctx context.Context, c client.Reader) e
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SourceRuleID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("rule_id", true),
 		Reference:    mg.Spec.ForProvider.SourceRuleIDRef,
 		Selector:     mg.Spec.ForProvider.SourceRuleIDSelector,
 		To: reference.To{
@@ -425,7 +425,7 @@ func (mg *Redirection) ResolveReferences(ctx context.Context, c client.Reader) e
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TargetRuleID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("rule_id", true),
 		Reference:    mg.Spec.ForProvider.TargetRuleIDRef,
 		Selector:     mg.Spec.ForProvider.TargetRuleIDSelector,
 		To: reference.To{
@@ -473,7 +473,7 @@ func (mg *Redirection) ResolveReferences(ctx context.Context, c client.Reader) e
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SourceRuleID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("rule_id", true),
 		Reference:    mg.Spec.InitProvider.SourceRuleIDRef,
 		Selector:     mg.Spec.InitProvider.SourceRuleIDSelector,
 		To: reference.To{
@@ -505,7 +505,7 @@ func (mg *Redirection) ResolveReferences(ctx context.Context, c client.Reader) e
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TargetRuleID),
-		Extract:      reference.ExternalName(),
+		Extract:      resource.ExtractParamPath("rule_id", true),
 		Reference:    mg.Spec.InitProvider.TargetRuleIDRef,
 		Selector:     mg.Spec.InitProvider.TargetRuleIDSelector,
 		To: reference.To{

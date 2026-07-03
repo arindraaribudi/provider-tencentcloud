@@ -126,10 +126,12 @@ func Configure(p *config.Provider) {
 			Extractor: "github.com/crossplane/upjet/pkg/resource.ExtractParamPath(\"listener_id\",true)",
 		}
 		r.References["source_rule_id"] = config.Reference{
-			Type: "ListenerRule",
+			Type:      "ListenerRule",
+			Extractor: "github.com/crossplane/upjet/pkg/resource.ExtractParamPath(\"rule_id\",true)",
 		}
 		r.References["target_rule_id"] = config.Reference{
-			Type: "ListenerRule",
+			Type:      "ListenerRule",
+			Extractor: "github.com/crossplane/upjet/pkg/resource.ExtractParamPath(\"rule_id\",true)",
 		}
 	})
 
