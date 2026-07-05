@@ -32,7 +32,7 @@ func Configure(p *config.Provider) {
 		r.Kind = "RoleSSO"
 	})
 
-	p.AddResourceConfigurator("tencentcloud_cam_policy_by_name", func(r *config.Resource) {
+	p.AddResourceConfigurator("tencentcloud_cam_policy", func(r *config.Resource) {
 		r.ShortGroup = shortGroupCam
 		r.Kind = "Policy"
 	})

@@ -22,6 +22,11 @@ type PolicyInitParameters struct {
 	// Document of the CAM policy. The syntax refers to CAM POLICY. The elements in JSON claimed supporting two types as string and array only support type array; 2.
 	// Document of the CAM policy. The syntax refers to [CAM POLICY](https://intl.cloud.tencent.com/document/product/598/10604). The elements in JSON claimed supporting two types as `string` and `array` only support type `array`; 2.
 	Document *string `json:"document,omitempty" tf:"document,omitempty"`
+
+	// A list of tags used to associate different resources.
+	// A list of tags used to associate different resources.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type PolicyObservation struct {
@@ -40,6 +45,11 @@ type PolicyObservation struct {
 
 	// ID of the resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// A list of tags used to associate different resources.
+	// A list of tags used to associate different resources.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Type of the policy strategy. Valid values: 1, 2.  1 means customer strategy and 2 means preset strategy.
 	// Type of the policy strategy. Valid values: `1`, `2`.  `1` means customer strategy and `2` means preset strategy.
@@ -61,6 +71,12 @@ type PolicyParameters struct {
 	// Document of the CAM policy. The syntax refers to [CAM POLICY](https://intl.cloud.tencent.com/document/product/598/10604). The elements in JSON claimed supporting two types as `string` and `array` only support type `array`; 2.
 	// +kubebuilder:validation:Optional
 	Document *string `json:"document,omitempty" tf:"document,omitempty"`
+
+	// A list of tags used to associate different resources.
+	// A list of tags used to associate different resources.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 // PolicySpec defines the desired state of Policy

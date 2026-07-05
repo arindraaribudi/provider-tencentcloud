@@ -1,0 +1,148 @@
+# TKE Pod Identity via Crossplane (provider-tencentcloud)
+#
+# Provider-tencentcloud has no first-class PodIdentity CRD.
+# Compose from CAM Role + RolePolicyAttachment + ServiceAccount
+# (ServiceAccount via provider-kubernetes).
+#
+# Prereq: TKE cluster must have OIDC enabled at create time
+# (TKE Pro/Standard, k8s >= 1.20). Cannot be retrofitted.
+#
+# Replace placeholders before apply:
+#   <YOUR-UIN>            — Tencent Cloud account UIN (digits)
+#   <TKE-OIDC-URL>        — cluster OIDC issuer URL (from TKE console)
+#   <COS-BUCKET-UID>      — bucket owner UIN (often same as <YOUR-UIN>)
+#   <REGION>              — e.g. ap-guangzhou
+#
+# After apply, pods using the ServiceAccount get CAM creds
+# injected by TKE sidecar. SDKs that respect
+# TKE_ROLE_ARN + TKE_WEB_IDENTITY_TOKEN_FILE + TKE_PROVIDER_ID
+# pick them up automatically.
+
+---
+# 1) CAM Policy — what permissions the workload gets
+apiVersion: cam.tencentcloud.crossplane.io/v1alpha1
+kind: Policy
+metadata:
+  name: app-workload-policy
+  labels:
+    workload: app-workload
+  annotations:
+    crossplane.io/external-name: app-workload-policy
+spec:
+  forProvider:
+    description: "Allow workload to read COS bucket"
+    tags:
+      workload: app-workload
+      managed-by: crossplane
+    document: |
+      {
+        "version": "2.0",
+        "statement": [
+          {
+            "effect": "allow",
+            "action": [
+              "cos:GetObject",
+              "cos:HeadObject"
+            ],
+            "resource": [
+              "qcs::cos:ap-guangzhou:uid/<COS-BUCKET-UID>:example-bucket/*"
+            ]
+          }
+        ]
+      }
+  providerConfigRef:
+    name: tencentcloud
+---
+# 2) CAM Role — trust policy pins TKE OIDC issuer + K8s SA subject.
+#    Drop the Condition block to allow any SA in the cluster.
+apiVersion: cam.tencentcloud.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  name: app-workload-role
+  labels:
+    workload: app-workload
+  annotations:
+    crossplane.io/external-name: app-workload-role
+spec:
+  forProvider:
+    description: "Role assumed by TKE pod via pod identity"
+    tags:
+      workload: app-workload
+      managed-by: crossplane
+    document: |
+      {
+        "version": "2.0",
+        "statement": [
+          {
+            "effect": "allow",
+            "action": [
+              "sts:AssumeRoleWithWebIdentity"
+            ],
+            "principal": {
+              "federated": [
+                "qcs::tke::uin/<YOUR-UIN>:<TKE-OIDC-URL>"
+              ]
+            },
+            "condition": {
+              "StringEquals": {
+                "tke.cloud.tencent.com/namespace": "default",
+                "tke.cloud.tencent.com/service-account-name": "app-workload-sa"
+              }
+            }
+          }
+        ]
+      }
+  providerConfigRef:
+    name: tencentcloud
+---
+# 3) Attach policy to role — label selectors auto-resolve names.
+#    Provider resolves roleName/policyName from labels before apply.
+apiVersion: cam.tencentcloud.crossplane.io/v1alpha1
+kind: RolePolicyAttachment
+metadata:
+  name: app-workload-role-policy
+spec:
+  forProvider:
+    roleNameSelector:
+      matchLabels:
+        workload: app-workload
+    policyNameSelector:
+      matchLabels:
+        workload: app-workload
+  providerConfigRef:
+    name: tencentcloud
+---
+# 4) Kubernetes ServiceAccount with role-arn annotation.
+#    Provider: crossplane-contrib/provider-kubernetes
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: Object
+metadata:
+  name: app-workload-sa
+spec:
+  forProvider:
+    manifest:
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: app-workload-sa
+        namespace: default
+        annotations:
+          eks.tke.cloud.tencent.com/role-arn: "qcs::cam::uin/<YOUR-UIN>:roleName/app-workload-role"
+  providerConfigRef:
+    name: kubernetes-in-cluster
+---
+# 5) Sample Pod — uses the SA, gets CAM creds injected.
+#    Apply directly to TKE cluster (or via provider-kubernetes Object).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  namespace: default
+spec:
+  serviceAccountName: app-workload-sa
+  containers:
+    - name: app
+      image: my-app:latest
+      env:
+        - name: TKE_REGION
+          value: ap-guangzhou
