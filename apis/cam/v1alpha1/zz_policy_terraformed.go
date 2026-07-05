@@ -16,7 +16,7 @@ import (
 
 // GetTerraformResourceType returns Terraform resource type for this Policy
 func (mg *Policy) GetTerraformResourceType() string {
-	return "tencentcloud_cam_policy_by_name"
+	return "tencentcloud_cam_policy"
 }
 
 // GetConnectionDetailsMapping for this Policy

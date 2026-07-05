@@ -12,3 +12,33 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: policy_basic
     userName: ${data.tencentcloud_cam_users.users.user_list.0.user_id}
+
+---
+
+apiVersion: cam.tencentcloud.crossplane.io/v1alpha1
+kind: Policy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cam/v1alpha1/userpolicyattachment
+  labels:
+    testing.upbound.io/example-name: policy_basic
+  name: policy-basic
+spec:
+  forProvider:
+    description: tf_test
+    document: |-
+      ${jsonencode({
+          "version" : "2.0",
+          "statement" : [
+            {
+              "action" : ["cos:*"],
+              "resource" : ["*"],
+              "effect" : "allow",
+            },
+            {
+              "effect" : "allow",
+              "action" : ["monitor:*", "cam:ListUsersForGroup", "cam:ListGroups", "cam:GetGroup"],
+              "resource" : ["*"],
+            }
+          ]
+        })}

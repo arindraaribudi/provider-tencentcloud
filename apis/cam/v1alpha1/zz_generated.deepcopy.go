@@ -999,10 +999,12 @@ func (in *PolicyInitParameters) DeepCopyInto(out *PolicyInitParameters) {
 		for key, val := range *in {
 			var outVal *string
 			if val == nil {
-				outVal = nil
+				(*out)[key] = nil
 			} else {
-				outVal = new(string)
-				*outVal = *val
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
 			}
 			(*out)[key] = outVal
 		}
@@ -1080,10 +1082,12 @@ func (in *PolicyObservation) DeepCopyInto(out *PolicyObservation) {
 		for key, val := range *in {
 			var outVal *string
 			if val == nil {
-				outVal = nil
+				(*out)[key] = nil
 			} else {
-				outVal = new(string)
-				*outVal = *val
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
 			}
 			(*out)[key] = outVal
 		}
@@ -1129,10 +1133,12 @@ func (in *PolicyParameters) DeepCopyInto(out *PolicyParameters) {
 		for key, val := range *in {
 			var outVal *string
 			if val == nil {
-				outVal = nil
+				(*out)[key] = nil
 			} else {
-				outVal = new(string)
-				*outVal = *val
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
 			}
 			(*out)[key] = outVal
 		}

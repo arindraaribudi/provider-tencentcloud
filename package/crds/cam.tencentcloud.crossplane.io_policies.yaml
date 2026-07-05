@@ -83,6 +83,14 @@ spec:
                       Document of the CAM policy. The syntax refers to CAM POLICY. The elements in JSON claimed supporting two types as string and array only support type array; 2.
                       Document of the CAM policy. The syntax refers to [CAM POLICY](https://intl.cloud.tencent.com/document/product/598/10604). The elements in JSON claimed supporting two types as `string` and `array` only support type `array`; 2.
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Instance tag.
+                      Instance tag.
+                    type: object
+                    x-kubernetes-map-type: granular
                 type: object
               initProvider:
                 description: |-
@@ -107,6 +115,14 @@ spec:
                       Document of the CAM policy. The syntax refers to CAM POLICY. The elements in JSON claimed supporting two types as string and array only support type array; 2.
                       Document of the CAM policy. The syntax refers to [CAM POLICY](https://intl.cloud.tencent.com/document/product/598/10604). The elements in JSON claimed supporting two types as `string` and `array` only support type `array`; 2.
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Instance tag.
+                      Instance tag.
+                    type: object
+                    x-kubernetes-map-type: granular
                 type: object
               managementPolicies:
                 default:
@@ -303,6 +319,14 @@ spec:
                   id:
                     description: ID of the resource.
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Instance tag.
+                      Instance tag.
+                    type: object
+                    x-kubernetes-map-type: granular
                   type:
                     description: |-
                       Type of the policy strategy. Valid values: 1, 2.  1 means customer strategy and 2 means preset strategy.
