@@ -24,6 +24,7 @@ spec:
           }
         ]
       }
+    name: tf_cam_policy
     tags:
       createBy: Terraform
       env: test
