@@ -42,4 +42,3 @@ spec:
             }
           ]
         })}
-    name: tf_cam_attach_user_policy

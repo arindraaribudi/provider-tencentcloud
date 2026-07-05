@@ -993,11 +993,6 @@ func (in *PolicyInitParameters) DeepCopyInto(out *PolicyInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make(map[string]*string, len(*in))
@@ -1081,11 +1076,6 @@ func (in *PolicyObservation) DeepCopyInto(out *PolicyObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make(map[string]*string, len(*in))
@@ -1134,11 +1124,6 @@ func (in *PolicyParameters) DeepCopyInto(out *PolicyParameters) {
 	}
 	if in.Document != nil {
 		in, out := &in.Document, &out.Document
-		*out = new(string)
-		**out = **in
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

@@ -23,10 +23,6 @@ type PolicyInitParameters struct {
 	// Document of the CAM policy. The syntax refers to [CAM POLICY](https://intl.cloud.tencent.com/document/product/598/10604). The elements in JSON claimed supporting two types as `string` and `array` only support type `array`; 2.
 	Document *string `json:"document,omitempty" tf:"document,omitempty"`
 
-	// Name of CAM policy.
-	// Name of CAM policy.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// Instance tag.
 	// Instance tag.
 	// +mapType=granular
@@ -49,10 +45,6 @@ type PolicyObservation struct {
 
 	// ID of the resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// Name of CAM policy.
-	// Name of CAM policy.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Instance tag.
 	// Instance tag.
@@ -79,11 +71,6 @@ type PolicyParameters struct {
 	// Document of the CAM policy. The syntax refers to [CAM POLICY](https://intl.cloud.tencent.com/document/product/598/10604). The elements in JSON claimed supporting two types as `string` and `array` only support type `array`; 2.
 	// +kubebuilder:validation:Optional
 	Document *string `json:"document,omitempty" tf:"document,omitempty"`
-
-	// Name of CAM policy.
-	// Name of CAM policy.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Instance tag.
 	// Instance tag.
@@ -129,7 +116,6 @@ type Policy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.document) || (has(self.initProvider) && has(self.initProvider.document))",message="spec.forProvider.document is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   PolicySpec   `json:"spec"`
 	Status PolicyStatus `json:"status,omitempty"`
 }
