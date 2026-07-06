@@ -88,6 +88,16 @@ spec:
                       Document of the CAM role. The syntax refers to CAM POLICY. The elements in json claimed supporting two types as string and array only support type array; 2.
                       Document of the CAM role. The syntax refers to [CAM POLICY](https://intl.cloud.tencent.com/document/product/598/10604). The elements in json claimed supporting two types as `string` and `array` only support type `array`; 2.
                     type: string
+                  name:
+                    description: |-
+                      Name of CAM role.
+                      Name of CAM role.
+                    type: string
+                  sessionDuration:
+                    description: |-
+                      The maximum validity period of the temporary key for creating a role.
+                      The maximum validity period of the temporary key for creating a role.
+                    type: number
                   tags:
                     additionalProperties:
                       type: string
@@ -125,6 +135,16 @@ spec:
                       Document of the CAM role. The syntax refers to CAM POLICY. The elements in json claimed supporting two types as string and array only support type array; 2.
                       Document of the CAM role. The syntax refers to [CAM POLICY](https://intl.cloud.tencent.com/document/product/598/10604). The elements in json claimed supporting two types as `string` and `array` only support type `array`; 2.
                     type: string
+                  name:
+                    description: |-
+                      Name of CAM role.
+                      Name of CAM role.
+                    type: string
+                  sessionDuration:
+                    description: |-
+                      The maximum validity period of the temporary key for creating a role.
+                      The maximum validity period of the temporary key for creating a role.
+                    type: number
                   tags:
                     additionalProperties:
                       type: string
@@ -306,6 +326,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.document)
                 || (has(self.initProvider) && has(self.initProvider.document))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: RoleStatus defines the observed state of Role.
             properties:
@@ -334,6 +358,21 @@ spec:
                   id:
                     description: ID of the resource.
                     type: string
+                  name:
+                    description: |-
+                      Name of CAM role.
+                      Name of CAM role.
+                    type: string
+                  roleArn:
+                    description: |-
+                      RoleArn Information for Roles.
+                      RoleArn Information for Roles.
+                    type: string
+                  sessionDuration:
+                    description: |-
+                      The maximum validity period of the temporary key for creating a role.
+                      The maximum validity period of the temporary key for creating a role.
+                    type: number
                   tags:
                     additionalProperties:
                       type: string

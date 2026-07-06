@@ -32,7 +32,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// audit
 	"tencentcloud_audit": config.IdentifierFromProvider,
 	// cam
-	"tencentcloud_cam_role_by_name":                   config.NameAsIdentifier,
+	"tencentcloud_cam_role":                           config.IdentifierFromProvider,
 	"tencentcloud_cam_role_sso":                       config.IdentifierFromProvider,
 	"tencentcloud_cam_policy":                         config.IdentifierFromProvider,
 	"tencentcloud_cam_role_policy_attachment_by_name": config.IdentifierFromProvider,

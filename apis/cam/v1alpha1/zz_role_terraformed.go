@@ -16,7 +16,7 @@ import (
 
 // GetTerraformResourceType returns Terraform resource type for this Role
 func (mg *Role) GetTerraformResourceType() string {
-	return "tencentcloud_cam_role_by_name"
+	return "tencentcloud_cam_role"
 }
 
 // GetConnectionDetailsMapping for this Role

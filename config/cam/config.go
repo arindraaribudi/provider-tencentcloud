@@ -22,7 +22,7 @@ const shortGroupCam = "cam"
 
 // Configure configures the cam group
 func Configure(p *config.Provider) {
-	p.AddResourceConfigurator("tencentcloud_cam_role_by_name", func(r *config.Resource) {
+	p.AddResourceConfigurator("tencentcloud_cam_role", func(r *config.Resource) {
 		r.ShortGroup = shortGroupCam
 		r.Kind = "Role"
 	})

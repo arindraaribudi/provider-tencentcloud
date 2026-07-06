@@ -4,24 +4,30 @@ metadata:
   annotations:
     meta.upbound.io/example-id: cam/v1alpha1/role
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
+    testing.upbound.io/example-name: example
+  name: example
 spec:
   forProvider:
     consoleLogin: true
     description: test
-    document: |
-      {
-        "version": "2.0",
-        "statement": [
+    document: |-
+      ${jsonencode(
           {
-            "action": ["name/sts:AssumeRole"],
-            "effect": "allow",
-            "principal": {
-              "qcs": ["qcs::cam::uin/<your-account-id>:uin/<your-account-id>"]
-            }
+            statement = [
+              {
+                action = "name/sts:AssumeRole"
+                effect = "allow"
+                principal = {
+                  qcs = [
+                    "qcs::cam::uin/${local.uin}:root",
+                  ]
+                }
+              },
+            ]
+            version = "2.0"
           }
-        ]
-      }
+        )}
+    name: tf-example
+    sessionDuration: 7200
     tags:
-      test: tf-cam-role
+      createBy: Terraform

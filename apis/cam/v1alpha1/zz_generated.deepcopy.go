@@ -1250,6 +1250,16 @@ func (in *RoleInitParameters) DeepCopyInto(out *RoleInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.SessionDuration != nil {
+		in, out := &in.SessionDuration, &out.SessionDuration
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make(map[string]*string, len(*in))
@@ -1338,6 +1348,21 @@ func (in *RoleObservation) DeepCopyInto(out *RoleObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RoleArn != nil {
+		in, out := &in.RoleArn, &out.RoleArn
+		*out = new(string)
+		**out = **in
+	}
+	if in.SessionDuration != nil {
+		in, out := &in.SessionDuration, &out.SessionDuration
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make(map[string]*string, len(*in))
@@ -1387,6 +1412,16 @@ func (in *RoleParameters) DeepCopyInto(out *RoleParameters) {
 	if in.Document != nil {
 		in, out := &in.Document, &out.Document
 		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.SessionDuration != nil {
+		in, out := &in.SessionDuration, &out.SessionDuration
+		*out = new(float64)
 		**out = **in
 	}
 	if in.Tags != nil {
